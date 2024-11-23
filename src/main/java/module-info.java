@@ -10,8 +10,8 @@ module com.example.towerdef {
     exports com.example.towerdef;
     exports com.example.towerdef.controller;
     opens com.example.towerdef.controller to javafx.fxml;
-    exports com.example.towerdef.model;
-    opens com.example.towerdef.model to javafx.fxml;
     exports com.example.towerdef.model.data.human.fxmlelement;
-    
+    exports com.example.towerdef.controller.scenes;
+    opens com.example.towerdef.controller.scenes to javafx.fxml;
+
 }

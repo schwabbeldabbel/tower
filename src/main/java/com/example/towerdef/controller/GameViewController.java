@@ -14,18 +14,9 @@ public class GameViewController {
 
     private GameSettings gameSettings;
 
-    @Setter
-    private int baseSize = 100;
-
     public void initialize(){
         this.gameSettings = GameSettings.getInstance();
     }
 
-    private void adjustSize(Rectangle... nodes){
-        for(Rectangle node: nodes){
-            node.setWidth(baseSize);
-            node.setHeight(baseSize);
-        }
-    }
 
 }
