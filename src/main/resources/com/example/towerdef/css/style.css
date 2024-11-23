@@ -3,11 +3,12 @@
     -fx-padding: 50px;
 }
 
-.base-size{
-    -fx-min-width: 100px;
-    -fx-min-height: 100px;
+.human-tank{
+    -fx-background-color: green;
 }
-.small-base-size{
-    -fx-min-width: 20px;
-    -fx-min-height: 20px;
+.human-sniper{
+    -fx-background-color: yellow;
+}
+.human-engineer{
+    -fx-background-color: blue;
 }
