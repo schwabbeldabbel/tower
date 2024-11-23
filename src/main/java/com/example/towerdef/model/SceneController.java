@@ -1,8 +1,10 @@
 package com.example.towerdef.model;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class SceneController {
@@ -11,6 +13,7 @@ public class SceneController {
     public static SceneController INSTANCE;
 
     private HashMap<String, Pane> screenMap = new HashMap<>();
+    private HashMap<String, Object> controllerMap = new HashMap<>();
     private Scene main;
 
     private SceneController(Scene main){
@@ -27,8 +30,9 @@ public class SceneController {
         return INSTANCE;
     }
 
-    public void addScreen(String name, Pane pane){
-        screenMap.put(name, pane);
+    public void addScreen(String name, FXMLLoader loader) throws IOException {
+        screenMap.put(name, loader.load());
+        controllerMap.put(name, loader.getController());
     }
 
     public void removeScreen(String name){
@@ -36,7 +40,11 @@ public class SceneController {
     }
 
     public void activate(String name){
-        main.setRoot( screenMap.get(name) );
+        main.setRoot(screenMap.get(name));
+    }
+
+    public Object getController(String name){
+        return controllerMap.get(name);
     }
 
 }

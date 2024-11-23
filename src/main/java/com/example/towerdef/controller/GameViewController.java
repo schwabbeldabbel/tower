@@ -1,17 +1,30 @@
 package com.example.towerdef.controller;
 
-import com.example.towerdef.model.data.human.HumanUnit;
-import com.example.towerdef.model.data.human.HumanUnitName;
-import com.example.towerdef.model.data.weapon.Weapon;
-import com.example.towerdef.model.data.weapon.WeaponName;
+import com.example.towerdef.model.gamelogic.setup.GameSettings;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.shape.Rectangle;
+import lombok.Setter;
 
 public class GameViewController {
 
+    @FXML private Rectangle humanPos1;
+    @FXML private Rectangle humanPos2;
+    @FXML private Rectangle humanPos3;
 
+    private GameSettings gameSettings;
+
+    @Setter
+    private int baseSize = 100;
 
     public void initialize(){
-        for(int i = 0; i < 4; i++){
+        this.gameSettings = GameSettings.getInstance();
+    }
 
+    private void adjustSize(Rectangle... nodes){
+        for(Rectangle node: nodes){
+            node.setWidth(baseSize);
+            node.setHeight(baseSize);
         }
     }
 

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.towerdef.controller.OptionsViewController"
+           prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/style.css">
+
+    <GridPane fx:id="mainGridPane" styleClass="centered">
+        <columnConstraints>
+            <ColumnConstraints fx:id="col1"/>
+            <ColumnConstraints fx:id="col2"/>
+            <ColumnConstraints fx:id="col3"/>
+            <ColumnConstraints fx:id="col4"/>
+            <ColumnConstraints fx:id="col5"/>
+            <ColumnConstraints fx:id="col6"/>
+            <ColumnConstraints fx:id="col7"/>
+            <ColumnConstraints fx:id="col8"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints fx:id="row1"/>
+            <RowConstraints fx:id="row2"/>
+            <RowConstraints fx:id="row3"/>
+            <RowConstraints fx:id="row4"/>
+            <RowConstraints fx:id="row5"/>
+            <RowConstraints fx:id="row6"/>
+        </rowConstraints>
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" GridPane.rowSpan="1"
+              minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
+            <Label>Leben der Menschen</Label>
+        </VBox>
+        <VBox GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="1"
+              minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">
+            <TextField>Zahl</TextField>
+        </VBox>
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="1"
+              minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
+            <Label>Leben des Turms</Label>
+        </VBox>
+        <VBox GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.rowSpan="1"
+              minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">
+            <TextField>Zahl</TextField>
+        </VBox>
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="3" GridPane.rowSpan="1"
+              minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
+            <Label>Menschen auswaehlen</Label>
+        </VBox>
+        <fx:include source="game-view.fxml"/>
+<!--        <GridPane GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.columnSpan="3" GridPane.rowSpan="2"-->
+<!--                  minHeight="200" maxHeight="200" minWidth="300" maxWidth="300">-->
+<!--            <columnConstraints>-->
+<!--                <ColumnConstraints minWidth="20"/>-->
+<!--                <ColumnConstraints minWidth="20"/>-->
+<!--                <ColumnConstraints minWidth="20"/>-->
+<!--                <ColumnConstraints minWidth="20"/>-->
+<!--                <ColumnConstraints minWidth="20"/>-->
+<!--                <ColumnConstraints minWidth="20"/>-->
+<!--                <ColumnConstraints minWidth="20"/>-->
+<!--                <ColumnConstraints minWidth="20"/>-->
+<!--            </columnConstraints>-->
+<!--            <rowConstraints>-->
+<!--                <RowConstraints minHeight="20"/>-->
+<!--                <RowConstraints minHeight="20"/>-->
+<!--                <RowConstraints minHeight="20"/>-->
+<!--                <RowConstraints minHeight="20"/>-->
+<!--                <RowConstraints minHeight="20"/>-->
+<!--                <RowConstraints minHeight="20"/>-->
+<!--            </rowConstraints>-->
+<!--            <Rectangle fx:id="humanPos1" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"-->
+<!--                       GridPane.rowSpan="2"-->
+<!--                       height="40" width="20"/>-->
+<!--            <Rectangle GridPane.columnIndex="7" GridPane.rowIndex="1"-->
+<!--                       GridPane.columnSpan="2" GridPane.rowSpan="5"-->
+<!--                       fill="red" height="100" width="40"/>-->
+<!--            <Rectangle fx:id="humanPos2" GridPane.columnIndex="1" GridPane.rowIndex="3"-->
+<!--                       GridPane.columnSpan="1" GridPane.rowSpan="2"-->
+<!--                       height="40" width="20"/>-->
+<!--            <Rectangle GridPane.columnIndex="2" GridPane.rowIndex="4"-->
+<!--                       GridPane.columnSpan="1" GridPane.rowSpan="1"-->
+<!--                       fill="grey" height="20" width="20"/>-->
+<!--            <Rectangle fx:id="humanPos3" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"-->
+<!--                       GridPane.rowSpan="2"-->
+<!--                       height="40" width="20"/>-->
+<!--        </GridPane>-->
+
+    </GridPane>
+
+</StackPane>

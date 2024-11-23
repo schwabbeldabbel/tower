@@ -1,0 +1,13 @@
+.centered{
+    -fx-alignment: center;
+    -fx-padding: 50px;
+}
+
+.base-size{
+    -fx-min-width: 100px;
+    -fx-min-height: 100px;
+}
+.small-base-size{
+    -fx-min-width: 20px;
+    -fx-min-height: 20px;
+}

@@ -1,6 +1,9 @@
 package com.example.towerdef.model.data.human;
 
 import com.example.towerdef.model.data.weapon.Weapon;
+import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
+
+import java.util.List;
 
 public class HumanUnit {
 
@@ -19,6 +22,13 @@ public class HumanUnit {
         this.armor = builder.armor;
         this.position = builder.position;
     }
+
+//    public List<Bullet> shoot(){
+//
+//    }
+//    public int getHit(){
+//
+//    }
 
 
     public static class HumanUnitBuilder {

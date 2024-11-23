@@ -12,21 +12,24 @@ import java.util.List;
 
 public class GameSettings {
 
-    private int baseHealth;
+    private static GameSettings INSTANCE;
+
+    private int baseHealthHuman;
+    private int baseHealthTower;
 
     //Human weapons
-    private final Weapon LMG = new Weapon(WeaponName.LMG.name(), 1.2F, 10);
-    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER.name(), 0.6F, 40);
-    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON.name(), 1F, 25);
+    private final Weapon LMG = new Weapon(WeaponName.LMG.name(), 5, 10);
+    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER.name(), 1, 40);
+    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON.name(), 2, 25);
 
     //Human units available
     @Getter
     private List<HumanUnit> humanUnits = new ArrayList<>();
 
     //Tower weapons
-    private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN.name(), 0.8F, 80);
-    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN.name(), 1.8F, 5);
-    private final Weapon LASER = new Weapon(WeaponName.LASER.name(), 2F, 2);
+    private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN.name(), 1, 80);
+    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN.name(), 5, 5);
+    private final Weapon LASER = new Weapon(WeaponName.LASER.name(), 10, 2);
 
     //Tower
     @Getter
@@ -40,8 +43,8 @@ public class GameSettings {
      * @param engineer can be null if not present in game run
      * @param towerWeapon cannot be null
      */
-    public GameSettings(int baseHealth, Integer tank, Integer sniper, Integer engineer, WeaponName towerWeapon){
-        this.baseHealth = baseHealth;
+    private GameSettings(int baseHealth, int baseHealthTower, Integer tank, Integer sniper, Integer engineer, WeaponName towerWeapon){
+        this.baseHealthHuman = baseHealth;
 
         if(tank != null){
             addTank(tank);
@@ -53,16 +56,26 @@ public class GameSettings {
             addEngineer(engineer);
         }
 
-        this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealth * 2, getTowerWeapon(towerWeapon));
+        this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon));
     }
 
+    public static GameSettings getInstance(int baseHealthHuman, int baseHealthTower, Integer tank, Integer sniper, Integer engineer, WeaponName towerWeapon){
+        if(INSTANCE == null){
+            INSTANCE = new GameSettings(baseHealthHuman, baseHealthTower, tank, sniper, engineer, towerWeapon);
+        }
+        return INSTANCE;
+    }
+
+    public static GameSettings getInstance(){
+        return INSTANCE;
+    }
 
     private void addTank(int position){
         HumanUnit tank = new HumanUnit.HumanUnitBuilder()
                 .setName(HumanUnitName.TANK.name())
-                .setHealth((int) (baseHealth * 1.5))
+                .setHealth((int) (baseHealthHuman * 1.5))
                 .setWeapon(LMG)
-                .setHealing((int) (baseHealth * 0.2))
+                .setHealing((int) (baseHealthHuman * 0.2))
                 .setArmor(0.8F)
                 .setPosition(position)
                 .build();
@@ -72,9 +85,9 @@ public class GameSettings {
     private void addSniper(int position){
         HumanUnit sniper = new HumanUnit.HumanUnitBuilder()
                 .setName(HumanUnitName.SNIPER.name())
-                .setHealth((int) (baseHealth * 0.8))
+                .setHealth((int) (baseHealthHuman * 0.8))
                 .setWeapon(SNIPER_WEAPON)
-                .setHealing((int) (baseHealth * 0.2))
+                .setHealing((int) (baseHealthHuman * 0.2))
                 .setArmor(0.8F)
                 .setPosition(position)
                 .build();
@@ -84,15 +97,14 @@ public class GameSettings {
     private void addEngineer(int position){
         HumanUnit engineer = new HumanUnit.HumanUnitBuilder()
                 .setName(HumanUnitName.ENGINEER.name())
-                .setHealth(baseHealth)
+                .setHealth(baseHealthHuman)
                 .setWeapon(DRILL_CANON)
-                .setHealing((int) (baseHealth * 0.2))
+                .setHealing((int) (baseHealthHuman * 0.2))
                 .setArmor(0.8F)
                 .setPosition(position)
                 .build();
         this.humanUnits.add(engineer);
     }
-
 
     private Weapon getTowerWeapon(WeaponName name){
         switch (name) {

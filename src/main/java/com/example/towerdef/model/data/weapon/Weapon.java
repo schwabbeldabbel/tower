@@ -6,10 +6,10 @@ import lombok.Getter;
 public class Weapon {
 
     private String name;
-    private float attackSpeed;
+    private int attackSpeed;
     private int damage;
 
-    public Weapon(String name, float attackSpeed, int damage){
+    public Weapon(String name, int attackSpeed, int damage){
         this.name = name;
         this.attackSpeed = attackSpeed;
         this.damage = damage;
