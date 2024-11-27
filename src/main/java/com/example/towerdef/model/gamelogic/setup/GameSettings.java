@@ -5,7 +5,11 @@ import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.human.HumanUnitName;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.WeaponName;
+import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
+import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
+import com.example.towerdef.model.gamelogic.time.Speed;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,23 +17,24 @@ import java.util.List;
 public class GameSettings {
 
     private static GameSettings INSTANCE;
+    private final boolean manualSetUp;
 
     private int baseHealthHuman;
     private int baseHealthTower;
 
     //Human weapons
-    private final Weapon LMG = new Weapon(WeaponName.LMG.name(), 5, 10);
-    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER.name(), 1, 40);
-    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON.name(), 2, 25);
+    private final Weapon LMG = new Weapon(WeaponName.LMG.name(), 5, 10, BulletType.NORMAL);
+    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER.name(), 1, 40, BulletType.BIG);
+    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON.name(), 2, 25, BulletType.DRILL);
 
     //Human units available
     @Getter
     private List<HumanUnit> humanUnits = new ArrayList<>();
 
     //Tower weapons
-    private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN.name(), 1, 80);
-    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN.name(), 5, 5);
-    private final Weapon LASER = new Weapon(WeaponName.LASER.name(), 10, 2);
+    private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN.name(), 1, 80, BulletType.BIG);
+    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN.name(), 5, 5, BulletType.MINI);
+    private final Weapon LASER = new Weapon(WeaponName.LASER.name(), 10, 2, BulletType.LASER);
 
     //Tower
     @Getter
@@ -38,41 +43,66 @@ public class GameSettings {
     /**
      *
      * @param baseHealth cannot be null
-     * @param tank can be null if not present in game run
-     * @param sniper can be null if not present in game run
-     * @param engineer can be null if not present in game run
+     * @param humanUnitNames represents the human units and there position based on the array index (top to bottom)
      * @param towerWeapon cannot be null
      */
-    private GameSettings(int baseHealth, int baseHealthTower, Integer tank, Integer sniper, Integer engineer, WeaponName towerWeapon){
+    private GameSettings(int baseHealth, int baseHealthTower, HumanUnitName[] humanUnitNames, WeaponName towerWeapon, boolean manualSetUp){
+        this.manualSetUp = manualSetUp;
         this.baseHealthHuman = baseHealth;
-
-        if(tank != null){
-            addTank(tank);
-        }
-        if(sniper != null){
-            addSniper(sniper);
-        }
-        if(engineer != null){
-            addEngineer(engineer);
-        }
+        createHumans(humanUnitNames);
 
         this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon));
     }
 
-    public static GameSettings getInstance(int baseHealthHuman, int baseHealthTower, Integer tank, Integer sniper, Integer engineer, WeaponName towerWeapon){
+    public static GameSettings getInstance(int baseHealthHuman, int baseHealthTower, HumanUnitName[] humanUnitNames, WeaponName towerWeapon, Speed speed){
         if(INSTANCE == null){
-            INSTANCE = new GameSettings(baseHealthHuman, baseHealthTower, tank, sniper, engineer, towerWeapon);
+            INSTANCE = new GameSettings(baseHealthHuman, baseHealthTower, humanUnitNames, towerWeapon, true);
         }
         return INSTANCE;
     }
 
     public static GameSettings getInstance(){
+        if(INSTANCE == null){
+            INSTANCE = new GameSettings(
+                    100,
+                    2500,
+                    new HumanUnitName[]{HumanUnitName.ENGINEER, HumanUnitName.SNIPER, HumanUnitName.TANK},
+                    WeaponName.MINIGUN,
+                    false);
+        }
         return INSTANCE;
+    }
+
+    public List<Weapon> getAllWeapons(){
+        List<Weapon> weapons = new ArrayList<>();
+        for(HumanUnit human: humanUnits){
+            weapons.add(human.getWeapon());
+        }
+        weapons.add(tower.getWeapon());
+
+        return weapons;
+    }
+
+
+    private void createHumans(HumanUnitName[] humanUnitNames){
+        for(int i = 0; i < 3; i++){
+            switch (humanUnitNames[i]){
+                case TANK:
+                    addTank(i);
+                    break;
+                case SNIPER:
+                    addSniper(i);
+                    break;
+                case ENGINEER:
+                    addEngineer(i);
+                    break;
+            }
+        }
     }
 
     private void addTank(int position){
         HumanUnit tank = new HumanUnit.HumanUnitBuilder()
-                .setName(HumanUnitName.TANK.name())
+                .setName(HumanUnitName.TANK)
                 .setHealth((int) (baseHealthHuman * 1.5))
                 .setWeapon(LMG)
                 .setHealing((int) (baseHealthHuman * 0.2))
@@ -84,7 +114,7 @@ public class GameSettings {
 
     private void addSniper(int position){
         HumanUnit sniper = new HumanUnit.HumanUnitBuilder()
-                .setName(HumanUnitName.SNIPER.name())
+                .setName(HumanUnitName.SNIPER)
                 .setHealth((int) (baseHealthHuman * 0.8))
                 .setWeapon(SNIPER_WEAPON)
                 .setHealing((int) (baseHealthHuman * 0.2))
@@ -96,7 +126,7 @@ public class GameSettings {
 
     private void addEngineer(int position){
         HumanUnit engineer = new HumanUnit.HumanUnitBuilder()
-                .setName(HumanUnitName.ENGINEER.name())
+                .setName(HumanUnitName.ENGINEER)
                 .setHealth(baseHealthHuman)
                 .setWeapon(DRILL_CANON)
                 .setHealing((int) (baseHealthHuman * 0.2))

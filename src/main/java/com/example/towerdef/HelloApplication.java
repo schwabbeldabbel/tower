@@ -17,9 +17,9 @@ public class HelloApplication extends Application {
 
         Scene scene = new Scene(main.load(), 1000, 700);
         SceneController sceneController = SceneController.getInstance(scene);
-        sceneController.addScreen(SceneNames.MAIN, FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("fxml/start-screen-view.fxml"))));
-        sceneController.addScreen(SceneNames.GAME, FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("fxml/game-view.fxml"))));
-        sceneController.addScreen(SceneNames.OPTIONS, FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("fxml/options-view.fxml"))));
+        sceneController.addScreen(SceneNames.MAIN,"fxml/start-screen-view.fxml");
+        sceneController.addScreen(SceneNames.GAME, "fxml/game-view.fxml");
+        sceneController.addScreen(SceneNames.OPTIONS, "fxml/options-view.fxml");
         stage.setTitle("Tower!!");
         stage.setScene(scene);
         stage.show();

@@ -2,12 +2,14 @@ package com.example.towerdef.model.data.human;
 
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class HumanUnit {
 
-    private String name;
+    private HumanUnitName name;
     private int health;
     private Weapon weapon;
     private int healing;
@@ -33,14 +35,14 @@ public class HumanUnit {
 
     public static class HumanUnitBuilder {
 
-        private String name;
+        private HumanUnitName name;
         private int health;
         private Weapon weapon;
         private int healing;
         private float armor;
         private int position;
 
-        public HumanUnitBuilder setName(String name) {
+        public HumanUnitBuilder setName(HumanUnitName name) {
             this.name = name;
             return this;
         }

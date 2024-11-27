@@ -2,6 +2,14 @@
     -fx-alignment: center;
     -fx-padding: 50px;
 }
+.header{
+    -fx-font-size: 100px;
+}
+
+.timer{
+    -fx-margin: 50px;
+    -fx-font-size: 30px;
+}
 
 .human-tank{
     -fx-background-color: green;

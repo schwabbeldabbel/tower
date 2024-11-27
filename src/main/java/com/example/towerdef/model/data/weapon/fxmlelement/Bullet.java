@@ -1,23 +1,28 @@
 package com.example.towerdef.model.data.weapon.fxmlelement;
 
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Bullet extends Rectangle {
 
-    private String type;
+    private BulletType type;
 
-    public Bullet(int x, int y, int w, int h, String type, Color color, int speed){
-        super(w, h, color);
+    private boolean alive;
+
+    public Bullet(int x, int y, BulletType type, int speed){
+        super(type.getBulletWidth(), type.getBulletWidth(), type.getColor());
         this.type = type;
         setTranslateX(x);
         setTranslateY(y);
-
-        startTravel(speed);
+        this.alive = true;
+        travel(speed);
     }
 
-    private void startTravel(int speed){
+    private void travel(int speed){
         setTranslateX(getTranslateX() + speed);
+    }
+
+    public void hit(){
+        this.alive = false;
     }
 
 }
