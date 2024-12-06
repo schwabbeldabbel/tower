@@ -34,8 +34,9 @@ public class Weapon {
         this.gameViewController = gameViewController;
     }
 
+    //TODO bullet type als einzige Variable
     public void shoot(){
-        Bullet bullet = new Bullet(xPos, yPos, bulletType, attackSpeed);
+        Bullet bullet = new Bullet(xPos, yPos, bulletType, gameSpeed, bulletType.getTravelTime());
         gameViewController.addBullet(bullet);
     }
 
