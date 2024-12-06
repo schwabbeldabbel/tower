@@ -67,7 +67,7 @@ public class TimerThread implements Runnable {
 
     private void checkShooting(int milliSeconds){
         for(Weapon weapon: weapons){
-            if(weapon.getLastShot() <= (weapon.getAttackSpeed() + (milliSeconds / 100))){
+            if(milliSeconds % weapon.getAttackSpeed() == 0){
                 Platform.runLater(() -> weapon.setLastShot(milliSeconds));
                 Platform.runLater(() -> weapon.shoot());
                 System.out.println("Shooting with: " + weapon.getName());
