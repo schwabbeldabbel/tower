@@ -1,20 +1,22 @@
 package com.example.towerdef.model.data.human;
 
+import com.example.towerdef.model.data.Hittable;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
 import lombok.Getter;
-
-import java.util.List;
+import lombok.Setter;
 
 @Getter
-public class HumanUnit {
+public class HumanUnit implements Hittable {
 
     private HumanUnitName name;
+    @Setter
     private int health;
     private Weapon weapon;
     private int healing;
     private float armor;
     private int position;
+    private boolean alive;
 
     public HumanUnit(HumanUnitBuilder builder) {
         this.name = builder.name;
@@ -23,10 +25,31 @@ public class HumanUnit {
         this.healing = builder.healing;
         this.armor = builder.armor;
         this.position = builder.position;
+        this.alive = true;
     }
 
     public Bullet shoot(){
-        return this.weapon.shoot();
+        if(this.alive){
+            return weapon.shoot();
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public boolean hit(int damage) {
+        this.health -= damage;
+        return this.health > 0;
+    }
+
+    @Override
+    public void heal() {
+        this.health += this.healing;
+    }
+
+    @Override
+    public void die(){
+        this.alive = false;
     }
 
 

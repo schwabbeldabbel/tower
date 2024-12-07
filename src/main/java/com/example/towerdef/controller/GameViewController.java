@@ -1,5 +1,6 @@
 package com.example.towerdef.controller;
 
+import com.example.towerdef.model.data.Hittable;
 import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.tower.Tower;
 import com.example.towerdef.model.data.weapon.Weapon;
@@ -7,7 +8,6 @@ import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
 import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
 import com.example.towerdef.model.gamelogic.time.TimerThread;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
@@ -20,8 +20,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
@@ -40,6 +38,8 @@ public class GameViewController {
     private Button humanPos1, humanPos2, humanPos3;
     @FXML
     private Label timer;
+    @FXML
+    private Label winningLabel;
 
     private List<Node> collidingNodes;
 
@@ -50,6 +50,8 @@ public class GameViewController {
     private int selectedHumanPos;
 
     private Map<Node, Point2D> positionTarget;
+    private Map<Node, Hittable> targetHittable;
+    private Map<Bullet, Timeline> activeBulletsTimeline;
 
     public void initialize() {
         GameSettings gameSettings = GameSettings.getInstance();
@@ -57,8 +59,11 @@ public class GameViewController {
         this.humans = gameSettings.getHumanUnits();
         this.tower = gameSettings.getTower();
         this.positionTarget = new HashMap<>();
+        this.targetHittable = new HashMap<>();
+        this.activeBulletsTimeline = new HashMap<>();
         placeHumans();
         this.positionTarget.put(towerPos, new Point2D(900, 0));
+        this.targetHittable.put(towerPos, tower);
         this.selectedHumanPos = 0;
         this.collidingNodes = new ArrayList<>();
         this.collidingNodes.add(humanPos1);
@@ -68,7 +73,7 @@ public class GameViewController {
         Platform.runLater(this::startTimer);
     }
 
-    public void addBullet(Bullet bullet, int startPosition, Node target) {
+    private void addBullet(Bullet bullet, int startPosition, Node target, int damage) {
         Path path = new Path();
         PathTransition pathTransition = new PathTransition();
 
@@ -80,19 +85,58 @@ public class GameViewController {
         pathTransition.setPath(path);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
 
-        Timeline timeline = setUpCollisionDetection(bullet, target);
+        Timeline timeline = setUpCollisionDetection(bullet, target, damage);
         timeline.setCycleCount(100);
         timeline.play();
+
+        this.activeBulletsTimeline.put(bullet, timeline);
 
         pathTransition.play();
     }
 
-    private Timeline setUpCollisionDetection(Bullet bullet, Node target) {
-        return new Timeline(new KeyFrame(Duration.millis(50), event -> {
+    private Timeline setUpCollisionDetection(Bullet bullet, Node target, int damage) {
+       return new Timeline(new KeyFrame(Duration.millis(10), event -> {
             if (isColliding(bullet, target)) {
                 root.getChildren().remove(bullet);
+                hit(target, damage);
+                this.activeBulletsTimeline.get(bullet).stop();
+                this.activeBulletsTimeline.remove(bullet);
             }
         }));
+    }
+
+    private void hit(Node target, int damage){
+        Hittable hittable = this.targetHittable.get(target);
+        if(!hittable.hit(damage)){
+            this.root.getChildren().remove(target);
+            hittable.die();
+        }
+        checkWinning();
+    }
+
+    private void checkWinning(){
+        int humanDeaths = 0;
+        for(HumanUnit humanUnit: humans){
+            if(!humanUnit.isAlive()){
+                humanDeaths++;
+            }
+        }
+        if(humanDeaths == humans.size()){
+           towerWin();
+            return;
+        }
+        if(!tower.isAlive()){
+            humansWin();
+        }
+    }
+
+    private void humansWin(){
+        this.winningLabel.setText("Die Menschen haben gewonnen!!!");
+        this.timerThread.stop();
+    }
+    private void towerWin(){
+        this.winningLabel.setText("Der Turm hat gewonnen!!!");
+        this.timerThread.stop();
     }
 
     private static void initializeTravelPath(Bullet bullet, Point2D target, Path path, PathTransition pathTransition) {
@@ -157,12 +201,17 @@ public class GameViewController {
         for (HumanUnit humanUnit : humans) {
             Weapon weapon = humanUnit.getWeapon();
             if (milliSeconds % weapon.getAttackSpeed() == 0) {
-                addBullet(humanUnit.shoot(), humanUnit.getPosition(), towerPos);
-                System.out.println("Shooting with: " + weapon.getName());
+                Bullet bullet = humanUnit.shoot();
+                if(bullet != null){
+                    addBullet(bullet, humanUnit.getPosition(), towerPos, weapon.getDamage());
+                }
             }
         }
         if (milliSeconds % tower.getWeapon().getAttackSpeed() == 0) {
-            addBullet(tower.shoot(), -1, getSelectedTarget());
+            Bullet bullet = tower.shoot();
+            if(bullet != null) {
+                addBullet(bullet, -1, getSelectedTarget(), tower.getWeapon().getDamage());
+            }
         }
     }
 
@@ -193,14 +242,17 @@ public class GameViewController {
                 case 0:
                     humanPos1.getStyleClass().add(humanUnit.getName().getCss());
                     positionTarget.put(humanPos1, new Point2D(-900, -50));
+                    targetHittable.put(humanPos1, humanUnit);
                     break;
                 case 1:
                     humanPos2.getStyleClass().add(humanUnit.getName().getCss());
                     positionTarget.put(humanPos2, new Point2D(-1000, 400));
+                    targetHittable.put(humanPos2, humanUnit);
                     break;
                 case 2:
                     humanPos3.getStyleClass().add(humanUnit.getName().getCss());
                     positionTarget.put(humanPos3, new Point2D(-900, 900));
+                    targetHittable.put(humanPos3, humanUnit);
                     break;
             }
         }
