@@ -25,7 +25,7 @@ public class GameSettings {
     //Human weapons
     private final Weapon LMG = new Weapon(WeaponName.LMG.name(), 200, 10, BulletType.NORMAL);
     private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER.name(), 1000, 40, BulletType.BIG);
-    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON.name(), 1200, 25, BulletType.DRILL);
+    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON.name(), 1200, 20, BulletType.DRILL);
 
     //Human units available
     @Getter
@@ -33,8 +33,8 @@ public class GameSettings {
 
     //Tower weapons
     private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN.name(), 1000, 50, BulletType.BIG);
-    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN.name(), 100, 20, BulletType.MINI);
-    private final Weapon LASER = new Weapon(WeaponName.LASER.name(), 2400, 2, BulletType.LASER);
+    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN.name(), 100, 2, BulletType.MINI);
+    private final Weapon LASER = new Weapon(WeaponName.LASER.name(), 2400, 200, BulletType.LASER);
 
     //Tower
     @Getter
@@ -65,22 +65,12 @@ public class GameSettings {
         if(INSTANCE == null){
             INSTANCE = new GameSettings(
                     100,
-                    2500,
+                    1000,
                     new HumanUnitName[]{HumanUnitName.ENGINEER, HumanUnitName.SNIPER, HumanUnitName.TANK},
                     WeaponName.MINIGUN,
                     false);
         }
         return INSTANCE;
-    }
-
-    public List<Weapon> getAllWeapons(){
-        List<Weapon> weapons = new ArrayList<>();
-        for(HumanUnit human: humanUnits){
-            weapons.add(human.getWeapon());
-        }
-        weapons.add(tower.getWeapon());
-
-        return weapons;
     }
 
 
