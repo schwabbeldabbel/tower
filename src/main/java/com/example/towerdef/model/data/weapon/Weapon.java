@@ -12,16 +12,8 @@ public class Weapon {
     private final String name;
     private final int attackSpeed;
     private final int damage;
-    @Getter@Setter
-    private int lastShot;
 
     private final BulletType bulletType;
-    @Setter
-    private int xPos;
-    @Setter
-    private int yPos;
-
-    private GameViewController gameViewController;
 
     public Weapon(String name, int attackSpeed, int damage, BulletType bullet){
         this.name = name;
@@ -30,13 +22,8 @@ public class Weapon {
         this.bulletType = bullet;
     }
 
-    public void addObserver(GameViewController gameViewController){
-        this.gameViewController = gameViewController;
-    }
-
-    public void shoot(){
-        Bullet bullet = new Bullet(xPos, yPos, bulletType, attackSpeed);
-        gameViewController.addBullet(bullet);
+    public Bullet shoot(){
+        return new Bullet(bulletType);
     }
 
 }

@@ -23,18 +23,18 @@ public class GameSettings {
     private int baseHealthTower;
 
     //Human weapons
-    private final Weapon LMG = new Weapon(WeaponName.LMG.name(), 5, 10, BulletType.NORMAL);
-    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER.name(), 1, 40, BulletType.BIG);
-    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON.name(), 2, 25, BulletType.DRILL);
+    private final Weapon LMG = new Weapon(WeaponName.LMG.name(), 200, 10, BulletType.NORMAL);
+    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER.name(), 1000, 40, BulletType.BIG);
+    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON.name(), 1200, 25, BulletType.DRILL);
 
     //Human units available
     @Getter
     private List<HumanUnit> humanUnits = new ArrayList<>();
 
     //Tower weapons
-    private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN.name(), 1, 80, BulletType.BIG);
-    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN.name(), 5, 5, BulletType.MINI);
-    private final Weapon LASER = new Weapon(WeaponName.LASER.name(), 10, 2, BulletType.LASER);
+    private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN.name(), 1000, 50, BulletType.BIG);
+    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN.name(), 100, 20, BulletType.MINI);
+    private final Weapon LASER = new Weapon(WeaponName.LASER.name(), 2400, 2, BulletType.LASER);
 
     //Tower
     @Getter

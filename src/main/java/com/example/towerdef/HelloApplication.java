@@ -15,13 +15,14 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader main = new FXMLLoader(HelloApplication.class.getResource("fxml/start-screen-view.fxml"));
 
-        Scene scene = new Scene(main.load(), 1000, 700);
+        Scene scene = new Scene(main.load(), 1200, 800);
         SceneController sceneController = SceneController.getInstance(scene);
         sceneController.addScreen(SceneNames.MAIN,"fxml/start-screen-view.fxml");
         sceneController.addScreen(SceneNames.GAME, "fxml/game-view.fxml");
         sceneController.addScreen(SceneNames.OPTIONS, "fxml/options-view.fxml");
         stage.setTitle("Tower!!");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
         sceneController.activate(SceneNames.MAIN);
 //        stage.setFullScreen(true);

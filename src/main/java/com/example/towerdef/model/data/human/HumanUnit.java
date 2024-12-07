@@ -25,12 +25,9 @@ public class HumanUnit {
         this.position = builder.position;
     }
 
-//    public List<Bullet> shoot(){
-//
-//    }
-//    public int getHit(){
-//
-//    }
+    public Bullet shoot(){
+        return this.weapon.shoot();
+    }
 
 
     public static class HumanUnitBuilder {

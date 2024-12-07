@@ -7,11 +7,11 @@
 <?import javafx.scene.control.Label?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           fx:id="root"
            fx:controller="com.example.towerdef.controller.GameViewController"
            prefHeight="400.0" prefWidth="600.0"
-           stylesheets="@../css/style.css">
-    <GridPane>
+           stylesheets="@../css/style.css"
+           styleClass="centered">
+    <GridPane fx:id="root">
         <columnConstraints>
             <ColumnConstraints minWidth="100"/>
             <ColumnConstraints minWidth="100"/>
@@ -32,20 +32,23 @@
             <RowConstraints minHeight="100"/>
         </rowConstraints>
         <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0"
-              GridPane.columnSpan="10" GridPane.rowSpan="1" vgap="30">
+                  GridPane.columnSpan="10" GridPane.rowSpan="1" vgap="30">
             <Label GridPane.columnIndex="0" GridPane.rowIndex="0"
-                   GridPane.columnSpan="1" GridPane.rowSpan="1" fx:id="timer" styleClass="timer" />
-            <Button GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#setSpeed"  fx:id="SLOW"
-                    GridPane.columnSpan="1" GridPane.rowSpan="1">Slow</Button>
-            <Button GridPane.columnIndex="2" GridPane.rowIndex="0" onAction="#setSpeed"  fx:id="NORMAL"
-                     GridPane.columnSpan="1" GridPane.rowSpan="1">Normal</Button>
-            <Button GridPane.columnIndex="3" GridPane.rowIndex="0" onAction="#setSpeed"  fx:id="FAST"
-                     GridPane.columnSpan="1" GridPane.rowSpan="1">Fast</Button>
+                   GridPane.columnSpan="1" GridPane.rowSpan="1" fx:id="timer" styleClass="timer"/>
+            <Button GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="SLOW"
+                    GridPane.columnSpan="1" GridPane.rowSpan="1">Slow
+            </Button>
+            <Button GridPane.columnIndex="2" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="NORMAL"
+                    GridPane.columnSpan="1" GridPane.rowSpan="1">Normal
+            </Button>
+            <Button GridPane.columnIndex="3" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="FAST"
+                    GridPane.columnSpan="1" GridPane.rowSpan="1">Fast
+            </Button>
         </GridPane>
         <Button fx:id="humanPos1" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
                 GridPane.rowSpan="2"
                 minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
-        <Rectangle GridPane.columnIndex="7" GridPane.rowIndex="1"
+        <Rectangle fx:id="towerPos" GridPane.columnIndex="7" GridPane.rowIndex="1"
                    GridPane.columnSpan="2" GridPane.rowSpan="5"
                    fill="red" height="500" width="200"/>
         <Button fx:id="humanPos2" GridPane.columnIndex="1" GridPane.rowIndex="3"

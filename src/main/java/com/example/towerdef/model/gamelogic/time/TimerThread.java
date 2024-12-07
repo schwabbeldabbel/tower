@@ -1,5 +1,6 @@
 package com.example.towerdef.model.gamelogic.time;
 
+import com.example.towerdef.controller.GameViewController;
 import com.example.towerdef.model.data.weapon.Weapon;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
@@ -11,22 +12,20 @@ import java.util.List;
 
 public class TimerThread implements Runnable {
     @Getter
-    private int milliSeconds;
+    private int time;
     private volatile boolean running;
     private Thread thread;
-    private Label timeLabel;
 
-    private List<Weapon> weapons =  new ArrayList<>();
+    private GameViewController gameViewController;
 
     @Setter
     private int speed;
 
-    public TimerThread(Label timeLabel, Speed speed, List<Weapon> weapons) {
+    public TimerThread(Speed speed, GameViewController gameViewController) {
         this.speed = speed.getMiliseconds();
-        this.milliSeconds = 0;
+        this.time = 0;
         this.running = false;
-        this.timeLabel = timeLabel;
-        this.weapons = weapons;
+        this.gameViewController = gameViewController;
         this.run();
     }
 
@@ -35,9 +34,8 @@ public class TimerThread implements Runnable {
         while (running) {
             try {
                 Thread.sleep(speed);
-                milliSeconds++;
-                checkShooting(milliSeconds);
-                Platform.runLater(() -> timeLabel.setText(milliSeconds / 100 + " Sekunden"));
+                time++;
+                Platform.runLater(() -> gameViewController.notify(time));
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.err.println("Thread wurde unterbrochen.");
@@ -65,14 +63,5 @@ public class TimerThread implements Runnable {
         }
     }
 
-    private void checkShooting(int milliSeconds){
-        for(Weapon weapon: weapons){
-            if(weapon.getLastShot() <= (weapon.getAttackSpeed() + (milliSeconds / 100))){
-                Platform.runLater(() -> weapon.setLastShot(milliSeconds));
-                Platform.runLater(() -> weapon.shoot());
-                System.out.println("Shooting with: " + weapon.getName());
-            }
-        }
-    }
 
 }
