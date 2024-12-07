@@ -69,7 +69,7 @@ public class GameViewController {
         validator = new Validator();
         bulletPath = new BulletPath();
         collidingNodes = new ArrayList<>();
-        selectedHumanPos = 0;
+        selectedHumanPos = 1;
     }
 
     public void initialize() {
@@ -86,6 +86,14 @@ public class GameViewController {
         collidingNodes.add(humanPos3);
         collidingNodes.add(towerPos);
         Platform.runLater(this::startTimer);
+    }
+
+    public void notify(int milliSeconds) {
+        setTimer(milliSeconds);
+        checkShooting(milliSeconds);
+        if (milliSeconds % 1000 == 0) {
+            selectedHumanPos = RandomSelector.updateSelectedHumanTarget(humans.size());
+        }
     }
 
     private void addBullet(Bullet bullet, int startPosition, Node target, int damage) {
@@ -133,18 +141,6 @@ public class GameViewController {
         }
     }
 
-
-
-
-
-    public void notify(int milliSeconds) {
-        setTimer(milliSeconds);
-        checkShooting(milliSeconds);
-        if (milliSeconds % 1000 == 0) {
-            selectedHumanPos = RandomSelector.updateSelectedHumanTarget(humans.size());
-        }
-    }
-
     private void checkShooting(int milliSeconds) {
         for (HumanUnit humanUnit : humans) {
             Weapon weapon = humanUnit.getWeapon();
@@ -164,7 +160,7 @@ public class GameViewController {
     }
 
     private Node getSelectedTarget() {
-        return hittablePosition.get(humans.get(selectedHumanPos));
+        return hittablePosition.get(humans.get(selectedHumanPos-1));
     }
 
     private void setTimer(int milliSeconds) {
@@ -215,6 +211,4 @@ public class GameViewController {
                 break;
         }
     }
-
-
 }

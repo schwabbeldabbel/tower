@@ -10,7 +10,7 @@ public class RandomSelector {
 
     public static int updateSelectedHumanTarget(int bound) {
         Random random = new Random();
-        return random.nextInt(0, bound);
+        return random.nextInt(1, bound + 1);
     }
 
 }

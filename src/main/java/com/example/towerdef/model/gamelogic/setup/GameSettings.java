@@ -65,7 +65,7 @@ public class GameSettings {
         if(INSTANCE == null){
             INSTANCE = new GameSettings(
                     100,
-                    1000,
+                    1500,
                     new HumanUnitName[]{HumanUnitName.ENGINEER, HumanUnitName.SNIPER, HumanUnitName.TANK},
                     WeaponName.MINIGUN,
                     false);
