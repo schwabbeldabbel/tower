@@ -6,6 +6,9 @@ import com.example.towerdef.model.data.tower.Tower;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
 import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
+import com.example.towerdef.model.gamelogic.runtime.BulletPath;
+import com.example.towerdef.model.gamelogic.runtime.RandomSelector;
+import com.example.towerdef.model.gamelogic.runtime.Validator;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
 import com.example.towerdef.model.gamelogic.time.TimerThread;
 import javafx.animation.KeyFrame;
@@ -49,27 +52,39 @@ public class GameViewController {
     private Tower tower;
     private int selectedHumanPos;
 
-    private Map<Node, Point2D> positionTarget;
-    private Map<Node, Hittable> targetHittable;
-    private Map<Bullet, Timeline> activeBulletsTimeline;
+    private final Map<Node, Point2D> positionTarget;
+    private final Map<Node, Hittable> positionHittable;
+    private final Map<Hittable, Node> hittablePosition;
+    private final Map<Bullet, Timeline> activeBulletsTimeline;
+
+
+    private final Validator validator;
+    private final BulletPath bulletPath;
+
+    public GameViewController(){
+        positionTarget = new HashMap<>();
+        positionHittable = new HashMap<>();
+        hittablePosition = new HashMap<>();
+        activeBulletsTimeline = new HashMap<>();
+        validator = new Validator();
+        bulletPath = new BulletPath();
+        collidingNodes = new ArrayList<>();
+        selectedHumanPos = 0;
+    }
 
     public void initialize() {
         GameSettings gameSettings = GameSettings.getInstance();
         timerThread = new TimerThread(NORMAL, this);
-        this.humans = gameSettings.getHumanUnits();
-        this.tower = gameSettings.getTower();
-        this.positionTarget = new HashMap<>();
-        this.targetHittable = new HashMap<>();
-        this.activeBulletsTimeline = new HashMap<>();
+        humans = gameSettings.getHumanUnits();
+        tower = gameSettings.getTower();
         placeHumans();
-        this.positionTarget.put(towerPos, new Point2D(900, 0));
-        this.targetHittable.put(towerPos, tower);
-        this.selectedHumanPos = 0;
-        this.collidingNodes = new ArrayList<>();
-        this.collidingNodes.add(humanPos1);
-        this.collidingNodes.add(humanPos2);
-        this.collidingNodes.add(humanPos3);
-        this.collidingNodes.add(towerPos);
+        positionTarget.put(towerPos, new Point2D(900, 0));
+        positionHittable.put(towerPos, tower);
+        hittablePosition.put(tower, towerPos);
+        collidingNodes.add(humanPos1);
+        collidingNodes.add(humanPos2);
+        collidingNodes.add(humanPos3);
+        collidingNodes.add(towerPos);
         Platform.runLater(this::startTimer);
     }
 
@@ -77,9 +92,9 @@ public class GameViewController {
         Path path = new Path();
         PathTransition pathTransition = new PathTransition();
 
-        initializeStartPosition(bullet, startPosition, path);
+        bulletPath.initializeStartPosition(bullet, startPosition, path, root);
 
-        initializeTravelPath(bullet, this.positionTarget.get(target), path, pathTransition);
+        bulletPath.initializeTravelPath(bullet, positionTarget.get(target), path, pathTransition);
 
         pathTransition.setNode(bullet);
         pathTransition.setPath(path);
@@ -89,111 +104,44 @@ public class GameViewController {
         timeline.setCycleCount(100);
         timeline.play();
 
-        this.activeBulletsTimeline.put(bullet, timeline);
+        activeBulletsTimeline.put(bullet, timeline);
 
         pathTransition.play();
     }
 
     private Timeline setUpCollisionDetection(Bullet bullet, Node target, int damage) {
        return new Timeline(new KeyFrame(Duration.millis(10), event -> {
-            if (isColliding(bullet, target)) {
+            if (validator.isColliding(bullet, target)) {
                 root.getChildren().remove(bullet);
                 hit(target, damage);
-                this.activeBulletsTimeline.get(bullet).stop();
-                this.activeBulletsTimeline.remove(bullet);
+                activeBulletsTimeline.get(bullet).stop();
+                activeBulletsTimeline.remove(bullet);
             }
         }));
     }
 
     private void hit(Node target, int damage){
-        Hittable hittable = this.targetHittable.get(target);
+        Hittable hittable = positionHittable.get(target);
         if(!hittable.hit(damage)){
-            this.root.getChildren().remove(target);
+            root.getChildren().remove(target);
             hittable.die();
         }
-        checkWinning();
-    }
-
-    private void checkWinning(){
-        int humanDeaths = 0;
-        for(HumanUnit humanUnit: humans){
-            if(!humanUnit.isAlive()){
-                humanDeaths++;
-            }
-        }
-        if(humanDeaths == humans.size()){
-           towerWin();
-            return;
-        }
-        if(!tower.isAlive()){
-            humansWin();
+        String winning = validator.checkWinning(humans, tower);
+        if(winning != null){
+            winningLabel.setText(winning);
+            timerThread.stop();
         }
     }
 
-    private void humansWin(){
-        this.winningLabel.setText("Die Menschen haben gewonnen!!!");
-        this.timerThread.stop();
-    }
-    private void towerWin(){
-        this.winningLabel.setText("Der Turm hat gewonnen!!!");
-        this.timerThread.stop();
-    }
 
-    private static void initializeTravelPath(Bullet bullet, Point2D target, Path path, PathTransition pathTransition) {
-        path.getElements().add(new LineTo(target.getX(), target.getY()));
 
-        switch (bullet.getBulletType()) {
-            case NORMAL -> {
-                pathTransition.setDuration(Duration.millis(BulletType.NORMAL.getTravelTime()));
-            }
-            case BIG -> {
-                pathTransition.setDuration(Duration.millis(BulletType.BIG.getTravelTime()));
-            }
-            case DRILL -> {
-                pathTransition.setDuration(Duration.millis(BulletType.DRILL.getTravelTime()));
-            }
-            case LASER -> {
-                pathTransition.setDuration(Duration.millis(BulletType.LASER.getTravelTime()));
-            }
-            case MINI -> {
-                pathTransition.setDuration(Duration.millis(BulletType.MINI.getTravelTime()));
-            }
-        }
-    }
 
-    private void initializeStartPosition(Bullet bullet, int startPosition, Path path) {
-        switch (startPosition) {
-            //col, row
-            case 0:
-                root.add(bullet, 3, 1);
-                path.getElements().add(new MoveTo(150f, 20f));
-                break;
-            case 1:
-                root.add(bullet, 1, 3);
-                path.getElements().add(new MoveTo(150f, 50f));
-                break;
-            case 2:
-                root.add(bullet, 4, 4);
-                path.getElements().add(new MoveTo(150f, 50f));
-                break;
-            default:
-                root.add(bullet, 7, 1);
-                path.getElements().add(new MoveTo(50f, 50f));
-                break;
-        }
-    }
-
-    private boolean isColliding(Node bullet, Node target) {
-        Bounds bulletBounds = bullet.getBoundsInParent();
-        Bounds targetBounds = target.getBoundsInParent();
-        return  bulletBounds.intersects(targetBounds);
-    }
 
     public void notify(int milliSeconds) {
         setTimer(milliSeconds);
         checkShooting(milliSeconds);
         if (milliSeconds % 1000 == 0) {
-            updateSelectedTarget();
+            selectedHumanPos = RandomSelector.updateSelectedHumanTarget(humans.size());
         }
     }
 
@@ -216,16 +164,7 @@ public class GameViewController {
     }
 
     private Node getSelectedTarget() {
-        return switch (this.selectedHumanPos) {
-            case 0 -> humanPos1;
-            case 1 -> humanPos2;
-            default -> humanPos3;
-        };
-    }
-
-    private void updateSelectedTarget() {
-        Random random = new Random();
-        this.selectedHumanPos = random.nextInt(0, 3);
+        return hittablePosition.get(humans.get(selectedHumanPos));
     }
 
     private void setTimer(int milliSeconds) {
@@ -242,17 +181,20 @@ public class GameViewController {
                 case 0:
                     humanPos1.getStyleClass().add(humanUnit.getName().getCss());
                     positionTarget.put(humanPos1, new Point2D(-900, -50));
-                    targetHittable.put(humanPos1, humanUnit);
+                    positionHittable.put(humanPos1, humanUnit);
+                    hittablePosition.put(humanUnit, humanPos1);
                     break;
                 case 1:
                     humanPos2.getStyleClass().add(humanUnit.getName().getCss());
                     positionTarget.put(humanPos2, new Point2D(-1000, 400));
-                    targetHittable.put(humanPos2, humanUnit);
+                    positionHittable.put(humanPos2, humanUnit);
+                    hittablePosition.put(humanUnit, humanPos2);
                     break;
                 case 2:
                     humanPos3.getStyleClass().add(humanUnit.getName().getCss());
                     positionTarget.put(humanPos3, new Point2D(-900, 900));
-                    targetHittable.put(humanPos3, humanUnit);
+                    positionHittable.put(humanPos3, humanUnit);
+                    hittablePosition.put(humanUnit, humanPos3);
                     break;
             }
         }

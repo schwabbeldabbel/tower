@@ -34,7 +34,7 @@ public class Tower implements Hittable {
     @Override
     public boolean hit(int damage) {
         this.health -= damage;
-        System.out.println(health);
+        System.out.println("[ Tower ] health: " + health);
         return this.health > 0;
     }
 
