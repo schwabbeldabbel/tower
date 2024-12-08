@@ -164,7 +164,7 @@ public class GameViewController {
     }
 
     private void setTimer(int milliSeconds) {
-        timer.setText("Sekunden: " + milliSeconds / 1000);
+        timer.setText("Sekunden: " + milliSeconds / 100);
     }
 
     private void startTimer() {
@@ -202,12 +202,15 @@ public class GameViewController {
         switch (trigger.getId()) {
             case "SLOW":
                 timerThread.setSpeed(SLOW.getMiliseconds());
+                bulletPath.setSpeed(SLOW);
                 break;
             case "NORMAL":
                 timerThread.setSpeed(NORMAL.getMiliseconds());
+                bulletPath.setSpeed(NORMAL);
                 break;
             case "FAST":
                 timerThread.setSpeed(FAST.getMiliseconds());
+                bulletPath.setSpeed(FAST);
                 break;
         }
     }
