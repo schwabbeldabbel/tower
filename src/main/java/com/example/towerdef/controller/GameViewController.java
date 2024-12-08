@@ -109,7 +109,10 @@ public class GameViewController {
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
 
         Timeline timeline = setUpCollisionDetection(bullet, target, damage);
-        timeline.setCycleCount(100);
+        timeline.setCycleCount(300);
+        timeline.setOnFinished(event -> {
+            root.getChildren().remove(bullet);
+        });
         timeline.play();
 
         activeBulletsTimeline.put(bullet, timeline);
