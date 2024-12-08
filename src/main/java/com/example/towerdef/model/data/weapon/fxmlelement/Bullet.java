@@ -11,10 +11,7 @@ public class Bullet extends Rectangle{
     private BulletType bulletType;
 
     public Bullet(BulletType type) {
-        super(type.getBulletWidth(), type.getBulletWidth(), type.getColor());
+        super(type.getBulletWidth(), type.getBulletHeight(), type.getColor());
         this.bulletType = type;
     }
-
-
-
 }

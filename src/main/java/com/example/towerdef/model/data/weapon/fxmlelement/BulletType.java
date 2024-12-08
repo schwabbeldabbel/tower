@@ -7,7 +7,7 @@ import lombok.Getter;
 public enum BulletType {
 
     NORMAL(Color.GREY, 10, 10, 100),
-    BIG(Color.BLACK, 30, 30, 150),
+    BIG(Color.BLACK, 10, 30, 150),
     DRILL(Color.LIGHTGRAY, 40, 40, 250),
     LASER(Color.GREENYELLOW, 20, 500, 50),
     MINI(Color.RED, 5, 5, 90);
