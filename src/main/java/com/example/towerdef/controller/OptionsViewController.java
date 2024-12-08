@@ -10,10 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 
 import java.util.function.UnaryOperator;
@@ -25,10 +22,16 @@ public class OptionsViewController {
     protected ComboBox<String> humanPos1, humanPos2, humanPos3;
 
     @FXML
+    protected ComboBox<WeaponName> towerWeaponComboBox;
+
+    @FXML
     protected Slider towerHealthSlider, humanHealthSlider;
 
     @FXML
     protected TextField humanHealthText, towerHealthText;
+
+    @FXML
+    protected Label towerWeaponLabel;
 
     private UnaryOperator<TextFormatter.Change> filter;
 
@@ -65,6 +68,11 @@ public class OptionsViewController {
         humanPos3.setItems(humanClasses);
         humanPos3.setValue(HumanUnitName.NONE.getName());
 
+        towerWeaponComboBox.setItems(FXCollections.observableArrayList(
+                WeaponName.LASER,
+                WeaponName.MINIGUN
+        ));
+        towerWeaponComboBox.setValue(WeaponName.MINIGUN);
     }
 
     private void initFilter() {
@@ -124,7 +132,7 @@ public class OptionsViewController {
                 (int) humanHealthSlider.getValue(),
                 (int) towerHealthSlider.getValue(),
                 getHumanUnitNames(),
-                WeaponName.LASER);
+                towerWeaponComboBox.getValue());
         sceneController.activate(SceneNames.MAIN);
     }
 
@@ -139,6 +147,11 @@ public class OptionsViewController {
     public void changeHealth(Event event) {
         Slider slider = (Slider) event.getSource();
         setHealth(slider.getId(), String.valueOf((int) slider.getValue()));
+    }
+
+    @FXML
+    public void changeTowerWeapon(){
+
     }
 
     public void checkHumanHealthText(boolean isFocused) {
@@ -167,6 +180,7 @@ public class OptionsViewController {
             humanHealthSlider.setValue(valueInt);
         }
     }
+
     private void unfocusedTextField(String id, boolean unfocused){
         if(id.equals(humanHealthText.getId())){
             humanHealthText.getText();

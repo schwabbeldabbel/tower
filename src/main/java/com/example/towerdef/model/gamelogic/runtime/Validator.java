@@ -28,7 +28,8 @@ public class Validator {
 
     public String getInValueInLimits(String value, int min, int max){
         if(value.matches("\\d+")){
-            int intValue = Integer.parseInt(value);
+            if (value.length() > String.valueOf(max).length()) return String.valueOf(max);
+            long intValue = Long.parseLong(value);
             if(intValue < min){
                 return String.valueOf(min);
             }else if(intValue > max){
