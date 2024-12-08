@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
+
 
 public class HelloApplication extends Application {
     @Override
@@ -25,7 +25,6 @@ public class HelloApplication extends Application {
         stage.setResizable(false);
         stage.show();
         sceneController.activate(SceneNames.MAIN);
-//        stage.setFullScreen(true);
     }
 
     public static void main(String[] args) {

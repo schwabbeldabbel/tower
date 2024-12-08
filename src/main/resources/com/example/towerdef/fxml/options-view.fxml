@@ -32,24 +32,35 @@
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Leben der Menschen</Label>
+            <Label fx:id="humanHealthLabel"/>
         </VBox>
         <VBox GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">
-            <TextField>Zahl</TextField>
+            <Slider fx:id="humanHealthSlider" onMousePressed="#changeHealth" onMouseReleased="#changeHealth"/>
         </VBox>
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Leben des Turms</Label>
+            <Label fx:id="towerHealthLabel"/>
         </VBox>
         <VBox GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">
-            <TextField>Zahl</TextField>
+            <Slider fx:id="towerHealthSlider" onMousePressed="#changeHealth" onMouseReleased="#changeHealth"/>
         </VBox>
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
-            <Label>Menschen auswaehlen</Label>
-        </VBox>
+            <Label>Menschen auswählen</Label>
+            <HBox styleClass="human-engineer, comboBoxContainer">
+                <Label styleClass="labelText">Mechaniker</Label>
+            </HBox>
+            <HBox styleClass="human-tank, comboBoxContainer">
+                <Label styleClass="labelText">Verteidiger</Label>
+            </HBox>
+            <HBox styleClass="human-sniper, comboBoxContainer">
+                <Label styleClass="labelTextDark">Scharfschütze</Label>
+            </HBox>
 
+        </VBox>
 
         <GridPane GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.columnSpan="3" GridPane.rowSpan="2"
                   minHeight="200" maxHeight="200" minWidth="300" maxWidth="300">
@@ -71,27 +82,34 @@
                 <RowConstraints minHeight="40"/>
                 <RowConstraints minHeight="40"/>
             </rowConstraints>
-            <Button fx:id="humanPos1" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
-                    GridPane.rowSpan="2"
-                    minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
-                    onAction="#setHuman"
-            />
+            <StackPane GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                       GridPane.rowSpan="2">
+                <ComboBox fx:id="humanPos1"
+                          minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
+                          onAction="#setHuman"
+                />
+            </StackPane>
+
             <Rectangle GridPane.columnIndex="7" GridPane.rowIndex="1"
                        GridPane.columnSpan="2" GridPane.rowSpan="5"
                        fill="red" height="200" width="80"/>
-            <Button fx:id="humanPos2" GridPane.columnIndex="1" GridPane.rowIndex="3"
-                    GridPane.columnSpan="1" GridPane.rowSpan="2"
-                    minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
-                    onAction="#setHuman"
-            />
+            <StackPane GridPane.columnIndex="1" GridPane.rowIndex="3"
+                       GridPane.columnSpan="1" GridPane.rowSpan="2">
+                <ComboBox fx:id="humanPos2"
+                          minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
+                          onAction="#setHuman"
+                />
+            </StackPane>
             <Rectangle GridPane.columnIndex="2" GridPane.rowIndex="4"
                        GridPane.columnSpan="1" GridPane.rowSpan="1"
                        fill="grey" height="40" width="40"/>
-            <Button fx:id="humanPos3" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
-                    GridPane.rowSpan="2"
-                    minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
-                    onAction="#setHuman"
-            />
+            <StackPane GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                       GridPane.rowSpan="2">
+                <ComboBox fx:id="humanPos3"
+                          minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
+                          onAction="#setHuman"
+                />
+            </StackPane>
         </GridPane>
 
     </GridPane>

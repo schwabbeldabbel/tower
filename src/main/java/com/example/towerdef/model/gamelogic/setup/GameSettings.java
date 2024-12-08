@@ -5,21 +5,24 @@ import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.human.HumanUnitName;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.WeaponName;
-import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
 import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
 import com.example.towerdef.model.gamelogic.time.Speed;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Singleton
+ */
 public class GameSettings {
 
     private static GameSettings INSTANCE;
     private final boolean manualSetUp;
 
+    @Getter
     private int baseHealthHuman;
+    @Getter
     private int baseHealthTower;
 
     //Human weapons
@@ -49,12 +52,21 @@ public class GameSettings {
     private GameSettings(int baseHealth, int baseHealthTower, HumanUnitName[] humanUnitNames, WeaponName towerWeapon, boolean manualSetUp){
         this.manualSetUp = manualSetUp;
         this.baseHealthHuman = baseHealth;
+        this.baseHealthTower = baseHealthTower;
         createHumans(humanUnitNames);
 
         this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon));
     }
 
-    public static GameSettings getInstance(int baseHealthHuman, int baseHealthTower, HumanUnitName[] humanUnitNames, WeaponName towerWeapon, Speed speed){
+    /**
+     *
+     * @param baseHealthHuman base tower health
+     * @param baseHealthTower base human health
+     * @param humanUnitNames HumanUnitName enum array
+     * @param towerWeapon WeaponName enum
+     * @return new instance of GameSettings, if not present yet
+     */
+    public static GameSettings getInstance(int baseHealthHuman, int baseHealthTower, HumanUnitName[] humanUnitNames, WeaponName towerWeapon){
         if(INSTANCE == null){
             INSTANCE = new GameSettings(baseHealthHuman, baseHealthTower, humanUnitNames, towerWeapon, true);
         }
@@ -85,6 +97,8 @@ public class GameSettings {
                     break;
                 case ENGINEER:
                     addEngineer(i);
+                    break;
+                default:
                     break;
             }
         }

@@ -12,11 +12,34 @@
 }
 
 .human-tank{
+    -fx-color: green;
     -fx-background-color: green;
 }
 .human-sniper{
+    -fx-color: yellow;
     -fx-background-color: yellow;
 }
 .human-engineer{
+    -fx-color: blue;
     -fx-background-color: blue;
+}
+
+.comboBoxContainer{
+    -fx-max-width: 180px;
+    -fx-margin: 5px;
+}
+
+.labelText{
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-font-family: monospace;
+}
+.labelTextDark{
+    -fx-text-fill: black;
+    -fx-padding: 10px;
+    -fx-font-family: monospace;
+}
+Label{
+    -fx-font-family: monospace;
+    -fx-font-size: 20px;
 }
