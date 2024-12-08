@@ -15,7 +15,7 @@ public class Validator {
         return  bulletBounds.intersects(targetBounds);
     }
 
-    public String checkWinning(List<HumanUnit> humans, Tower tower){
+    public String isWinning(List<HumanUnit> humans, Tower tower){
         humans.removeIf(humanUnit -> !humanUnit.isAlive());
         if(humans.isEmpty()){
             return "Der Turm hat gewonnen!";
@@ -24,6 +24,19 @@ public class Validator {
             return "Die Menschen haben gewonnen!";
         }
         return null;
+    }
+
+    public String getInValueInLimits(String value, int min, int max){
+        if(value.matches("\\d+")){
+            int intValue = Integer.parseInt(value);
+            if(intValue < min){
+                return String.valueOf(min);
+            }else if(intValue > max){
+                return String.valueOf(max);
+            }
+            return value;
+        }
+        return "0";
     }
 
 }

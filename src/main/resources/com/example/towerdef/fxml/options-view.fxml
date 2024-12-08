@@ -32,7 +32,10 @@
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Leben der Menschen</Label>
-            <Label fx:id="humanHealthLabel"/>
+            <HBox>
+                <Label>Aktuell:</Label>
+                <TextField fx:id="humanHealthText"/>
+            </HBox>
         </VBox>
         <VBox GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">
@@ -41,7 +44,10 @@
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Leben des Turms</Label>
-            <Label fx:id="towerHealthLabel"/>
+            <HBox>
+                <Label>Aktuell:</Label>
+                <TextField fx:id="towerHealthText"/>
+            </HBox>
         </VBox>
         <VBox GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">

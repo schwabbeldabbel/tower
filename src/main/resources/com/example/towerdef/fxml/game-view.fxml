@@ -31,7 +31,6 @@
             <RowConstraints minHeight="100"/>
             <RowConstraints minHeight="100"/>
         </rowConstraints>
-        <Label fx:id="winningLabel" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="1" GridPane.columnSpan="14"/>
         <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0"
                   GridPane.columnSpan="10" GridPane.rowSpan="1" vgap="30">
             <Label GridPane.columnIndex="0" GridPane.rowIndex="0"
@@ -45,6 +44,10 @@
             <Button GridPane.columnIndex="3" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="FAST"
                     GridPane.columnSpan="1" GridPane.rowSpan="1">Fast
             </Button>
+            <HBox GridPane.columnIndex="4" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1">
+                <Label fx:id="winningLabel" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="1" GridPane.columnSpan="14"/>
+                <Button onAction="#backToStart">Zurück zum Start</Button>
+            </HBox>
         </GridPane>
         <Button fx:id="humanPos1" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
                 GridPane.rowSpan="2"

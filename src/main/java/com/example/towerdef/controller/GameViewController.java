@@ -1,11 +1,12 @@
 package com.example.towerdef.controller;
 
+import com.example.towerdef.controller.scenes.SceneController;
+import com.example.towerdef.controller.scenes.SceneNames;
 import com.example.towerdef.model.data.Hittable;
 import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.tower.Tower;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
-import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
 import com.example.towerdef.model.gamelogic.runtime.BulletPath;
 import com.example.towerdef.model.gamelogic.runtime.RandomSelector;
 import com.example.towerdef.model.gamelogic.runtime.Validator;
@@ -17,7 +18,6 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -137,11 +137,16 @@ public class GameViewController {
             root.getChildren().remove(target);
             hittable.die();
         }
-        String winning = validator.checkWinning(humans, tower);
+        String winning = validator.isWinning(humans, tower);
         if(winning != null){
-            winningLabel.setText(winning);
-            timerThread.stop();
+            end(winning);
         }
+    }
+
+    private void end(String text){
+        winningLabel.setText(text);
+        timerThread.stop();
+        GameSettings.removeInstance();
     }
 
     private void checkShooting(int milliSeconds) {
@@ -216,5 +221,11 @@ public class GameViewController {
                 bulletPath.setSpeed(FAST);
                 break;
         }
+    }
+    @FXML
+    public void backToStart(){
+        end("Abbruch");
+        SceneController sceneController = SceneController.getInstance();
+        sceneController.activate(SceneNames.MAIN);
     }
 }

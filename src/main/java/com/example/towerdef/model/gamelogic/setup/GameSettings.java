@@ -85,6 +85,9 @@ public class GameSettings {
         return INSTANCE;
     }
 
+    public static void removeInstance(){
+        INSTANCE = null;
+    }
 
     private void createHumans(HumanUnitName[] humanUnitNames){
         for(int i = 0; i < 3; i++){
