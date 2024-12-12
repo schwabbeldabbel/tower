@@ -8,6 +8,7 @@ import lombok.Getter;
 public class Tower implements Hittable {
 
     private String name;
+    @Getter
     private int health;
     @Getter
     private Weapon weapon;
@@ -15,12 +16,15 @@ public class Tower implements Hittable {
     @Getter
     private boolean alive;
 
+    private float armor;
 
-    public Tower(String name, int health, Weapon weapon){
+
+    public Tower(String name, int health, Weapon weapon, float armor) {
         this.name = name;
         this.health = health;
         this.weapon = weapon;
         this.alive = true;
+        this.armor = armor;
     }
 
     public Bullet shoot(){
@@ -33,7 +37,7 @@ public class Tower implements Hittable {
 
     @Override
     public boolean hit(int damage) {
-        this.health -= damage;
+        this.health -= (int) (damage - (damage * armor));
         System.out.println("[ Tower ] health: " + health);
         return this.health > 0;
     }

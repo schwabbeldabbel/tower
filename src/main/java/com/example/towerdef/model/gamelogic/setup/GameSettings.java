@@ -6,7 +6,6 @@ import com.example.towerdef.model.data.human.HumanUnitName;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.WeaponName;
 import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
-import com.example.towerdef.model.gamelogic.time.Speed;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public class GameSettings {
         this.baseHealthTower = baseHealthTower;
         createHumans(humanUnitNames);
 
-        this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon));
+        this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon), 0.2f);
     }
 
     /**
@@ -113,7 +112,7 @@ public class GameSettings {
                 .setHealth((int) (baseHealthHuman * 1.5))
                 .setWeapon(LMG)
                 .setHealing((int) (baseHealthHuman * 0.2))
-                .setArmor(0.8F)
+                .setArmor(0.15f)
                 .setPosition(position)
                 .build();
         this.humanUnits.add(tank);
@@ -125,7 +124,7 @@ public class GameSettings {
                 .setHealth((int) (baseHealthHuman * 0.8))
                 .setWeapon(SNIPER_WEAPON)
                 .setHealing((int) (baseHealthHuman * 0.2))
-                .setArmor(0.8F)
+                .setArmor(0.05f)
                 .setPosition(position)
                 .build();
         this.humanUnits.add(sniper);
@@ -137,7 +136,7 @@ public class GameSettings {
                 .setHealth(baseHealthHuman)
                 .setWeapon(DRILL_CANON)
                 .setHealing((int) (baseHealthHuman * 0.2))
-                .setArmor(0.8F)
+                .setArmor(0.10f)
                 .setPosition(position)
                 .build();
         this.humanUnits.add(engineer);

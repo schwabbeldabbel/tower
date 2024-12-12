@@ -38,7 +38,7 @@ public class HumanUnit implements Hittable {
 
     @Override
     public boolean hit(int damage) {
-        this.health -= damage;
+        this.health -= (int) (damage - (damage * armor));
         System.out.println("[ Human: " + this.name + "] health: " + health);
         return this.health > 0;
     }

@@ -23,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
@@ -42,6 +43,9 @@ public class GameViewController {
     @FXML
     private Label timer;
     @FXML
+    private HBox damageBoxHumanPos1, damageBoxHumanPos2, damageBoxHumanPos3, damageBoxTower;
+
+    @FXML
     private Label winningLabel;
 
     private List<Node> collidingNodes;
@@ -54,6 +58,7 @@ public class GameViewController {
 
     private final Map<Node, Point2D> positionTarget;
     private final Map<Node, Hittable> positionHittable;
+    private final Map<Node, HBox> damageBoxPosition;
     private final Map<Hittable, Node> hittablePosition;
     private final Map<Bullet, Timeline> activeBulletsTimeline;
 
@@ -66,6 +71,7 @@ public class GameViewController {
         positionHittable = new HashMap<>();
         hittablePosition = new HashMap<>();
         activeBulletsTimeline = new HashMap<>();
+        damageBoxPosition = new HashMap<>();
         validator = new Validator();
         bulletPath = new BulletPath();
         collidingNodes = new ArrayList<>();
@@ -85,6 +91,10 @@ public class GameViewController {
         collidingNodes.add(humanPos2);
         collidingNodes.add(humanPos3);
         collidingNodes.add(towerPos);
+        damageBoxPosition.put(towerPos, damageBoxTower);
+        damageBoxPosition.put(humanPos1, damageBoxHumanPos1);
+        damageBoxPosition.put(humanPos2, damageBoxHumanPos2);
+        damageBoxPosition.put(humanPos3, damageBoxHumanPos3);
         Platform.runLater(this::startTimer);
     }
 
@@ -93,6 +103,9 @@ public class GameViewController {
         checkShooting(milliSeconds);
         if (milliSeconds % 1000 == 0) {
             selectedHumanPos = RandomSelector.updateSelectedHumanTarget(humans.size());
+        }
+        if(milliSeconds % 100 == 0){
+            towerMalfunction(RandomSelector.isTowerMalfunction(GameSettings.getInstance().getTower().getHealth()));
         }
     }
 
@@ -131,9 +144,22 @@ public class GameViewController {
         }));
     }
 
+    private void towerMalfunction(boolean isTowerMalfunction) {
+        if(isTowerMalfunction){
+
+        }
+    }
+
     private void hit(Node target, int damage){
         Hittable hittable = positionHittable.get(target);
-        if(!hittable.hit(damage)){
+        HBox damageBox = damageBoxPosition.get(target);
+        Label damageLabel = new Label(String.valueOf(damage));
+        //TODO Event handler for removing the label after a short time
+        damageLabel.addEventHandler();
+        damageBox.getChildren().add(new Label(String.valueOf(damage)));
+        boolean alive = hittable.hit(damage);
+
+        if(!alive){
             root.getChildren().remove(target);
             hittable.die();
         }
