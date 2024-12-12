@@ -66,7 +66,6 @@ public class OptionsViewController {
                 MINIGUN.getName(),
                 HANDGUN.getName()
         ));
-
         humanPos1.setValue(gameSettings.getHumanUnits().get(0).getName().getName());
         setHumansClass(humanPos1);
         humanPos2.setValue(gameSettings.getHumanUnits().get(1).getName().getName());

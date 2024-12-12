@@ -7,7 +7,9 @@ import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.tower.Tower;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
-import com.example.towerdef.model.gamelogic.runtime.BulletPath;
+import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
+import com.example.towerdef.model.gamelogic.review.GameStatistics;
+import com.example.towerdef.model.gamelogic.runtime.TravelAnimations;
 import com.example.towerdef.model.gamelogic.runtime.RandomSelector;
 import com.example.towerdef.model.gamelogic.runtime.Validator;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
@@ -23,7 +25,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
@@ -42,8 +43,6 @@ public class GameViewController {
     private Button humanPos1, humanPos2, humanPos3;
     @FXML
     private Label timer;
-    @FXML
-    private HBox damageBoxHumanPos1, damageBoxHumanPos2, damageBoxHumanPos3, damageBoxTower;
 
     @FXML
     private Label winningLabel;
@@ -58,22 +57,20 @@ public class GameViewController {
 
     private final Map<Node, Point2D> positionTarget;
     private final Map<Node, Hittable> positionHittable;
-    private final Map<Node, HBox> damageBoxPosition;
     private final Map<Hittable, Node> hittablePosition;
     private final Map<Bullet, Timeline> activeBulletsTimeline;
 
 
     private final Validator validator;
-    private final BulletPath bulletPath;
+    private final TravelAnimations travelAnimations;
 
     public GameViewController(){
         positionTarget = new HashMap<>();
         positionHittable = new HashMap<>();
         hittablePosition = new HashMap<>();
         activeBulletsTimeline = new HashMap<>();
-        damageBoxPosition = new HashMap<>();
         validator = new Validator();
-        bulletPath = new BulletPath();
+        travelAnimations = new TravelAnimations();
         collidingNodes = new ArrayList<>();
         selectedHumanPos = 1;
     }
@@ -91,18 +88,14 @@ public class GameViewController {
         collidingNodes.add(humanPos2);
         collidingNodes.add(humanPos3);
         collidingNodes.add(towerPos);
-        damageBoxPosition.put(towerPos, damageBoxTower);
-        damageBoxPosition.put(humanPos1, damageBoxHumanPos1);
-        damageBoxPosition.put(humanPos2, damageBoxHumanPos2);
-        damageBoxPosition.put(humanPos3, damageBoxHumanPos3);
         Platform.runLater(this::startTimer);
     }
 
     public void notify(int milliSeconds) {
         setTimer(milliSeconds);
         checkShooting(milliSeconds);
-        if (milliSeconds % 1000 == 0) {
-            selectedHumanPos = RandomSelector.updateSelectedHumanTarget(humans.size());
+        if (milliSeconds % 10 == 0) {
+            selectedHumanPos = RandomSelector.updateSelectedHumanTarget((int) humans.stream().filter(HumanUnit::isAlive).count());
         }
         if(milliSeconds % 100 == 0){
             towerMalfunction(RandomSelector.isTowerMalfunction(GameSettings.getInstance().getTower().getHealth()));
@@ -113,9 +106,9 @@ public class GameViewController {
         Path path = new Path();
         PathTransition pathTransition = new PathTransition();
 
-        bulletPath.initializeStartPosition(bullet, startPosition, path, root);
+        travelAnimations.initializeStartPosition(bullet, startPosition, path, root);
 
-        bulletPath.initializeTravelPath(bullet, positionTarget.get(target), path, pathTransition);
+        travelAnimations.initializeTravelPath(bullet, positionTarget.get(target), path, pathTransition);
 
         pathTransition.setNode(bullet);
         pathTransition.setPath(path);
@@ -134,10 +127,10 @@ public class GameViewController {
     }
 
     private Timeline setUpCollisionDetection(Bullet bullet, Node target, int damage) {
-       return new Timeline(new KeyFrame(Duration.millis(10), event -> {
+       return new Timeline(new KeyFrame(Duration.millis(5), event -> {
             if (validator.isColliding(bullet, target)) {
                 root.getChildren().remove(bullet);
-                hit(target, damage);
+                hit(target, damage, bullet.getBulletType().getStyleClass());
                 activeBulletsTimeline.get(bullet).stop();
                 activeBulletsTimeline.remove(bullet);
             }
@@ -146,19 +139,19 @@ public class GameViewController {
 
     private void towerMalfunction(boolean isTowerMalfunction) {
         if(isTowerMalfunction){
-
+            hit(towerPos, tower.malfunction(), BulletType.EXTRA.getStyleClass());
+            GameStatistics.incrementMalfunctionCount();
         }
     }
 
-    private void hit(Node target, int damage){
+    private void hit(Node target, int damage, String styleClass) {
         Hittable hittable = positionHittable.get(target);
-        HBox damageBox = damageBoxPosition.get(target);
-        Label damageLabel = new Label(String.valueOf(damage));
-        //TODO Event handler for removing the label after a short time
-        damageLabel.addEventHandler();
-        damageBox.getChildren().add(new Label(String.valueOf(damage)));
-        boolean alive = hittable.hit(damage);
+        int damageTaken = hittable.hit(damage);
+        Label damageLabel = new Label(String.valueOf(damageTaken));
+        damageLabel.getStyleClass().add(styleClass);
+        travelAnimations.startDamageCountAnimation(damageLabel, root, target);
 
+        boolean alive = hittable.isAlive();
         if(!alive){
             root.getChildren().remove(target);
             hittable.die();
@@ -172,7 +165,6 @@ public class GameViewController {
     private void end(String text){
         winningLabel.setText(text);
         timerThread.stop();
-        GameSettings.removeInstance();
     }
 
     private void checkShooting(int milliSeconds) {
@@ -236,15 +228,15 @@ public class GameViewController {
         switch (trigger.getId()) {
             case "SLOW":
                 timerThread.setSpeed(SLOW.getMiliseconds());
-                bulletPath.setSpeed(SLOW);
+                travelAnimations.setSpeed(SLOW);
                 break;
             case "NORMAL":
                 timerThread.setSpeed(NORMAL.getMiliseconds());
-                bulletPath.setSpeed(NORMAL);
+                travelAnimations.setSpeed(NORMAL);
                 break;
             case "FAST":
                 timerThread.setSpeed(FAST.getMiliseconds());
-                bulletPath.setSpeed(FAST);
+                travelAnimations.setSpeed(FAST);
                 break;
         }
     }

@@ -37,10 +37,12 @@ public class HumanUnit implements Hittable {
     }
 
     @Override
-    public boolean hit(int damage) {
-        this.health -= (int) (damage - (damage * armor));
+    public int hit(int damage) {
+        int damageTaken = (int) (damage - (damage * armor));
+        this.health -= damageTaken;
+        System.out.println("[ Human: " + this.name + "] hit: " + damageTaken);
         System.out.println("[ Human: " + this.name + "] health: " + health);
-        return this.health > 0;
+        return damageTaken;
     }
 
     @Override
@@ -49,9 +51,14 @@ public class HumanUnit implements Hittable {
     }
 
     @Override
+    public boolean isAlive(){
+        return this.health > 0;
+    }
+
     public void die(){
         this.alive = false;
     }
+
 
 
     public static class HumanUnitBuilder {

@@ -35,11 +35,18 @@ public class Tower implements Hittable {
         }
     }
 
+    public int malfunction(){
+        int damage = (int) ((health * 0.15) * armor);
+        health -= damage;
+        return damage;
+    }
+
     @Override
-    public boolean hit(int damage) {
-        this.health -= (int) (damage - (damage * armor));
+    public int hit(int damage) {
+        int damageTaken = (int) (damage - (damage * armor));
+        this.health -= damageTaken;
         System.out.println("[ Tower ] health: " + health);
-        return this.health > 0;
+        return damageTaken;
     }
 
     @Override
@@ -47,11 +54,11 @@ public class Tower implements Hittable {
         this.health += 0;
     }
 
-    @Override
-    public float getArmor() {
-        return 0;
-    }
 
+    @Override
+    public boolean isAlive(){
+        return this.health > 0;
+    }
     @Override
     public void die(){
         this.alive = false;

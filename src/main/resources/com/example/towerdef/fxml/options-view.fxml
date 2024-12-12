@@ -28,10 +28,7 @@
             <RowConstraints minHeight="100"/>
             <RowConstraints minHeight="100"/>
         </rowConstraints>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#backToStart">Startmenü</Button>
-        <Button GridPane.columnIndex="5" GridPane.rowIndex="0" onAction="#resetOptions">Zurücksetzen</Button>
-        <Button GridPane.columnIndex="6" GridPane.rowIndex="0" onAction="#startGame">Start</Button>
-        <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" GridPane.rowSpan="1"
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Leben der Menschen</Label>
             <HBox>
@@ -39,11 +36,11 @@
                 <TextField fx:id="humanHealthText"/>
             </HBox>
         </VBox>
-        <VBox GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="1"
+        <VBox GridPane.columnIndex="5" GridPane.rowIndex="0" GridPane.columnSpan="2" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">
             <Slider fx:id="humanHealthSlider" onMousePressed="#changeHealth" onMouseReleased="#changeHealth"/>
         </VBox>
-        <VBox GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="1"
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Leben des Turms</Label>
             <HBox>
@@ -51,19 +48,19 @@
                 <TextField fx:id="towerHealthText"/>
             </HBox>
         </VBox>
-        <VBox GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.rowSpan="1"
+        <VBox GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">
             <Slider fx:id="towerHealthSlider" onMousePressed="#changeHealth" onMouseReleased="#changeHealth"/>
         </VBox>
-        <VBox GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="3" GridPane.rowSpan="1"
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Waffe des Turms</Label>
         </VBox>
-        <VBox GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.columnSpan="2" GridPane.rowSpan="1"
+        <VBox GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">
             <ComboBox fx:id="towerWeaponComboBox" onAction="#changeTowerWeapon"/>
         </VBox>
-        <VBox GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.columnSpan="3" GridPane.rowSpan="1"
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Menschen auswählen</Label>
             <HBox styleClass="human-engineer, comboBoxContainer">
@@ -77,7 +74,7 @@
             </HBox>
         </VBox>
 
-        <GridPane GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.columnSpan="3" GridPane.rowSpan="2"
+        <GridPane GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.columnSpan="3" GridPane.rowSpan="2"
                   minHeight="200" maxHeight="200" minWidth="300" maxWidth="300">
             <columnConstraints>
                 <ColumnConstraints minWidth="40"/>
@@ -126,6 +123,9 @@
                 />
             </StackPane>
         </GridPane>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="6" onAction="#backToStart">Startmenü</Button>
+        <Button GridPane.columnIndex="5" GridPane.rowIndex="6" onAction="#resetOptions">Zurücksetzen</Button>
+        <Button GridPane.columnIndex="6" GridPane.rowIndex="6" onAction="#startGame">Start</Button>
 
     </GridPane>
 

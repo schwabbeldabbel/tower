@@ -52,3 +52,9 @@ Label{
 .fontFamily{
     -fx-font-family: monospace;
 }
+
+.damageNumberExtra{
+    -fx-text-fill: red;
+    -fx-background-color: grey;
+    -fx-font-size: 50px;
+}

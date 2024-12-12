@@ -2,9 +2,9 @@ package com.example.towerdef.model.data;
 
 public interface Hittable {
 
-    boolean hit(int damage);
+    int hit(int damage);
     void heal();
-    float getArmor();
+    boolean isAlive();
     void die();
 
 }

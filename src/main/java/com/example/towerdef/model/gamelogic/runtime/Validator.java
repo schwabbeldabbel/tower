@@ -16,8 +16,14 @@ public class Validator {
     }
 
     public String isWinning(List<HumanUnit> humans, Tower tower){
-        humans.removeIf(humanUnit -> !humanUnit.isAlive());
-        if(humans.isEmpty()){
+        boolean oneAlive = false;
+        for (HumanUnit human : humans) {
+            if(human.isAlive()){
+                oneAlive = true;
+                break;
+            }
+        }
+        if(!oneAlive){
             return "Der Turm hat gewonnen!";
         }
         if(!tower.isAlive()){
