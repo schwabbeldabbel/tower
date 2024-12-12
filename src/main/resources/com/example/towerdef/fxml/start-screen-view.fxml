@@ -19,16 +19,9 @@
             <RowConstraints minHeight="100"/>
             <RowConstraints minHeight="100"/>
             <RowConstraints minHeight="100"/>
-
         </rowConstraints>
         <Label GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="4" styleClass="header">Game</Label>
-        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">Start</Label>
-        <Button GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.columnSpan="1"
-                onAction="#startGame"
-        >X</Button>
-        <Label GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">Options</Label>
-        <Button GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="1"
-                onAction="#startOptions"
-        >X</Button>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" styleClass="startButton, fontFamily" onAction="#startGame">Start</Button>
+        <Button GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" styleClass="startButton, fontFamily" onAction="#startOptions">Options</Button>
     </GridPane>
 </StackPane>

@@ -28,7 +28,9 @@
             <RowConstraints minHeight="100"/>
             <RowConstraints minHeight="100"/>
         </rowConstraints>
-        <Button GridPane.columnIndex="5" GridPane.rowIndex="0" onAction="#backToStart">Back</Button>
+        <Button GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#backToStart">Startmenü</Button>
+        <Button GridPane.columnIndex="5" GridPane.rowIndex="0" onAction="#resetOptions">Zurücksetzen</Button>
+        <Button GridPane.columnIndex="6" GridPane.rowIndex="0" onAction="#startGame">Start</Button>
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Leben der Menschen</Label>

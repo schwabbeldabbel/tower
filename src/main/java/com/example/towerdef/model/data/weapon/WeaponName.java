@@ -1,15 +1,24 @@
 package com.example.towerdef.model.data.weapon;
 
+import lombok.Getter;
+
 public enum WeaponName {
 
     //Human
-    LMG,
-    SNIPER,
-    DRILL_CANON,
+    LMG("LMG"),
+    SNIPER("Scharfschützengewehr"),
+    DRILL_CANON("Bohrerkanone"),
 
     //Tower
-    HANDGUN,
-    MINIGUN,
-    LASER;
+    HANDGUN("Handpistole"),
+    MINIGUN("Minigun"),
+    LASER("Laser");
+
+    @Getter
+    private final String name;
+
+    private WeaponName(String name){
+        this.name = name;
+    }
 
 }

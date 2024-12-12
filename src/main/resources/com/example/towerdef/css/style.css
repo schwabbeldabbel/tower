@@ -11,6 +11,12 @@
     -fx-font-size: 30px;
 }
 
+.startButton{
+    -fx-max-width: 300px;
+    -fx-min-width: 300px;
+    -fx-font-size: 30px;
+}
+
 .human-tank{
     -fx-color: green;
     -fx-background-color: green;
@@ -42,4 +48,7 @@
 Label{
     -fx-font-family: monospace;
     -fx-font-size: 20px;
+}
+.fontFamily{
+    -fx-font-family: monospace;
 }

@@ -15,38 +15,36 @@ import javafx.scene.layout.StackPane;
 
 import java.util.function.UnaryOperator;
 
+import static com.example.towerdef.model.data.weapon.WeaponName.*;
+
 
 public class OptionsViewController {
-
-    @FXML
-    protected ComboBox<String> humanPos1, humanPos2, humanPos3;
-
-    @FXML
-    protected ComboBox<WeaponName> towerWeaponComboBox;
-
-    @FXML
-    protected Slider towerHealthSlider, humanHealthSlider;
-
-    @FXML
-    protected TextField humanHealthText, towerHealthText;
-
-    @FXML
-    protected Label towerWeaponLabel;
-
-    private UnaryOperator<TextFormatter.Change> filter;
 
     private final int minHumanHealth = 50;
     private final int maxHumanHealth = 500;
     private final int minTowerHealth = 500;
     private final int maxTowerHealth = 5000;
-
+    @FXML
+    protected ComboBox<String> humanPos1, humanPos2, humanPos3;
+    @FXML
+    protected ComboBox<String> towerWeaponComboBox;
+    @FXML
+    protected Slider towerHealthSlider, humanHealthSlider;
+    @FXML
+    protected TextField humanHealthText, towerHealthText;
+    @FXML
+    protected Label towerWeaponLabel;
+    private UnaryOperator<TextFormatter.Change> filter;
     private Validator validator;
+
+    private GameSettings gameSettings;
 
     public OptionsViewController() {
         validator = new Validator();
     }
 
     public void initialize() {
+        this.gameSettings = GameSettings.getInstance();
         initComboBox();
         initSliders();
         initFilter();
@@ -54,7 +52,6 @@ public class OptionsViewController {
     }
 
     private void initComboBox() {
-        GameSettings.removeInstance();
         ObservableList<String> humanClasses = FXCollections.observableArrayList(
                 HumanUnitName.ENGINEER.getName(),
                 HumanUnitName.TANK.getName(),
@@ -62,17 +59,21 @@ public class OptionsViewController {
                 HumanUnitName.NONE.getName()
         );
         humanPos1.setItems(humanClasses);
-        humanPos1.setValue(HumanUnitName.NONE.getName());
         humanPos2.setItems(humanClasses);
-        humanPos2.setValue(HumanUnitName.NONE.getName());
         humanPos3.setItems(humanClasses);
-        humanPos3.setValue(HumanUnitName.NONE.getName());
-
         towerWeaponComboBox.setItems(FXCollections.observableArrayList(
-                WeaponName.LASER,
-                WeaponName.MINIGUN
+                LASER.getName(),
+                MINIGUN.getName(),
+                HANDGUN.getName()
         ));
-        towerWeaponComboBox.setValue(WeaponName.MINIGUN);
+
+        humanPos1.setValue(gameSettings.getHumanUnits().get(0).getName().getName());
+        setHumansClass(humanPos1);
+        humanPos2.setValue(gameSettings.getHumanUnits().get(1).getName().getName());
+        setHumansClass(humanPos2);
+        humanPos3.setValue(gameSettings.getHumanUnits().get(2).getName().getName());
+        setHumansClass(humanPos3);
+        towerWeaponComboBox.setValue(gameSettings.getTower().getWeapon().getName().getName());
     }
 
     private void initFilter() {
@@ -114,7 +115,7 @@ public class OptionsViewController {
         humanHealthSlider.setShowTickMarks(true);
         humanHealthSlider.setMajorTickUnit(minHumanHealth);
         humanHealthSlider.setBlockIncrement(minHumanHealth);
-        humanHealthSlider.setValue(100);
+        humanHealthSlider.setValue(gameSettings.getBaseHealthHuman());
 
         towerHealthSlider.setMin(minTowerHealth);
         towerHealthSlider.setMax(maxTowerHealth);
@@ -122,25 +123,33 @@ public class OptionsViewController {
         towerHealthSlider.setShowTickMarks(true);
         towerHealthSlider.setMajorTickUnit(minTowerHealth);
         towerHealthSlider.setBlockIncrement(minTowerHealth);
-        towerHealthSlider.setValue(1500);
+        towerHealthSlider.setValue(gameSettings.getBaseHealthTower());
     }
 
     @FXML
     public void backToStart() {
         SceneController sceneController = SceneController.getInstance();
-        GameSettings.getInstance(
-                (int) humanHealthSlider.getValue(),
-                (int) towerHealthSlider.getValue(),
-                getHumanUnitNames(),
-                towerWeaponComboBox.getValue());
+        setGameSettings();
         sceneController.activate(SceneNames.MAIN);
+    }
+
+    @FXML
+    public void startGame() {
+        SceneController sceneController = SceneController.getInstance();
+        setGameSettings();
+        sceneController.activate(SceneNames.GAME);
+    }
+
+    @FXML
+    public void resetOptions(){
+        GameSettings.removeInstance();
+        initialize();
     }
 
     @FXML
     public void setHuman(Event event) {
         ComboBox<String> clickedBox = (ComboBox<String>) event.getSource();
-        StackPane parent = (StackPane) clickedBox.getParent();
-        parent.getStyleClass().setAll(getHumanUnitName(clickedBox.getValue()).getCss());
+        setHumansClass(clickedBox);
     }
 
     @FXML
@@ -150,22 +159,37 @@ public class OptionsViewController {
     }
 
     @FXML
-    public void changeTowerWeapon(){
+    public void changeTowerWeapon() {
 
     }
 
     public void checkHumanHealthText(boolean isFocused) {
-        if(!isFocused){
+        if (!isFocused) {
             setHealth(humanHealthSlider.getId(),
                     validator.getInValueInLimits(humanHealthText.getText(), minHumanHealth, maxHumanHealth));
 
         }
     }
+
     public void checkTowerHealthText(boolean isFocused) {
-        if(!isFocused){
+        if (!isFocused) {
             setHealth(towerHealthSlider.getId(),
                     validator.getInValueInLimits(towerHealthText.getText(), minTowerHealth, maxTowerHealth));
         }
+    }
+
+    private void setHumansClass(ComboBox<String> comboBox) {
+        StackPane parent = (StackPane) comboBox.getParent();
+        parent.getStyleClass().setAll(getHumanUnitName(comboBox.getValue()).getCss());
+    }
+
+    private void setGameSettings() {
+        GameSettings.removeInstance();
+        GameSettings.getInstance(
+                (int) humanHealthSlider.getValue(),
+                (int) towerHealthSlider.getValue(),
+                getHumanUnitNames(),
+                getTowerWeapon());
     }
 
     private void setHealth(String id, String value) {
@@ -181,8 +205,8 @@ public class OptionsViewController {
         }
     }
 
-    private void unfocusedTextField(String id, boolean unfocused){
-        if(id.equals(humanHealthText.getId())){
+    private void unfocusedTextField(String id, boolean unfocused) {
+        if (id.equals(humanHealthText.getId())) {
             humanHealthText.getText();
         }
     }
@@ -196,6 +220,7 @@ public class OptionsViewController {
     }
 
     private HumanUnitName getHumanUnitName(String humanName) {
+        if (humanName == null || humanName.isEmpty()) return HumanUnitName.NONE;
         if (humanName.equals(HumanUnitName.TANK.getName())) {
             return HumanUnitName.TANK;
         } else if (humanName.equals(HumanUnitName.SNIPER.getName())) {
@@ -204,6 +229,17 @@ public class OptionsViewController {
             return HumanUnitName.ENGINEER;
         }
         return HumanUnitName.NONE;
+    }
+
+    private WeaponName getTowerWeapon(){
+        String weaponNameString = towerWeaponComboBox.getValue();
+        if(weaponNameString.equals(LASER.getName())){
+            return LASER;
+        }else if(weaponNameString.equals(MINIGUN.getName())){
+            return MINIGUN;
+        }else{
+            return HANDGUN;
+        }
     }
 
 }

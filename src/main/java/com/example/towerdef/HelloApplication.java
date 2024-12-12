@@ -15,7 +15,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader main = new FXMLLoader(HelloApplication.class.getResource("fxml/start-screen-view.fxml"));
 
-        Scene scene = new Scene(main.load(), 1200, 800);
+        Scene scene = new Scene(main.load(), 1200, 700);
         SceneController sceneController = SceneController.getInstance(scene);
         sceneController.addScreen(SceneNames.MAIN,"fxml/start-screen-view.fxml");
         sceneController.addScreen(SceneNames.GAME, "fxml/game-view.fxml");
