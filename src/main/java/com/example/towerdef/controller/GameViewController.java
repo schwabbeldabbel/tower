@@ -9,6 +9,7 @@ import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
 import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
 import com.example.towerdef.model.gamelogic.review.GameStatistics;
+import com.example.towerdef.model.gamelogic.runtime.GameplayTimer;
 import com.example.towerdef.model.gamelogic.runtime.TravelAnimations;
 import com.example.towerdef.model.gamelogic.runtime.RandomSelector;
 import com.example.towerdef.model.gamelogic.runtime.Validator;
@@ -59,9 +60,10 @@ public class GameViewController {
     private final Map<Hittable, Node> hittablePosition;
     private final Map<Bullet, Timeline> activeBulletsTimeline;
 
+    private TravelAnimations travelAnimations;
 
     private final Validator validator;
-    private final TravelAnimations travelAnimations;
+    private final GameplayTimer gameplayTimer;
 
     public GameViewController(){
         positionTarget = new HashMap<>();
@@ -69,7 +71,7 @@ public class GameViewController {
         hittablePosition = new HashMap<>();
         activeBulletsTimeline = new HashMap<>();
         validator = new Validator();
-        travelAnimations = new TravelAnimations();
+        gameplayTimer = new GameplayTimer();
         collidingNodes = new ArrayList<>();
     }
 
@@ -86,6 +88,7 @@ public class GameViewController {
         collidingNodes.add(humanPos2);
         collidingNodes.add(humanPos3);
         collidingNodes.add(towerPos);
+        travelAnimations = new TravelAnimations(root);
         Platform.runLater(this::startTimer);
     }
 
@@ -101,7 +104,7 @@ public class GameViewController {
         Path path = new Path();
         PathTransition pathTransition = new PathTransition();
 
-        travelAnimations.initializeStartPosition(bullet, startPosition, path, root);
+        travelAnimations.initializeStartPosition(bullet, startPosition, path);
 
         travelAnimations.initializeTravelPath(bullet, positionTarget.get(target), path, pathTransition);
 
@@ -139,12 +142,12 @@ public class GameViewController {
         }
     }
 
-    private void hit(Node target, int damage, String styleClass) {
+    public void hit(Node target, int damage, String styleClass) {
         Hittable hittable = positionHittable.get(target);
         int damageTaken = hittable.hit(damage);
         Label damageLabel = new Label(String.valueOf(damageTaken));
         damageLabel.getStyleClass().add(styleClass);
-        travelAnimations.startDamageCountAnimation(damageLabel, root, target);
+        travelAnimations.startDamageCountAnimation(damageLabel, target);
 
         boolean alive = hittable.isAlive();
         if(!alive){
@@ -164,19 +167,16 @@ public class GameViewController {
 
     private void checkShooting(int milliSeconds) {
         for (HumanUnit humanUnit : humans) {
-            Weapon weapon = humanUnit.getWeapon();
-            if(weapon != null){
-                if (milliSeconds % weapon.getAttackSpeed() == 0) {
-                    Bullet bullet = humanUnit.shoot();
-                    if(bullet != null){
-                        addBullet(bullet, humanUnit.getPosition(), towerPos, weapon.getDamage());
-                    }
+            if(gameplayTimer.checkHumanShooting(milliSeconds, humanUnit)){
+                Bullet bullet = humanUnit.shoot();
+                if(bullet != null) {
+                    addBullet(bullet, humanUnit.getPosition(), towerPos, humanUnit.getWeapon().getDamage());
                 }
             }
         }
-        if (milliSeconds % tower.getWeapon().getAttackSpeed() == 0) {
+        if (gameplayTimer.checkTowerShooting(milliSeconds, tower)) {
             Bullet bullet = tower.shoot();
-            if(bullet != null) {
+            if(bullet != null){
                 addBullet(bullet, -1, RandomSelector.updateSelectedHumanTarget(humans, hittablePosition), tower.getWeapon().getDamage());
             }
         }

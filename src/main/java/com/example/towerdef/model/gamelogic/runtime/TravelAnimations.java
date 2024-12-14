@@ -1,5 +1,6 @@
 package com.example.towerdef.model.gamelogic.runtime;
 
+import com.example.towerdef.controller.GameViewController;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
 import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
 import com.example.towerdef.model.gamelogic.time.Speed;
@@ -19,13 +20,22 @@ import javafx.util.Duration;
 import lombok.Setter;
 import org.controlsfx.control.spreadsheet.Grid;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TravelAnimations {
 
     @Setter
     private Speed speed = Speed.NORMAL;
 
+    private GridPane root;
 
-    public void initializeStartPosition(Bullet bullet, int startPosition, Path path, GridPane root) {
+    public TravelAnimations(GridPane root){
+        this.root = root;
+    }
+
+
+    public void initializeStartPosition(Bullet bullet, int startPosition, Path path) {
         switch (startPosition) {
             //col, row
             case 0:
@@ -70,11 +80,11 @@ public class TravelAnimations {
         }
     }
 
-    public void startDamageCountAnimation(Label damageLabel, GridPane root, Node target){
+    public void startDamageCountAnimation(Label damageLabel, Node target){
         Path path = new Path();
         PathTransition pathTransition = new PathTransition();
         int position = IdService.getPositionOfId(target.getId());
-        initializeStartPositionUp(damageLabel, path, root, position);
+        initializeStartPositionUp(damageLabel, path, position);
         initializeTravelPathUp(path, pathTransition);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200 * speed.getMiliseconds()), event -> {
@@ -89,7 +99,7 @@ public class TravelAnimations {
         pathTransition.play();
     }
 
-    private void initializeStartPositionUp(Node node, Path path, GridPane root, int position) {
+    private void initializeStartPositionUp(Node node, Path path, int position) {
         switch (position) {
             case 1 -> root.add(node, 3, 1);
             case 2 -> root.add(node, 1, 3);
@@ -104,5 +114,6 @@ public class TravelAnimations {
         path.getElements().add(new LineTo(0, -60));
         pathTransition.setDuration(Duration.millis(200 * speed.getMiliseconds()));
     }
+
 
 }
