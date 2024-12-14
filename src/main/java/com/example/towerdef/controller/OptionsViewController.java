@@ -2,7 +2,9 @@ package com.example.towerdef.controller;
 
 import com.example.towerdef.controller.scenes.SceneController;
 import com.example.towerdef.controller.scenes.SceneNames;
+import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.human.HumanUnitName;
+import com.example.towerdef.model.data.tower.Tower;
 import com.example.towerdef.model.data.weapon.WeaponName;
 import com.example.towerdef.model.gamelogic.runtime.Validator;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
@@ -13,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 
+import java.util.List;
 import java.util.function.UnaryOperator;
 
 import static com.example.towerdef.model.data.weapon.WeaponName.*;
@@ -38,6 +41,8 @@ public class OptionsViewController {
     private Validator validator;
 
     private GameSettings gameSettings;
+    private List<HumanUnit> humanUnits;
+    private Tower tower;
 
     public OptionsViewController() {
         validator = new Validator();
@@ -45,6 +50,8 @@ public class OptionsViewController {
 
     public void initialize() {
         this.gameSettings = GameSettings.getInstance();
+        this.humanUnits = gameSettings.getHumanUnits();
+        this.tower = gameSettings.getTower();
         initComboBox();
         initSliders();
         initFilter();
@@ -66,12 +73,30 @@ public class OptionsViewController {
                 MINIGUN.getName(),
                 HANDGUN.getName()
         ));
-        humanPos1.setValue(gameSettings.getHumanUnits().get(0).getName().getName());
-        setHumansClass(humanPos1);
-        humanPos2.setValue(gameSettings.getHumanUnits().get(1).getName().getName());
-        setHumansClass(humanPos2);
-        humanPos3.setValue(gameSettings.getHumanUnits().get(2).getName().getName());
-        setHumansClass(humanPos3);
+        humanUnits.forEach(human -> {
+            if(human.getPosition() == 0){
+                humanPos1.setValue(human.getName().getName());
+                setHumansClass(humanPos1);
+            }else if(human.getPosition() == 1){
+                humanPos2.setValue(humanUnits.get(1).getName().getName());
+                setHumansClass(humanPos2);
+            }else if(human.getPosition() == 2){
+                humanPos3.setValue(humanUnits.get(2).getName().getName());
+                setHumansClass(humanPos3);
+            }
+        });
+        if(humanPos1.getValue() == null){
+            humanPos1.setValue(HumanUnitName.NONE.getName());
+            setHumansClass(humanPos1);
+        }
+        if(humanPos2.getValue() == null){
+            humanPos2.setValue(HumanUnitName.NONE.getName());
+            setHumansClass(humanPos2);
+        }
+        if(humanPos3.getValue() == null){
+            humanPos3.setValue(HumanUnitName.NONE.getName());
+            setHumansClass(humanPos3);
+        }
         towerWeaponComboBox.setValue(gameSettings.getTower().getWeapon().getName().getName());
     }
 

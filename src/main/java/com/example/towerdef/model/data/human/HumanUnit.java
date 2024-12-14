@@ -25,7 +25,7 @@ public class HumanUnit implements Hittable {
         this.healing = builder.healing;
         this.armor = builder.armor;
         this.position = builder.position;
-        this.alive = true;
+        this.alive = builder.isAlive;
     }
 
     public Bullet shoot(){
@@ -69,6 +69,7 @@ public class HumanUnit implements Hittable {
         private int healing;
         private float armor;
         private int position;
+        private boolean isAlive = true;
 
         public HumanUnitBuilder setName(HumanUnitName name) {
             this.name = name;
@@ -97,6 +98,11 @@ public class HumanUnit implements Hittable {
 
         public HumanUnitBuilder setPosition(int position) {
             this.position = position;
+            return this;
+        }
+
+        public HumanUnitBuilder setIsAlive(boolean isAlive){
+            this.isAlive = isAlive;
             return this;
         }
 

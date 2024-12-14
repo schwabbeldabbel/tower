@@ -9,7 +9,9 @@ import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Singleton
@@ -23,6 +25,7 @@ public class GameSettings {
     private int baseHealthHuman;
     @Getter
     private int baseHealthTower;
+    private WeaponName towerWeapon;
 
     //Human weapons
     private final Weapon LMG = new Weapon(WeaponName.LMG, 20, 10, BulletType.NORMAL);
@@ -30,7 +33,6 @@ public class GameSettings {
     private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON, 120, 20, BulletType.DRILL);
 
     //Human units available
-    @Getter
     private List<HumanUnit> humanUnits = new ArrayList<>();
 
     //Tower weapons
@@ -39,7 +41,6 @@ public class GameSettings {
     private final Weapon LASER = new Weapon(WeaponName.LASER, 240, 200, BulletType.LASER);
 
     //Tower
-    @Getter
     private Tower tower;
 
     /**
@@ -52,6 +53,7 @@ public class GameSettings {
         this.manualSetUp = manualSetUp;
         this.baseHealthHuman = baseHealth;
         this.baseHealthTower = baseHealthTower;
+        this.towerWeapon = towerWeapon;
         createHumans(humanUnitNames);
 
         this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon), 0.2f);
@@ -88,8 +90,22 @@ public class GameSettings {
         INSTANCE = null;
     }
 
+    public Tower getTower(){
+        this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon), 0.2f);
+        return tower;
+    }
+
+    public List<HumanUnit> getHumanUnits(){
+        HumanUnitName[] names = humanUnits.stream()
+                .map(HumanUnit::getName)
+                .toArray(HumanUnitName[]::new);
+        this.humanUnits = new ArrayList<>();
+        createHumans(names);
+        return humanUnits;
+    }
+
     private void createHumans(HumanUnitName[] humanUnitNames){
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < humanUnitNames.length; i++){
             switch (humanUnitNames[i]){
                 case TANK:
                     addTank(i);
@@ -101,6 +117,7 @@ public class GameSettings {
                     addEngineer(i);
                     break;
                 default:
+                    addNone(i);
                     break;
             }
         }
@@ -138,6 +155,19 @@ public class GameSettings {
                 .setHealing((int) (baseHealthHuman * 0.2))
                 .setArmor(0.10f)
                 .setPosition(position)
+                .build();
+        this.humanUnits.add(engineer);
+    }
+
+    private void addNone(int position){
+        HumanUnit engineer = new HumanUnit.HumanUnitBuilder()
+                .setName(HumanUnitName.NONE)
+                .setHealth(0)
+                .setWeapon(null)
+                .setHealing(0)
+                .setArmor(0)
+                .setPosition(position)
+                .setIsAlive(false)
                 .build();
         this.humanUnits.add(engineer);
     }

@@ -1,6 +1,12 @@
 package com.example.towerdef.model.gamelogic.runtime;
 
 
+import com.example.towerdef.model.data.Hittable;
+import com.example.towerdef.model.data.human.HumanUnit;
+import javafx.scene.Node;
+
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class RandomSelector {
@@ -9,9 +15,13 @@ public class RandomSelector {
 
     private RandomSelector() {}
 
-    //TODO the random selection was based on the removing of the humans if dead. But now the human List shouldn´t be edited so the random selection of the human has to be changed.
-    public static int updateSelectedHumanTarget(int bound) {
-        return random.nextInt(1, bound + 1);
+    public static Node updateSelectedHumanTarget(List<HumanUnit> humans, Map<Hittable, Node> hittableNode) {
+        List<HumanUnit> foundHumans = humans.stream().filter(HumanUnit::isAlive).toList();
+        if(!foundHumans.isEmpty()){
+            HumanUnit human = foundHumans.get(random.nextInt(0, foundHumans.size()));
+            return hittableNode.get(human);
+        }
+        return null;
     }
 
     public static boolean isTowerMalfunction(int value){

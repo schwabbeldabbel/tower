@@ -4,11 +4,12 @@ import com.example.towerdef.model.data.Hittable;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
 import lombok.Getter;
+import lombok.Setter;
 
 public class Tower implements Hittable {
 
     private String name;
-    @Getter
+    @Getter@Setter
     private int health;
     @Getter
     private Weapon weapon;

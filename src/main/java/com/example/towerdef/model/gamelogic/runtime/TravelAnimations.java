@@ -48,6 +48,7 @@ public class TravelAnimations {
     }
 
     public void initializeTravelPath(Bullet bullet, Point2D target, Path path, PathTransition pathTransition) {
+        if(target == null) return;
         path.getElements().add(new LineTo(target.getX(), target.getY()));
 
         switch (bullet.getBulletType()) {

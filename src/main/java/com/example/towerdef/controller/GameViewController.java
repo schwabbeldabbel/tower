@@ -53,7 +53,6 @@ public class GameViewController {
 
     private List<HumanUnit> humans;
     private Tower tower;
-    private int selectedHumanPos;
 
     private final Map<Node, Point2D> positionTarget;
     private final Map<Node, Hittable> positionHittable;
@@ -72,7 +71,6 @@ public class GameViewController {
         validator = new Validator();
         travelAnimations = new TravelAnimations();
         collidingNodes = new ArrayList<>();
-        selectedHumanPos = 1;
     }
 
     public void initialize() {
@@ -94,11 +92,8 @@ public class GameViewController {
     public void notify(int milliSeconds) {
         setTimer(milliSeconds);
         checkShooting(milliSeconds);
-        if (milliSeconds % 10 == 0) {
-            selectedHumanPos = RandomSelector.updateSelectedHumanTarget((int) humans.stream().filter(HumanUnit::isAlive).count());
-        }
         if(milliSeconds % 100 == 0){
-            towerMalfunction(RandomSelector.isTowerMalfunction(GameSettings.getInstance().getTower().getHealth()));
+            towerMalfunction(RandomSelector.isTowerMalfunction(tower.getHealth()));
         }
     }
 
@@ -127,7 +122,7 @@ public class GameViewController {
     }
 
     private Timeline setUpCollisionDetection(Bullet bullet, Node target, int damage) {
-       return new Timeline(new KeyFrame(Duration.millis(5), event -> {
+       return new Timeline(new KeyFrame(Duration.millis(10), event -> {
             if (validator.isColliding(bullet, target)) {
                 root.getChildren().remove(bullet);
                 hit(target, damage, bullet.getBulletType().getStyleClass());
@@ -170,23 +165,21 @@ public class GameViewController {
     private void checkShooting(int milliSeconds) {
         for (HumanUnit humanUnit : humans) {
             Weapon weapon = humanUnit.getWeapon();
-            if (milliSeconds % weapon.getAttackSpeed() == 0) {
-                Bullet bullet = humanUnit.shoot();
-                if(bullet != null){
-                    addBullet(bullet, humanUnit.getPosition(), towerPos, weapon.getDamage());
+            if(weapon != null){
+                if (milliSeconds % weapon.getAttackSpeed() == 0) {
+                    Bullet bullet = humanUnit.shoot();
+                    if(bullet != null){
+                        addBullet(bullet, humanUnit.getPosition(), towerPos, weapon.getDamage());
+                    }
                 }
             }
         }
         if (milliSeconds % tower.getWeapon().getAttackSpeed() == 0) {
             Bullet bullet = tower.shoot();
             if(bullet != null) {
-                addBullet(bullet, -1, getSelectedTarget(), tower.getWeapon().getDamage());
+                addBullet(bullet, -1, RandomSelector.updateSelectedHumanTarget(humans, hittablePosition), tower.getWeapon().getDamage());
             }
         }
-    }
-
-    private Node getSelectedTarget() {
-        return hittablePosition.get(humans.get(selectedHumanPos-1));
     }
 
     private void setTimer(int milliSeconds) {
