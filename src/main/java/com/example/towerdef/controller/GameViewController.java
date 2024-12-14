@@ -5,7 +5,6 @@ import com.example.towerdef.controller.scenes.SceneNames;
 import com.example.towerdef.model.data.Hittable;
 import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.tower.Tower;
-import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
 import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
 import com.example.towerdef.model.gamelogic.review.GameStatistics;
@@ -95,8 +94,8 @@ public class GameViewController {
     public void notify(int milliSeconds) {
         setTimer(milliSeconds);
         checkShooting(milliSeconds);
-        if(milliSeconds % 100 == 0){
-            towerMalfunction(RandomSelector.isTowerMalfunction(tower.getHealth()));
+        if(milliSeconds % 200 == 0){
+            tower.resetMalfunction();
         }
     }
 
@@ -143,6 +142,10 @@ public class GameViewController {
     }
 
     public void hit(Node target, int damage, String styleClass) {
+        if(target.getId().equals(towerPos.getId()) && !tower.isMalfunctionOnCooldown()){
+            towerMalfunction(RandomSelector.isTowerMalfunction(tower.getHealth()));
+        }
+
         Hittable hittable = positionHittable.get(target);
         int damageTaken = hittable.hit(damage);
         Label damageLabel = new Label(String.valueOf(damageTaken));

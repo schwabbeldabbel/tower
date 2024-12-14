@@ -25,7 +25,7 @@ public class RandomSelector {
     }
 
     public static boolean isTowerMalfunction(int value){
-        double lambda = 1.0 / (value/100f);
+        double lambda = 1.0 / (value/35f);
         double probability = 1 - Math.exp(-lambda);
         double randomValue = random.nextDouble();
         return randomValue < probability;

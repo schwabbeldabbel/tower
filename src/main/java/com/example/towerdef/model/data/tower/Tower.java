@@ -19,6 +19,9 @@ public class Tower implements Hittable {
 
     private float armor;
 
+    @Getter
+    private boolean isMalfunctionOnCooldown;
+
 
     public Tower(String name, int health, Weapon weapon, float armor) {
         this.name = name;
@@ -26,6 +29,11 @@ public class Tower implements Hittable {
         this.weapon = weapon;
         this.alive = true;
         this.armor = armor;
+        this.isMalfunctionOnCooldown = false;
+    }
+
+    public void resetMalfunction(){
+        this.isMalfunctionOnCooldown = false;
     }
 
     public Bullet shoot(){
@@ -39,6 +47,7 @@ public class Tower implements Hittable {
     public int malfunction(){
         int damage = (int) ((health * 0.15) * armor);
         health -= damage;
+        isMalfunctionOnCooldown = true;
         return damage;
     }
 
