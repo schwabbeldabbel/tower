@@ -20,6 +20,7 @@ public class HelloApplication extends Application {
         sceneController.addScreen(SceneNames.MAIN,"fxml/start-screen-view.fxml");
         sceneController.addScreen(SceneNames.GAME, "fxml/game-view.fxml");
         sceneController.addScreen(SceneNames.OPTIONS, "fxml/options-view.fxml");
+        sceneController.addScreen(SceneNames.STATS, "fxml/stats-view.fxml");
         stage.setTitle("Tower!!");
         stage.setScene(scene);
         stage.setResizable(false);

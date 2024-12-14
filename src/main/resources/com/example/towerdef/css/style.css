@@ -49,6 +49,15 @@ Label{
     -fx-font-family: monospace;
     -fx-font-size: 20px;
 }
+.h1{
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-margin: 20px;
+}
+.h2{
+    -fx-font-size: 30px;
+    -fx-margin: 15px;
+}
 .fontFamily{
     -fx-font-family: monospace;
 }

@@ -18,6 +18,15 @@ public class HumanUnit implements Hittable {
     private int position;
     private boolean alive;
 
+    @Getter
+    private int damageFired = 0;
+    @Getter
+    private int damageTaken = 0;
+    @Getter
+    private int damageBlocked = 0;
+    @Getter
+    private int lifeHealed = 0;
+
     public HumanUnit(HumanUnitBuilder builder) {
         this.name = builder.name;
         this.health = builder.health;
@@ -30,6 +39,7 @@ public class HumanUnit implements Hittable {
 
     public Bullet shoot(){
         if(this.alive){
+            damageFired += weapon.getDamage();
             return weapon.shoot();
         }else{
             return null;
@@ -38,16 +48,24 @@ public class HumanUnit implements Hittable {
 
     @Override
     public int hit(int damage) {
-        int damageTaken = (int) (damage - (damage * armor));
+        int damageBlocked = (int) ((damage * armor));
+        this.damageBlocked += damageBlocked;
+
+        int damageTaken = damage - damageBlocked;
+        this.damageTaken += damageTaken;
+
         this.health -= damageTaken;
-        System.out.println("[ Human: " + this.name + "] hit: " + damageTaken);
-        System.out.println("[ Human: " + this.name + "] health: " + health);
+
+        System.out.println("[ " + this.name + " ] hit: " + damageTaken);
+        System.out.println("[ " + this.name + "] health: " + health);
+
         return damageTaken;
     }
 
     @Override
     public void heal() {
-        this.health += this.healing;
+        lifeHealed += healing;
+        health += healing;
     }
 
     @Override

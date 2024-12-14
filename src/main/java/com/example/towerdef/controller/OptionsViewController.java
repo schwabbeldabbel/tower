@@ -50,7 +50,7 @@ public class OptionsViewController {
 
     public void initialize() {
         this.gameSettings = GameSettings.getInstance();
-        this.humanUnits = gameSettings.getHumanUnits();
+        this.humanUnits = gameSettings.getNewHumanUnits();
         this.tower = gameSettings.getTower();
         initComboBox();
         initSliders();

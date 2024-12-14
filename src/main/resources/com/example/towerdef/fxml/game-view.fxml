@@ -47,7 +47,11 @@
             <HBox GridPane.columnIndex="4" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1">
                 <Label fx:id="winningLabel" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="1" GridPane.columnSpan="14"/>
                 <Button onAction="#backToStart">Zurück zum Start</Button>
+                <Button fx:id="statsBtn" onAction="#showStats" disable="true">
+                    Weiter zu der Statistik
+                </Button>
             </HBox>
+
         </GridPane>
         <Button fx:id="humanPos1" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
                 GridPane.rowSpan="2"

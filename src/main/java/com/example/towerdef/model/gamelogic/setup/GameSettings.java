@@ -9,9 +9,7 @@ import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Singleton
@@ -33,12 +31,13 @@ public class GameSettings {
     private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON, 120, 20, BulletType.DRILL);
 
     //Human units available
+    @Getter
     private List<HumanUnit> humanUnits = new ArrayList<>();
 
     //Tower weapons
     private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN, 100, 50, BulletType.BIG);
-    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN, 10, 2, BulletType.MINI);
-    private final Weapon LASER = new Weapon(WeaponName.LASER, 240, 200, BulletType.LASER);
+    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN, 10, 5, BulletType.MINI);
+    private final Weapon LASER = new Weapon(WeaponName.LASER, 240, 150, BulletType.LASER);
 
     //Tower
     private Tower tower;
@@ -95,7 +94,7 @@ public class GameSettings {
         return tower;
     }
 
-    public List<HumanUnit> getHumanUnits(){
+    public List<HumanUnit> getNewHumanUnits(){
         HumanUnitName[] names = humanUnits.stream()
                 .map(HumanUnit::getName)
                 .toArray(HumanUnitName[]::new);

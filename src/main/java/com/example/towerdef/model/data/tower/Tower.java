@@ -18,10 +18,19 @@ public class Tower implements Hittable {
     private boolean alive;
 
     private float armor;
+    private int healing;
 
     @Getter
     private boolean isMalfunctionOnCooldown;
 
+    @Getter
+    private int damageFired = 0;
+    @Getter
+    private int damageTaken = 0;
+    @Getter
+    private int damageBlocked = 0;
+    @Getter
+    private int lifeHealed = 0;
 
     public Tower(String name, int health, Weapon weapon, float armor) {
         this.name = name;
@@ -29,6 +38,7 @@ public class Tower implements Hittable {
         this.weapon = weapon;
         this.alive = true;
         this.armor = armor;
+        this.healing = (int) (health * 1.25);
         this.isMalfunctionOnCooldown = false;
     }
 
@@ -38,6 +48,7 @@ public class Tower implements Hittable {
 
     public Bullet shoot(){
         if(this.alive){
+            damageFired += weapon.getDamage();
             return weapon.shoot();
         }else{
             return null;
@@ -51,17 +62,30 @@ public class Tower implements Hittable {
         return damage;
     }
 
+    public void overdrive(int powerBullets){
+        this.weapon.overdrive(powerBullets);
+    }
+
     @Override
     public int hit(int damage) {
-        int damageTaken = (int) (damage - (damage * armor));
+        int damageBlocked = (int) ((damage * armor));
+        this.damageBlocked += damageBlocked;
+
+        int damageTaken = damage - damageBlocked;
+        this.damageTaken += damageTaken;
+
         this.health -= damageTaken;
-        System.out.println("[ Tower ] health: " + health);
+
+        System.out.println("[ " + this.name + " ] hit: " + damageTaken);
+        System.out.println("[ " + this.name + "] health: " + health);
+
         return damageTaken;
     }
 
     @Override
     public void heal() {
-        this.health += 0;
+        lifeHealed += healing;
+        health += healing;
     }
 
 

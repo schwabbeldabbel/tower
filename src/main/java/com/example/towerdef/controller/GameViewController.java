@@ -40,7 +40,7 @@ public class GameViewController {
     @FXML
     Rectangle towerPos;
     @FXML
-    private Button humanPos1, humanPos2, humanPos3;
+    private Button humanPos1, humanPos2, humanPos3, statsBtn;
     @FXML
     private Label timer;
 
@@ -77,7 +77,7 @@ public class GameViewController {
     public void initialize() {
         GameSettings gameSettings = GameSettings.getInstance();
         timerThread = new TimerThread(NORMAL, this);
-        humans = gameSettings.getHumanUnits();
+        humans = gameSettings.getNewHumanUnits();
         tower = gameSettings.getTower();
         placeHumans();
         positionTarget.put(towerPos, new Point2D(900, 0));
@@ -96,6 +96,10 @@ public class GameViewController {
         checkShooting(milliSeconds);
         if(milliSeconds % 200 == 0){
             tower.resetMalfunction();
+            int overDriveBullets = RandomSelector.isTowerOverdrive(tower.getHealth(), GameSettings.getInstance().getBaseHealthTower());
+            if(overDriveBullets > -1){
+                tower.overdrive(overDriveBullets);
+            }
         }
     }
 
@@ -166,6 +170,7 @@ public class GameViewController {
     private void end(String text){
         winningLabel.setText(text);
         timerThread.stop();
+        statsBtn.setDisable(false);
     }
 
     private void checkShooting(int milliSeconds) {
@@ -241,5 +246,10 @@ public class GameViewController {
         end("Abbruch");
         SceneController sceneController = SceneController.getInstance();
         sceneController.activate(SceneNames.MAIN);
+    }
+
+    @FXML
+    public void showStats(){
+        SceneController.getInstance().activate(SceneNames.STATS);
     }
 }
