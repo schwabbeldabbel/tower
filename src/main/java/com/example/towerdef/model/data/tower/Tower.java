@@ -3,11 +3,13 @@ package com.example.towerdef.model.data.tower;
 import com.example.towerdef.model.data.Hittable;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
+import com.example.towerdef.model.gamelogic.review.TowerStatsName;
 import lombok.Getter;
 import lombok.Setter;
 
 public class Tower implements Hittable {
 
+    @Getter
     private String name;
     @Getter@Setter
     private int health;
@@ -31,6 +33,8 @@ public class Tower implements Hittable {
     private int damageBlocked = 0;
     @Getter
     private int lifeHealed = 0;
+    @Getter
+    private int malfunctionDamage = 0;
 
     public Tower(String name, int health, Weapon weapon, float armor) {
         this.name = name;
@@ -40,6 +44,27 @@ public class Tower implements Hittable {
         this.armor = armor;
         this.healing = (int) (health * 1.25);
         this.isMalfunctionOnCooldown = false;
+    }
+
+    public int getData(TowerStatsName statsName){
+        switch (statsName){
+            case DAMAGE_DEALT -> {
+                return damageFired;
+            }
+            case DAMAGE_TAKEN -> {
+                return damageTaken;
+            }
+            case DAMAGE_BLOCKED -> {
+                return damageBlocked;
+            }
+            case OVERDRIVE_DAMAGE -> {
+                return weapon.getPowerBulletDamage();
+            }
+            case MALFUNCTION_DAMAGE -> {
+                return malfunctionDamage;
+            }
+        }
+        return -1;
     }
 
     public void resetMalfunction(){
@@ -58,6 +83,7 @@ public class Tower implements Hittable {
     public int malfunction(){
         int damage = (int) ((health * 0.15) * armor);
         health -= damage;
+        malfunctionDamage += damage;
         isMalfunctionOnCooldown = true;
         return damage;
     }

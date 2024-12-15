@@ -3,6 +3,7 @@ package com.example.towerdef.model.data.human;
 import com.example.towerdef.model.data.Hittable;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
+import com.example.towerdef.model.gamelogic.review.HumanStatsName;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,8 @@ public class HumanUnit implements Hittable {
     private HumanUnitName name;
     @Setter
     private int health;
+    @Getter
+    private final int maxHealth;
     private Weapon weapon;
     private int healing;
     private float armor;
@@ -30,8 +33,9 @@ public class HumanUnit implements Hittable {
     public HumanUnit(HumanUnitBuilder builder) {
         this.name = builder.name;
         this.health = builder.health;
+        this.maxHealth = builder.health;
         this.weapon = builder.weapon;
-        this.healing = builder.healing;
+        this.healing = (int) (this.health * 0.3);
         this.armor = builder.armor;
         this.position = builder.position;
         this.alive = builder.isAlive;
@@ -44,6 +48,24 @@ public class HumanUnit implements Hittable {
         }else{
             return null;
         }
+    }
+
+    public int getData(HumanStatsName humanStatsName){
+        switch (humanStatsName){
+            case DAMAGE_DEALT -> {
+                return damageFired;
+            }
+            case DAMAGE_TAKEN -> {
+                return damageTaken;
+            }
+            case DAMAGE_BLOCKED -> {
+                return damageBlocked;
+            }
+            case LIFE_HEALED -> {
+                return lifeHealed;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -66,6 +88,7 @@ public class HumanUnit implements Hittable {
     public void heal() {
         lifeHealed += healing;
         health += healing;
+        healing = 0;
     }
 
     @Override
@@ -84,7 +107,6 @@ public class HumanUnit implements Hittable {
         private HumanUnitName name;
         private int health;
         private Weapon weapon;
-        private int healing;
         private float armor;
         private int position;
         private boolean isAlive = true;
@@ -101,11 +123,6 @@ public class HumanUnit implements Hittable {
 
         public HumanUnitBuilder setWeapon(Weapon weapon) {
             this.weapon = weapon;
-            return this;
-        }
-
-        public HumanUnitBuilder setHealing(int healing) {
-            this.healing = healing;
             return this;
         }
 

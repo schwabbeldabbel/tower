@@ -16,4 +16,5 @@ module com.example.towerdef {
     opens com.example.towerdef.controller.scenes to javafx.fxml;
     exports com.example.towerdef.model.data.weapon.fxmlelement;
     exports com.example.towerdef.model.data.human;
+    exports com.example.towerdef.model.gamelogic.review;
 }

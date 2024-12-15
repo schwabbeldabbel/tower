@@ -51,7 +51,7 @@ public class OptionsViewController {
     public void initialize() {
         this.gameSettings = GameSettings.getInstance();
         this.humanUnits = gameSettings.getNewHumanUnits();
-        this.tower = gameSettings.getTower();
+        this.tower = gameSettings.getNewTower();
         initComboBox();
         initSliders();
         initFilter();
@@ -97,7 +97,7 @@ public class OptionsViewController {
             humanPos3.setValue(HumanUnitName.NONE.getName());
             setHumansClass(humanPos3);
         }
-        towerWeaponComboBox.setValue(gameSettings.getTower().getWeapon().getName().getName());
+        towerWeaponComboBox.setValue(gameSettings.getNewTower().getWeapon().getName().getName());
     }
 
     private void initFilter() {

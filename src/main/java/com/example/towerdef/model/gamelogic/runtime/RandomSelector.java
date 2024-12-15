@@ -40,9 +40,9 @@ public class RandomSelector {
         return -1;
     }
 
-    private static double calculateProbability(int value, int value2) {
-        double oneThird = value2 / 3.0;
-        double twoThirds = 2 * value2 / 3.0;
+    private static double calculateProbability(int value, int max) {
+        double oneThird = max / 3.0;
+        double twoThirds = 2 * max / 3.0;
         double distanceToOneThird = Math.abs(value - oneThird);
         double distanceToTwoThirds = Math.abs(value - twoThirds);
         double minDistance = Math.min(distanceToOneThird, distanceToTwoThirds);
@@ -50,18 +50,27 @@ public class RandomSelector {
     }
 
     private static int towerOverdriveBullets(int value, int max) {
-        double mean = 110 - Math.min(100, (value / max) * 100);
+        double mean = 60 - Math.min(50, (value / max) * 50);
         double stdDev = 10;
         int randomValue;
         do {
             randomValue = (int) (random.nextGaussian() * stdDev + mean);
-        } while (randomValue < 10 || randomValue > 100);
+        } while (randomValue < 10 || randomValue > 50);
         return randomValue;
     }
 
     public static int getRandomDifToGiven(int given, int bound) {
         if (given <= 0) given = 1;
         return random.nextInt(given, bound);
+    }
+
+    public static boolean getIsHealing(int current, int max){
+        double probability = 1.0 / (1.0 + (max-current));
+        double randomValue = random.nextDouble();
+        System.out.println("Healing probabilities:");
+        System.out.println(probability);
+        System.out.println(randomValue);
+        return randomValue > probability;
     }
 
 }

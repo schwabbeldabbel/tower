@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -11,19 +8,24 @@
            fx:controller="com.example.towerdef.controller.StatsViewController"
            stylesheets="@../css/style.css"
            styleClass="centered">
-    <GridPane>
-        <VBox GridPane.rowIndex="0" GridPane.columnIndex="0">
-            <HBox>
-                <Label styleClass="h1">Menschen</Label>
-            </HBox>
-            <VBox fx:id="humansPlayedContainer">
+    <ScrollPane>
+        <GridPane>
+            <VBox GridPane.rowIndex="0" GridPane.columnIndex="0">
+                <HBox>
+                    <Label styleClass="h1">Menschen</Label>
+                </HBox>
+                <BorderPane styleClass="barchart" fx:id="humansPlayedContainer">
+                </BorderPane>
             </VBox>
-        </VBox>
 
-        <VBox GridPane.rowIndex="1" GridPane.columnIndex="0">
-            <HBox>
-                <Label styleClass="h1">Turm</Label>
-            </HBox>
-        </VBox>
-    </GridPane>
+            <VBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+                <HBox>
+                    <Label styleClass="h1">Turm</Label>
+
+                </HBox>
+                <BorderPane styleClass="barchart" fx:id="towerChart">
+                </BorderPane>
+            </VBox>
+        </GridPane>
+    </ScrollPane>
 </StackPane>

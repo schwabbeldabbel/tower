@@ -26,9 +26,9 @@ public class GameSettings {
     private WeaponName towerWeapon;
 
     //Human weapons
-    private final Weapon LMG = new Weapon(WeaponName.LMG, 20, 10, BulletType.NORMAL);
-    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER, 100, 40, BulletType.BIG);
-    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON, 120, 20, BulletType.DRILL);
+    private final Weapon LMG = new Weapon(WeaponName.LMG, 50, 10, BulletType.NORMAL);
+    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER, 100, 100, BulletType.BIG);
+    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON, 120, 150, BulletType.DRILL);
 
     //Human units available
     @Getter
@@ -36,10 +36,11 @@ public class GameSettings {
 
     //Tower weapons
     private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN, 100, 50, BulletType.BIG);
-    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN, 10, 5, BulletType.MINI);
+    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN, 20, 8, BulletType.MINI);
     private final Weapon LASER = new Weapon(WeaponName.LASER, 240, 150, BulletType.LASER);
 
     //Tower
+    @Getter
     private Tower tower;
 
     /**
@@ -55,7 +56,7 @@ public class GameSettings {
         this.towerWeapon = towerWeapon;
         createHumans(humanUnitNames);
 
-        this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon), 0.2f);
+        this.tower = getNewTower();
     }
 
     /**
@@ -89,8 +90,8 @@ public class GameSettings {
         INSTANCE = null;
     }
 
-    public Tower getTower(){
-        this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon), 0.2f);
+    public Tower getNewTower(){
+        this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon), 0.3f);
         return tower;
     }
 
@@ -127,8 +128,7 @@ public class GameSettings {
                 .setName(HumanUnitName.TANK)
                 .setHealth((int) (baseHealthHuman * 1.5))
                 .setWeapon(LMG)
-                .setHealing((int) (baseHealthHuman * 0.2))
-                .setArmor(0.15f)
+                .setArmor(0.35f)
                 .setPosition(position)
                 .build();
         this.humanUnits.add(tank);
@@ -139,7 +139,6 @@ public class GameSettings {
                 .setName(HumanUnitName.SNIPER)
                 .setHealth((int) (baseHealthHuman * 0.8))
                 .setWeapon(SNIPER_WEAPON)
-                .setHealing((int) (baseHealthHuman * 0.2))
                 .setArmor(0.05f)
                 .setPosition(position)
                 .build();
@@ -151,8 +150,7 @@ public class GameSettings {
                 .setName(HumanUnitName.ENGINEER)
                 .setHealth(baseHealthHuman)
                 .setWeapon(DRILL_CANON)
-                .setHealing((int) (baseHealthHuman * 0.2))
-                .setArmor(0.10f)
+                .setArmor(0.20f)
                 .setPosition(position)
                 .build();
         this.humanUnits.add(engineer);
@@ -163,7 +161,6 @@ public class GameSettings {
                 .setName(HumanUnitName.NONE)
                 .setHealth(0)
                 .setWeapon(null)
-                .setHealing(0)
                 .setArmor(0)
                 .setPosition(position)
                 .setIsAlive(false)

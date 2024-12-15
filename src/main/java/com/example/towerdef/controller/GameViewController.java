@@ -7,7 +7,6 @@ import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.tower.Tower;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
 import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
-import com.example.towerdef.model.gamelogic.review.GameStatistics;
 import com.example.towerdef.model.gamelogic.runtime.GameplayTimer;
 import com.example.towerdef.model.gamelogic.runtime.TravelAnimations;
 import com.example.towerdef.model.gamelogic.runtime.RandomSelector;
@@ -78,7 +77,7 @@ public class GameViewController {
         GameSettings gameSettings = GameSettings.getInstance();
         timerThread = new TimerThread(NORMAL, this);
         humans = gameSettings.getNewHumanUnits();
-        tower = gameSettings.getTower();
+        tower = gameSettings.getNewTower();
         placeHumans();
         positionTarget.put(towerPos, new Point2D(900, 0));
         positionHittable.put(towerPos, tower);
@@ -94,12 +93,18 @@ public class GameViewController {
     public void notify(int milliSeconds) {
         setTimer(milliSeconds);
         checkShooting(milliSeconds);
-        if(milliSeconds % 200 == 0){
-            tower.resetMalfunction();
-            int overDriveBullets = RandomSelector.isTowerOverdrive(tower.getHealth(), GameSettings.getInstance().getBaseHealthTower());
-            if(overDriveBullets > -1){
-                tower.overdrive(overDriveBullets);
+        if(milliSeconds % 20 == 0){
+            if(tower.getWeapon().getPowerBullets() < 0) {
+                tower.resetMalfunction();
+                int overDriveBullets = RandomSelector.isTowerOverdrive(tower.getHealth(), GameSettings.getInstance().getBaseHealthTower());
+                if (overDriveBullets > -1) {
+                    tower.overdrive(overDriveBullets);
+                }
             }
+            humans.stream()
+                    .filter(human -> RandomSelector.getIsHealing(human.getHealth(), human.getMaxHealth()))
+                    .filter(human -> human.getHealing() != 0)
+                    .forEach(HumanUnit::heal);
         }
     }
 
@@ -141,7 +146,6 @@ public class GameViewController {
     private void towerMalfunction(boolean isTowerMalfunction) {
         if(isTowerMalfunction){
             hit(towerPos, tower.malfunction(), BulletType.EXTRA.getStyleClass());
-            GameStatistics.incrementMalfunctionCount();
         }
     }
 
@@ -170,6 +174,12 @@ public class GameViewController {
     private void end(String text){
         winningLabel.setText(text);
         timerThread.stop();
+        System.out.println("------------------------------------END-----------------------------------------");
+        System.out.println("Power bullets tower: " + GameSettings.getInstance().getTower().getWeapon().getPowerBulletsFired());
+        System.out.println("Malfunction damage tower: " + GameSettings.getInstance().getTower().getMalfunctionDamage());
+        for(HumanUnit human: humans){
+            System.out.println("Human " + human.getName() + " healed: " + human.getLifeHealed());
+        }
         statsBtn.setDisable(false);
     }
 

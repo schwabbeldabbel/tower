@@ -56,7 +56,8 @@ Label{
 }
 .h2{
     -fx-font-size: 30px;
-    -fx-margin: 15px;
+    -fx-padding-right: 15px;
+    -fx-padding-left: 15px;
 }
 .fontFamily{
     -fx-font-family: monospace;
@@ -66,4 +67,11 @@ Label{
     -fx-text-fill: red;
     -fx-background-color: grey;
     -fx-font-size: 50px;
+}
+
+.barchart{
+    -fx-min-width: 1000px;
+    -fx-max-width: 1000px;
+    -fx-min-height: 350px;
+    -fx-max-height: 350px;
 }
