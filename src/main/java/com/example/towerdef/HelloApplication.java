@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -24,6 +25,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Tower!!");
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
         sceneController.activate(SceneNames.MAIN);
     }
