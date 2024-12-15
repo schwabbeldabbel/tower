@@ -1,6 +1,6 @@
 
 .comboBoxContainer{
-    -fx-max-width: 180px;
+    -fx-max-width: 200px;
     -fx-margin: 5px;
 }
 
@@ -14,10 +14,11 @@
     -fx-padding: 10px;
     -fx-font-family: monospace;
 }
-.labelTextDark{
-    -fx-text-fill: black;
-    -fx-padding: 10px;
-    -fx-font-family: monospace;
+
+.weaponBox{
+    -fx-background-color: #00ccff;
+    -fx-opacity: 0.5;
+    -fx-text-fill: white;
 }
 
 .textField{

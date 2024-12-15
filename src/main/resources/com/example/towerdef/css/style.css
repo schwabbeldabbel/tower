@@ -30,6 +30,9 @@
     -fx-font-size: 30px;
 }
 
+JFXSlider .axis {
+    -fx-tick-label-fill: white;
+}
 
 Label{
     -fx-font-family: monospace;
@@ -63,11 +66,22 @@ JFXButton{
     -fx-font-size: 17px;
 }
 
+.none{
+    -fx-background-color: transparent;
+}
+
 JFXButton: hover{
     -fx-background-color: black;
     -fx-opacity: 0.8;
     -fx-text-fill: white;
 }
+
+JFXButton: disabled{
+    -fx-background-color: black;
+    -fx-opacity: 0.3;
+    -fx-text-fill: white;
+}
+
 .barchart{
     -fx-min-width: 1000px;
     -fx-max-width: 1000px;

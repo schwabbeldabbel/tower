@@ -9,7 +9,7 @@ public enum HumanUnitName {
     TANK("Verteidiger", "human-tank", Color.GREEN),
     SNIPER("Scharfschütze", "human-sniper", Color.YELLOW),
     ENGINEER("Mechaniker", "human-engineer", Color.BLUE),
-    NONE("Nicht besetzt", "", Color.WHITE);
+    NONE("Nicht besetzt", "none", Color.WHITE);
 
     @Getter
     private final String name;

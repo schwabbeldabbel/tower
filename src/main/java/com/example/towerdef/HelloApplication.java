@@ -22,10 +22,10 @@ public class HelloApplication extends Application {
         sceneController.addScreen(SceneNames.GAME, "fxml/game-view.fxml");
         sceneController.addScreen(SceneNames.OPTIONS, "fxml/options-view.fxml");
         sceneController.addScreen(SceneNames.STATS, "fxml/stats-view.fxml");
-        stage.setTitle("Tower!!");
+        stage.setTitle("Simulation");
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initStyle(StageStyle.UTILITY);
         stage.show();
         sceneController.activate(SceneNames.MAIN);
     }
