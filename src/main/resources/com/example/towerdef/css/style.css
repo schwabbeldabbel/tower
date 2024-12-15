@@ -7,6 +7,11 @@
     -fx-background-position: center center;
     -fx-background-opacity: 0.5;
 }
+.transparent-background{
+    -fx-background-color: rgba(85, 17, 0, 0.7);
+
+}
+
 .header{
     -fx-font-size: 100px !important;
 }
@@ -28,6 +33,7 @@
 Label{
     -fx-font-family: monospace;
     -fx-font-size: 20px;
+    -fx-text-fill: white;
 }
 .h1{
     -fx-font-size: 40px;
@@ -48,13 +54,25 @@ Label{
     -fx-background-color: grey;
     -fx-font-size: 50px;
 }
+JFXButton{
+    -fx-background-color: #00ccff;
+    -fx-opacity: 0.5;
+    -fx-margin-right: 5px;
+    -fx-margin-left: 5px;
+    -fx-font-size: 17px;
+}
+
 JFXButton: hover{
-    -fx-background-color: grey;
-    -fx-background-opacity: 50px;
+    -fx-background-color: black;
+    -fx-opacity: 0.8;
+    -fx-text-fill: white;
 }
 .barchart{
     -fx-min-width: 1000px;
     -fx-max-width: 1000px;
     -fx-min-height: 350px;
     -fx-max-height: 350px;
+}
+.gameObject{
+    -fx-opacity: 1;
 }

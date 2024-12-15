@@ -4,6 +4,10 @@
     -fx-margin: 5px;
 }
 
+.options{
+    -fx-padding: 50px;
+}
+
 .labelText{
     -fx-text-fill: white;
     -fx-padding: 10px;
@@ -42,6 +46,18 @@
     -fx-max-width: 40px;
     -fx-min-height: 40px;
     -fx-max-height: 40px;
+}
+
+.tower{
+    -fx-background-image: url("../images/tower.png");
+    -fx-background-color: transparent;
+    -fx-background-size: 80 200;
+    -fx-background-repeat: none;
+    -fx-background-position: center center;
+    -fx-min-width: 80px;
+    -fx-max-width: 80px;
+    -fx-min-height: 200px;
+    -fx-max-height: 200px;
 }
 
 .human-tank{

@@ -18,9 +18,9 @@
         </HBox>
     </top>
     <center>
-        <ScrollPane>
+        <ScrollPane styleClass="transparent-background">
             <GridPane>
-                <VBox GridPane.rowIndex="0" GridPane.columnIndex="0">
+                <VBox styleClass="transparent-background" GridPane.rowIndex="0" GridPane.columnIndex="0">
                     <HBox>
                         <Label styleClass="h1">Menschen</Label>
                     </HBox>
@@ -28,7 +28,7 @@
                     </BorderPane>
                 </VBox>
 
-                <VBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+                <VBox  styleClass="transparent-background" GridPane.rowIndex="1" GridPane.columnIndex="0">
                     <HBox>
                         <Label styleClass="h1">Turm</Label>
                     </HBox>

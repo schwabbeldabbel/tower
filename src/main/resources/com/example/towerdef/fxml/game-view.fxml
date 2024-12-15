@@ -68,18 +68,18 @@
             </rowConstraints>
             <Label fx:id="winningLabel" styleClass="endLabel" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="2"
                    GridPane.columnSpan="8"/>
-            <JFXButton fx:id="humanPos1" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
+            <JFXButton styleClass="gameObject" fx:id="humanPos1" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
                        GridPane.rowSpan="2"
                        minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
-            <JFXButton fx:id="towerPos" GridPane.columnIndex="7" GridPane.rowIndex="1"
+            <JFXButton styleClass="gameObject" fx:id="towerPos" GridPane.columnIndex="7" GridPane.rowIndex="1"
                        GridPane.columnSpan="2" GridPane.rowSpan="5"/>
-            <JFXButton fx:id="humanPos2" GridPane.columnIndex="1" GridPane.rowIndex="3"
+            <JFXButton styleClass="gameObject" fx:id="humanPos2" GridPane.columnIndex="1" GridPane.rowIndex="3"
                        GridPane.columnSpan="1" GridPane.rowSpan="2"
                        minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
             <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="4"
                        GridPane.columnSpan="1" GridPane.rowSpan="1"
-                       styleClass="barrel"/>
-            <JFXButton fx:id="humanPos3" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                       styleClass="barrel, gameObject"/>
+            <JFXButton styleClass="gameObject" fx:id="humanPos3" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
                        GridPane.rowSpan="2"
                        minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
         </GridPane>
