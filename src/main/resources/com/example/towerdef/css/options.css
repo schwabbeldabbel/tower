@@ -31,3 +31,39 @@
     -fx-background-radius: 0, 0, 0, 0;
     -fx-padding: 0.166667em;
 }
+
+.barrel{
+    -fx-background-image: url("../images/barrel.png");
+    -fx-background-color: transparent;
+    -fx-background-size: 40 40;
+    -fx-background-repeat: none;
+    -fx-background-position: center center;
+    -fx-min-width: 40px;
+    -fx-max-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+}
+
+.human-tank{
+    -fx-background-image: url("../images/soldierTank.png");
+    -fx-background-color: transparent;
+    -fx-background-size: 50 100;
+    -fx-background-repeat: none;
+    -fx-background-position: center center;
+}
+.human-sniper{
+     -fx-background-image: url("../images/soldierSniper.png");
+       -fx-background-color: transparent;
+    -fx-background-size: 50 100;
+
+       -fx-background-repeat: none;
+       -fx-background-position: center center;
+}
+.human-engineer{
+      -fx-background-image: url("../images/soldierEngineer.png");
+        -fx-background-color: transparent;
+    -fx-background-size: 50 100;
+
+        -fx-background-repeat: none;
+        -fx-background-position: center center;
+}

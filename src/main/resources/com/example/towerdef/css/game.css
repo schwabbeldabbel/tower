@@ -1,0 +1,67 @@
+
+.human-tank{
+    -fx-background-image: url("../images/soldierTank.png");
+    -fx-background-color: transparent;
+    -fx-background-size: 100 200;
+    -fx-background-repeat: none;
+    -fx-background-position: center center;
+}
+.human-sniper{
+     -fx-background-image: url("../images/soldierSniper.png");
+       -fx-background-color: transparent;
+       -fx-background-size: 100 200;
+       -fx-background-repeat: none;
+       -fx-background-position: center center;
+}
+.human-engineer{
+      -fx-background-image: url("../images/soldierEngineer.png");
+        -fx-background-color: transparent;
+        -fx-background-size: 100 200;
+        -fx-background-repeat: none;
+        -fx-background-position: center center;
+}
+.tower{
+    -fx-background-image: url("../images/tower.png");
+    -fx-background-color: transparent;
+    -fx-background-size: 200 500;
+    -fx-background-repeat: none;
+    -fx-background-position: center center;
+    -fx-min-width: 200px;
+    -fx-max-width: 200px;
+    -fx-min-height: 500px;
+    -fx-max-height: 500px;
+}
+
+.human-tank-dead{
+    -fx-background-image: url("../images/soldierTankDead.png");
+    -fx-background-color: transparent;
+    -fx-background-size: 100 200;
+    -fx-background-repeat: none;
+    -fx-background-position: center center;
+}
+.human-sniper-dead{
+     -fx-background-image: url("../images/soldierSniperDead.png");
+       -fx-background-color: transparent;
+       -fx-background-size: 100 200;
+       -fx-background-repeat: none;
+       -fx-background-position: center center;
+}
+.human-engineer-dead{
+      -fx-background-image: url("../images/soldierEngineerDead.png");
+        -fx-background-color: transparent;
+        -fx-background-size: 100 200;
+        -fx-background-repeat: none;
+        -fx-background-position: center center;
+}
+
+.barrel{
+    -fx-background-image: url("../images/barrel.png");
+    -fx-background-color: transparent;
+    -fx-background-size: 100 100;
+    -fx-background-repeat: none;
+    -fx-background-position: center center;
+    -fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-min-height: 100px;
+    -fx-max-height: 100px;
+}

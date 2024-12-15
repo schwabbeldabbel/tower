@@ -115,9 +115,8 @@
                              onAction="#setHuman"
                 />
             </StackPane>
-            <Rectangle GridPane.columnIndex="2" GridPane.rowIndex="4"
-                       GridPane.columnSpan="1" GridPane.rowSpan="1"
-                       fill="grey" height="40" width="40"/>
+            <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="4"
+                       GridPane.columnSpan="1" GridPane.rowSpan="1" styleClass="barrel"/>
             <StackPane GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
                        GridPane.rowSpan="2">
                 <JFXComboBox fx:id="humanPos3"

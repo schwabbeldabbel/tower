@@ -36,11 +36,10 @@ import static com.example.towerdef.model.gamelogic.time.Speed.*;
 public class GameViewController {
 
     @FXML
-    BorderPane root;
+    GridPane root;
+
     @FXML
-    Rectangle towerPos;
-    @FXML
-    private Button humanPos1, humanPos2, humanPos3, statsBtn;
+    private Button humanPos1, humanPos2, humanPos3, statsBtn, towerPos;
     @FXML
     private Label timer;
 
@@ -79,6 +78,7 @@ public class GameViewController {
         timerThread = new TimerThread(NORMAL, this);
         humans = gameSettings.getNewHumanUnits();
         tower = gameSettings.getNewTower();
+        towerPos.getStyleClass().add(tower.getStyleClass());
         placeHumans();
         positionTarget.put(towerPos, new Point2D(900, 0));
         positionHittable.put(towerPos, tower);
@@ -163,7 +163,8 @@ public class GameViewController {
 
         boolean alive = hittable.isAlive();
         if(!alive){
-            root.getChildren().remove(target);
+            target.getStyleClass().remove(hittable.getStyleClass());
+            target.getStyleClass().add(hittable.getStyleClass() + "-dead");
             hittable.die();
         }
         String winning = validator.isWinning(humans, tower);

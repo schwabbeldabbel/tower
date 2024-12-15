@@ -50,6 +50,10 @@ public class HumanUnit implements Hittable {
         }
     }
 
+    public String getStyleClass(){
+        return name.getCss();
+    }
+
     public int getData(HumanStatsName humanStatsName){
         switch (humanStatsName){
             case DAMAGE_DEALT -> {

@@ -12,4 +12,6 @@ public interface Hittable {
     boolean isAlive();
     void die();
 
+    String getStyleClass();
+
 }

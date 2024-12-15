@@ -1,11 +1,18 @@
 .centered{
     -fx-alignment: center;
     -fx-padding: 50px;
+    -fx-background-image: url("../images/background.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1200 700;
+    -fx-background-position: center center;
+    -fx-background-opacity: 0.5;
 }
 .header{
     -fx-font-size: 100px !important;
 }
-
+.endLabel{
+    -fx-font-size: 50px;
+}
 .timer{
     -fx-margin: 50px;
     -fx-font-size: 30px;
@@ -17,18 +24,6 @@
     -fx-font-size: 30px;
 }
 
-.human-tank{
-    -fx-color: green;
-    -fx-background-color: green;
-}
-.human-sniper{
-    -fx-color: yellow;
-    -fx-background-color: yellow;
-}
-.human-engineer{
-    -fx-color: blue;
-    -fx-background-color: blue;
-}
 
 Label{
     -fx-font-family: monospace;

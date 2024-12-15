@@ -22,6 +22,7 @@ public class Tower implements Hittable {
     private float armor;
     private int healing;
 
+
     @Getter
     private boolean isMalfunctionOnCooldown;
 
@@ -44,6 +45,10 @@ public class Tower implements Hittable {
         this.armor = armor;
         this.healing = (int) (health * 1.25);
         this.isMalfunctionOnCooldown = false;
+    }
+
+    public String getStyleClass(){
+        return "tower";
     }
 
     public int getData(TowerStatsName statsName){
