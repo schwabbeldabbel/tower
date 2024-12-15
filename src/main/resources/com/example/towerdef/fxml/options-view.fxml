@@ -4,12 +4,15 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.shape.Rectangle?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.example.towerdef.controller.OptionsViewController"
-           prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/style.css">
-
-    <GridPane styleClass="centered">
+           prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/style.css, @../css/options.css">
+    <GridPane styleClass="centered" onMouseClicked="#unfocusedTextFields">
         <columnConstraints>
             <ColumnConstraints minWidth="100"/>
             <ColumnConstraints minWidth="100"/>
@@ -33,24 +36,24 @@
             <Label>Leben der Menschen</Label>
             <HBox>
                 <Label>Aktuell:</Label>
-                <TextField fx:id="humanHealthText"/>
+                <TextField styleClass="textField" fx:id="humanHealthText"/>
             </HBox>
         </VBox>
         <VBox GridPane.columnIndex="5" GridPane.rowIndex="0" GridPane.columnSpan="2" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">
-            <Slider fx:id="humanHealthSlider" onMousePressed="#changeHealth" onMouseReleased="#changeHealth"/>
+            <JFXSlider fx:id="humanHealthSlider" onMousePressed="#changeHealth" onMouseReleased="#changeHealth"/>
         </VBox>
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Leben des Turms</Label>
             <HBox>
                 <Label>Aktuell:</Label>
-                <TextField fx:id="towerHealthText"/>
+                <TextField styleClass="textField" fx:id="towerHealthText"/>
             </HBox>
         </VBox>
         <VBox GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">
-            <Slider fx:id="towerHealthSlider" onMousePressed="#changeHealth" onMouseReleased="#changeHealth"/>
+            <JFXSlider fx:id="towerHealthSlider" onMousePressed="#changeHealth" onMouseReleased="#changeHealth"/>
         </VBox>
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
@@ -58,7 +61,7 @@
         </VBox>
         <VBox GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="200" maxWidth="200">
-            <ComboBox fx:id="towerWeaponComboBox" onAction="#changeTowerWeapon"/>
+            <JFXComboBox fx:id="towerWeaponComboBox"/>
         </VBox>
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
@@ -96,7 +99,7 @@
             </rowConstraints>
             <StackPane GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
                        GridPane.rowSpan="2">
-                <ComboBox fx:id="humanPos1"
+                <JFXComboBox fx:id="humanPos1"
                           minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
                           onAction="#setHuman"
                 />
@@ -107,9 +110,9 @@
                        fill="red" height="200" width="80"/>
             <StackPane GridPane.columnIndex="1" GridPane.rowIndex="3"
                        GridPane.columnSpan="1" GridPane.rowSpan="2">
-                <ComboBox fx:id="humanPos2"
-                          minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
-                          onAction="#setHuman"
+                <JFXComboBox fx:id="humanPos2"
+                             minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
+                             onAction="#setHuman"
                 />
             </StackPane>
             <Rectangle GridPane.columnIndex="2" GridPane.rowIndex="4"
@@ -117,15 +120,15 @@
                        fill="grey" height="40" width="40"/>
             <StackPane GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
                        GridPane.rowSpan="2">
-                <ComboBox fx:id="humanPos3"
+                <JFXComboBox fx:id="humanPos3"
                           minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
                           onAction="#setHuman"
                 />
             </StackPane>
         </GridPane>
-        <Button GridPane.columnIndex="1" GridPane.rowIndex="6" onAction="#backToStart">Startmenü</Button>
-        <Button GridPane.columnIndex="5" GridPane.rowIndex="6" onAction="#resetOptions">Zurücksetzen</Button>
-        <Button GridPane.columnIndex="6" GridPane.rowIndex="6" onAction="#startGame">Start</Button>
+        <JFXButton GridPane.columnIndex="1" GridPane.rowIndex="6" onAction="#backToStart">Startmenü</JFXButton>
+        <JFXButton GridPane.columnIndex="5" GridPane.rowIndex="6" onAction="#resetOptions">Zurücksetzen</JFXButton>
+        <JFXButton GridPane.columnIndex="6" GridPane.rowIndex="6" onAction="#startGame">Start</JFXButton>
 
     </GridPane>
 

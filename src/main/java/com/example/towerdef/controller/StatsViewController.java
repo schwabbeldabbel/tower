@@ -1,5 +1,7 @@
 package com.example.towerdef.controller;
 
+import com.example.towerdef.controller.scenes.SceneController;
+import com.example.towerdef.controller.scenes.SceneNames;
 import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.human.HumanUnitName;
 import com.example.towerdef.model.data.tower.Tower;
@@ -161,5 +163,22 @@ public class StatsViewController {
         towerChart.getChildren().removeAll();
         towerChart.setTop(towerStatsSelector);
         towerChart.setCenter(bachartTower);
+    }
+
+    @FXML
+    protected void toStart(){
+        SceneController.getInstance().activate(SceneNames.MAIN);
+    }
+    @FXML
+    protected void toOptions(){
+        SceneController.getInstance().activate(SceneNames.OPTIONS);
+    }
+    @FXML
+    protected void replay(){
+        SceneController.getInstance().activate(SceneNames.GAME);
+    }
+    @FXML
+    protected void endProgramm(){
+        System.exit(200);
     }
 }

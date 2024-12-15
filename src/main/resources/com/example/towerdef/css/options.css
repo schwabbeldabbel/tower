@@ -1,0 +1,33 @@
+
+.comboBoxContainer{
+    -fx-max-width: 180px;
+    -fx-margin: 5px;
+}
+
+.labelText{
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-font-family: monospace;
+}
+.labelTextDark{
+    -fx-text-fill: black;
+    -fx-padding: 10px;
+    -fx-font-family: monospace;
+}
+
+.textField{
+    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-radius: 20;
+    -fx-padding: 0.166667em;
+    -fx-font-size: 15px;
+    -fx-font-family: monospace;
+}
+.textField:hover{
+    -fx-background-color: transparent, #909090, transparent, white;
+    -fx-padding: 0.166667em;
+}
+.textField:focused{
+    -fx-background-color: transparent, #909090, transparent, white;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-padding: 0.166667em;
+}

@@ -103,7 +103,7 @@ public class OptionsViewController {
     private void initFilter() {
         filter = change -> {
             String text = change.getText();
-            if (!text.matches("[a-zA-Z]")) {
+            if (!text.matches("[a-zA-Z]") && !text.equals(" ")) {
                 return change;
             }
             return null;
@@ -130,6 +130,7 @@ public class OptionsViewController {
         });
         humanHealthText.setText(String.valueOf((int) humanHealthSlider.getValue()));
         towerHealthText.setText(String.valueOf((int) towerHealthSlider.getValue()));
+
     }
 
     private void initSliders() {
@@ -183,8 +184,8 @@ public class OptionsViewController {
     }
 
     @FXML
-    public void changeTowerWeapon() {
-
+    public void unfocusedTextFields() {
+        towerHealthText.getParent().requestFocus();
     }
 
     public void checkHumanHealthText(boolean isFocused) {

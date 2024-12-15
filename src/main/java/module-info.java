@@ -6,6 +6,7 @@ module com.example.towerdef {
     requires org.kordamp.bootstrapfx.core;
     requires static lombok;
     requires java.desktop;
+    requires com.jfoenix;
 
     opens com.example.towerdef to javafx.fxml;
     exports com.example.towerdef;

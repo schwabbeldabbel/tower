@@ -23,6 +23,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
@@ -35,7 +36,7 @@ import static com.example.towerdef.model.gamelogic.time.Speed.*;
 public class GameViewController {
 
     @FXML
-    GridPane root;
+    BorderPane root;
     @FXML
     Rectangle towerPos;
     @FXML
