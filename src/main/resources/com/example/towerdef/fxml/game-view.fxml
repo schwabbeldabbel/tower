@@ -5,6 +5,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.control.Label?>
 <?import com.jfoenix.controls.JFXButton?>
+<!--TODO  Sekunden unten Links mit z: 99-->
+<!--TODO  Zeitbutoons mit Geschwindigkeit und dann buttons-->
+<!--TODO  Winning text in die Mitte oben-->
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.towerdef.controller.GameViewController"
