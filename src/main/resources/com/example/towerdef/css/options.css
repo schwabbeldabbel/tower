@@ -1,0 +1,87 @@
+
+.comboBoxContainer{
+    -fx-max-width: 200px;
+    -fx-margin: 5px;
+}
+
+.options{
+    -fx-padding: 15px;
+    -fx-margin-top: 25px;
+}
+
+.labelText{
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-font-family: monospace;
+}
+
+.weaponBox{
+    -fx-background-color: #00ccff;
+    -fx-opacity: 0.5;
+    -fx-text-fill: white;
+}
+
+.textField{
+    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-radius: 20;
+    -fx-padding: 0.166667em;
+    -fx-font-size: 15px;
+    -fx-font-family: monospace;
+}
+.textField:hover{
+    -fx-background-color: transparent, #909090, transparent, white;
+    -fx-padding: 0.166667em;
+}
+.textField:focused{
+    -fx-background-color: transparent, #909090, transparent, white;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-padding: 0.166667em;
+}
+
+.barrel{
+    -fx-background-image: url("../images/barrel.png");
+    -fx-background-color: transparent;
+    -fx-background-size: 40 40;
+    -fx-background-repeat: none;
+    -fx-background-position: center center;
+    -fx-min-width: 40px;
+    -fx-max-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+}
+
+.tower{
+    -fx-background-image: url("../images/tower.png");
+    -fx-background-color: transparent;
+    -fx-background-size: 80 200;
+    -fx-background-repeat: none;
+    -fx-background-position: center center;
+    -fx-min-width: 80px;
+    -fx-max-width: 80px;
+    -fx-min-height: 200px;
+    -fx-max-height: 200px;
+}
+
+.human-tank{
+    -fx-background-image: url("../images/soldierTank.png");
+    -fx-background-color: transparent;
+    -fx-background-size: 50 100;
+    -fx-background-repeat: none;
+    -fx-background-position: center center;
+}
+.human-sniper{
+     -fx-background-image: url("../images/soldierSniper.png");
+       -fx-background-color: transparent;
+    -fx-background-size: 50 100;
+
+       -fx-background-repeat: none;
+       -fx-background-position: center center;
+}
+.human-engineer{
+      -fx-background-image: url("../images/soldierEngineer.png");
+        -fx-background-color: transparent;
+    -fx-background-size: 50 100;
+
+        -fx-background-repeat: none;
+        -fx-background-position: center center;
+}

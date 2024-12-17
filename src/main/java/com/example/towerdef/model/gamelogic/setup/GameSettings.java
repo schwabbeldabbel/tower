@@ -23,11 +23,12 @@ public class GameSettings {
     private int baseHealthHuman;
     @Getter
     private int baseHealthTower;
+    private WeaponName towerWeapon;
 
     //Human weapons
-    private final Weapon LMG = new Weapon(WeaponName.LMG, 20, 10, BulletType.NORMAL);
-    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER, 100, 40, BulletType.BIG);
-    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON, 120, 20, BulletType.DRILL);
+    private final Weapon LMG = new Weapon(WeaponName.LMG, 50, 10, BulletType.NORMAL);
+    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER, 100, 100, BulletType.BIG);
+    private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON, 120, 150, BulletType.DRILL);
 
     //Human units available
     @Getter
@@ -35,8 +36,8 @@ public class GameSettings {
 
     //Tower weapons
     private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN, 100, 50, BulletType.BIG);
-    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN, 10, 2, BulletType.MINI);
-    private final Weapon LASER = new Weapon(WeaponName.LASER, 240, 200, BulletType.LASER);
+    private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN, 20, 8, BulletType.MINI);
+    private final Weapon LASER = new Weapon(WeaponName.LASER, 240, 150, BulletType.LASER);
 
     //Tower
     @Getter
@@ -52,9 +53,10 @@ public class GameSettings {
         this.manualSetUp = manualSetUp;
         this.baseHealthHuman = baseHealth;
         this.baseHealthTower = baseHealthTower;
+        this.towerWeapon = towerWeapon;
         createHumans(humanUnitNames);
 
-        this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon), 0.2f);
+        this.tower = getNewTower();
     }
 
     /**
@@ -88,8 +90,22 @@ public class GameSettings {
         INSTANCE = null;
     }
 
+    public Tower getNewTower(){
+        this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon), 0.3f);
+        return tower;
+    }
+
+    public List<HumanUnit> getNewHumanUnits(){
+        HumanUnitName[] names = humanUnits.stream()
+                .map(HumanUnit::getName)
+                .toArray(HumanUnitName[]::new);
+        this.humanUnits = new ArrayList<>();
+        createHumans(names);
+        return humanUnits;
+    }
+
     private void createHumans(HumanUnitName[] humanUnitNames){
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < humanUnitNames.length; i++){
             switch (humanUnitNames[i]){
                 case TANK:
                     addTank(i);
@@ -101,6 +117,7 @@ public class GameSettings {
                     addEngineer(i);
                     break;
                 default:
+                    addNone(i);
                     break;
             }
         }
@@ -111,8 +128,7 @@ public class GameSettings {
                 .setName(HumanUnitName.TANK)
                 .setHealth((int) (baseHealthHuman * 1.5))
                 .setWeapon(LMG)
-                .setHealing((int) (baseHealthHuman * 0.2))
-                .setArmor(0.15f)
+                .setArmor(0.35f)
                 .setPosition(position)
                 .build();
         this.humanUnits.add(tank);
@@ -123,7 +139,6 @@ public class GameSettings {
                 .setName(HumanUnitName.SNIPER)
                 .setHealth((int) (baseHealthHuman * 0.8))
                 .setWeapon(SNIPER_WEAPON)
-                .setHealing((int) (baseHealthHuman * 0.2))
                 .setArmor(0.05f)
                 .setPosition(position)
                 .build();
@@ -135,9 +150,20 @@ public class GameSettings {
                 .setName(HumanUnitName.ENGINEER)
                 .setHealth(baseHealthHuman)
                 .setWeapon(DRILL_CANON)
-                .setHealing((int) (baseHealthHuman * 0.2))
-                .setArmor(0.10f)
+                .setArmor(0.20f)
                 .setPosition(position)
+                .build();
+        this.humanUnits.add(engineer);
+    }
+
+    private void addNone(int position){
+        HumanUnit engineer = new HumanUnit.HumanUnitBuilder()
+                .setName(HumanUnitName.NONE)
+                .setHealth(0)
+                .setWeapon(null)
+                .setArmor(0)
+                .setPosition(position)
+                .setIsAlive(false)
                 .build();
         this.humanUnits.add(engineer);
     }

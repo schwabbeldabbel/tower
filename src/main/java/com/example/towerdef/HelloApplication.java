@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -20,9 +21,11 @@ public class HelloApplication extends Application {
         sceneController.addScreen(SceneNames.MAIN,"fxml/start-screen-view.fxml");
         sceneController.addScreen(SceneNames.GAME, "fxml/game-view.fxml");
         sceneController.addScreen(SceneNames.OPTIONS, "fxml/options-view.fxml");
-        stage.setTitle("Tower!!");
+        sceneController.addScreen(SceneNames.STATS, "fxml/stats-view.fxml");
+        stage.setTitle("Simulation");
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.initStyle(StageStyle.UTILITY);
         stage.show();
         sceneController.activate(SceneNames.MAIN);
     }

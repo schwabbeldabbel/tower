@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.towerdef.controller.StatsViewController"
+            stylesheets="@../css/style.css"
+            styleClass="centered">
+    <top>
+        <HBox styleClass="buttonRowRight">
+            <JFXButton onAction="#toStart">Zum Startmenü</JFXButton>
+            <JFXButton onAction="#replay">Das Gleiche nochmal</JFXButton>
+            <JFXButton onAction="#toOptions">Direkt zu den Optionen</JFXButton>
+            <JFXButton onAction="#endProgramm">Beenden</JFXButton>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane styleClass="transparent-background">
+            <GridPane>
+                <VBox styleClass="transparent-background" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                    <HBox>
+                        <Label styleClass="h1">Menschen</Label>
+                    </HBox>
+                    <BorderPane styleClass="barchart" fx:id="humansPlayedContainer">
+                    </BorderPane>
+                </VBox>
+
+                <VBox  styleClass="transparent-background" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                    <HBox>
+                        <Label styleClass="h1">Turm</Label>
+                    </HBox>
+                    <BorderPane styleClass="barchart" fx:id="towerChart">
+                    </BorderPane>
+                </VBox>
+            </GridPane>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

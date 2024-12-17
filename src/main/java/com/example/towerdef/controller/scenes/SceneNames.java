@@ -4,6 +4,7 @@ public enum SceneNames {
 
     MAIN,
     GAME,
-    OPTIONS
+    OPTIONS,
+    STATS
 
 }

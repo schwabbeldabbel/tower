@@ -6,7 +6,7 @@ module com.example.towerdef {
     requires org.kordamp.bootstrapfx.core;
     requires static lombok;
     requires java.desktop;
-    requires uncommons.math;
+    requires com.jfoenix;
 
     opens com.example.towerdef to javafx.fxml;
     exports com.example.towerdef;
@@ -17,4 +17,5 @@ module com.example.towerdef {
     opens com.example.towerdef.controller.scenes to javafx.fxml;
     exports com.example.towerdef.model.data.weapon.fxmlelement;
     exports com.example.towerdef.model.data.human;
+    exports com.example.towerdef.model.gamelogic.review;
 }

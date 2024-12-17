@@ -10,6 +10,7 @@ import java.util.List;
 public class Validator {
 
     public boolean isColliding(Node bullet, Node target) {
+        if(target == null) return false;
         Bounds bulletBounds = bullet.getBoundsInParent();
         Bounds targetBounds = target.getBoundsInParent();
         return  bulletBounds.intersects(targetBounds);

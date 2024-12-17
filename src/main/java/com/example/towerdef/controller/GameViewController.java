@@ -5,10 +5,9 @@ import com.example.towerdef.controller.scenes.SceneNames;
 import com.example.towerdef.model.data.Hittable;
 import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.tower.Tower;
-import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
 import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
-import com.example.towerdef.model.gamelogic.review.GameStatistics;
+import com.example.towerdef.model.gamelogic.runtime.GameplayTimer;
 import com.example.towerdef.model.gamelogic.runtime.TravelAnimations;
 import com.example.towerdef.model.gamelogic.runtime.RandomSelector;
 import com.example.towerdef.model.gamelogic.runtime.Validator;
@@ -24,6 +23,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
@@ -37,10 +37,9 @@ public class GameViewController {
 
     @FXML
     GridPane root;
+
     @FXML
-    Rectangle towerPos;
-    @FXML
-    private Button humanPos1, humanPos2, humanPos3;
+    private Button humanPos1, humanPos2, humanPos3, statsBtn, towerPos;
     @FXML
     private Label timer;
 
@@ -53,16 +52,16 @@ public class GameViewController {
 
     private List<HumanUnit> humans;
     private Tower tower;
-    private int selectedHumanPos;
 
     private final Map<Node, Point2D> positionTarget;
     private final Map<Node, Hittable> positionHittable;
     private final Map<Hittable, Node> hittablePosition;
     private final Map<Bullet, Timeline> activeBulletsTimeline;
 
+    private TravelAnimations travelAnimations;
 
     private final Validator validator;
-    private final TravelAnimations travelAnimations;
+    private final GameplayTimer gameplayTimer;
 
     public GameViewController(){
         positionTarget = new HashMap<>();
@@ -70,16 +69,16 @@ public class GameViewController {
         hittablePosition = new HashMap<>();
         activeBulletsTimeline = new HashMap<>();
         validator = new Validator();
-        travelAnimations = new TravelAnimations();
+        gameplayTimer = new GameplayTimer();
         collidingNodes = new ArrayList<>();
-        selectedHumanPos = 1;
     }
 
     public void initialize() {
         GameSettings gameSettings = GameSettings.getInstance();
         timerThread = new TimerThread(NORMAL, this);
-        humans = gameSettings.getHumanUnits();
-        tower = gameSettings.getTower();
+        humans = gameSettings.getNewHumanUnits();
+        tower = gameSettings.getNewTower();
+        towerPos.getStyleClass().add(tower.getStyleClass());
         placeHumans();
         positionTarget.put(towerPos, new Point2D(900, 0));
         positionHittable.put(towerPos, tower);
@@ -88,17 +87,25 @@ public class GameViewController {
         collidingNodes.add(humanPos2);
         collidingNodes.add(humanPos3);
         collidingNodes.add(towerPos);
+        travelAnimations = new TravelAnimations(root);
         Platform.runLater(this::startTimer);
     }
 
     public void notify(int milliSeconds) {
         setTimer(milliSeconds);
         checkShooting(milliSeconds);
-        if (milliSeconds % 10 == 0) {
-            selectedHumanPos = RandomSelector.updateSelectedHumanTarget((int) humans.stream().filter(HumanUnit::isAlive).count());
-        }
-        if(milliSeconds % 100 == 0){
-            towerMalfunction(RandomSelector.isTowerMalfunction(GameSettings.getInstance().getTower().getHealth()));
+        if(milliSeconds % 20 == 0){
+            if(tower.getWeapon().getPowerBullets() < 0) {
+                tower.resetMalfunction();
+                int overDriveBullets = RandomSelector.isTowerOverdrive(tower.getHealth(), GameSettings.getInstance().getBaseHealthTower());
+                if (overDriveBullets > -1) {
+                    tower.overdrive(overDriveBullets);
+                }
+            }
+            humans.stream()
+                    .filter(human -> RandomSelector.getIsHealing(human.getHealth(), human.getMaxHealth()))
+                    .filter(human -> human.getHealing() != 0)
+                    .forEach(HumanUnit::heal);
         }
     }
 
@@ -106,7 +113,7 @@ public class GameViewController {
         Path path = new Path();
         PathTransition pathTransition = new PathTransition();
 
-        travelAnimations.initializeStartPosition(bullet, startPosition, path, root);
+        travelAnimations.initializeStartPosition(bullet, startPosition, path);
 
         travelAnimations.initializeTravelPath(bullet, positionTarget.get(target), path, pathTransition);
 
@@ -127,7 +134,7 @@ public class GameViewController {
     }
 
     private Timeline setUpCollisionDetection(Bullet bullet, Node target, int damage) {
-       return new Timeline(new KeyFrame(Duration.millis(5), event -> {
+       return new Timeline(new KeyFrame(Duration.millis(10), event -> {
             if (validator.isColliding(bullet, target)) {
                 root.getChildren().remove(bullet);
                 hit(target, damage, bullet.getBulletType().getStyleClass());
@@ -140,20 +147,24 @@ public class GameViewController {
     private void towerMalfunction(boolean isTowerMalfunction) {
         if(isTowerMalfunction){
             hit(towerPos, tower.malfunction(), BulletType.EXTRA.getStyleClass());
-            GameStatistics.incrementMalfunctionCount();
         }
     }
 
-    private void hit(Node target, int damage, String styleClass) {
+    public void hit(Node target, int damage, String styleClass) {
+        if(target.getId().equals(towerPos.getId()) && !tower.isMalfunctionOnCooldown()){
+            towerMalfunction(RandomSelector.isTowerMalfunction(tower.getHealth()));
+        }
+
         Hittable hittable = positionHittable.get(target);
         int damageTaken = hittable.hit(damage);
         Label damageLabel = new Label(String.valueOf(damageTaken));
         damageLabel.getStyleClass().add(styleClass);
-        travelAnimations.startDamageCountAnimation(damageLabel, root, target);
+        travelAnimations.startDamageCountAnimation(damageLabel, target);
 
         boolean alive = hittable.isAlive();
         if(!alive){
-            root.getChildren().remove(target);
+            target.getStyleClass().remove(hittable.getStyleClass());
+            target.getStyleClass().add(hittable.getStyleClass() + "-dead");
             hittable.die();
         }
         String winning = validator.isWinning(humans, tower);
@@ -165,28 +176,30 @@ public class GameViewController {
     private void end(String text){
         winningLabel.setText(text);
         timerThread.stop();
+        System.out.println("------------------------------------END-----------------------------------------");
+        System.out.println("Power bullets tower: " + GameSettings.getInstance().getTower().getWeapon().getPowerBulletsFired());
+        System.out.println("Malfunction damage tower: " + GameSettings.getInstance().getTower().getMalfunctionDamage());
+        for(HumanUnit human: humans){
+            System.out.println("Human " + human.getName() + " healed: " + human.getLifeHealed());
+        }
+        statsBtn.setDisable(false);
     }
 
     private void checkShooting(int milliSeconds) {
         for (HumanUnit humanUnit : humans) {
-            Weapon weapon = humanUnit.getWeapon();
-            if (milliSeconds % weapon.getAttackSpeed() == 0) {
+            if(gameplayTimer.checkHumanShooting(milliSeconds, humanUnit)){
                 Bullet bullet = humanUnit.shoot();
-                if(bullet != null){
-                    addBullet(bullet, humanUnit.getPosition(), towerPos, weapon.getDamage());
+                if(bullet != null) {
+                    addBullet(bullet, humanUnit.getPosition(), towerPos, humanUnit.getWeapon().getDamage());
                 }
             }
         }
-        if (milliSeconds % tower.getWeapon().getAttackSpeed() == 0) {
+        if (gameplayTimer.checkTowerShooting(milliSeconds, tower)) {
             Bullet bullet = tower.shoot();
-            if(bullet != null) {
-                addBullet(bullet, -1, getSelectedTarget(), tower.getWeapon().getDamage());
+            if(bullet != null){
+                addBullet(bullet, -1, RandomSelector.updateSelectedHumanTarget(humans, hittablePosition), tower.getWeapon().getDamage());
             }
         }
-    }
-
-    private Node getSelectedTarget() {
-        return hittablePosition.get(humans.get(selectedHumanPos-1));
     }
 
     private void setTimer(int milliSeconds) {
@@ -245,5 +258,10 @@ public class GameViewController {
         end("Abbruch");
         SceneController sceneController = SceneController.getInstance();
         sceneController.activate(SceneNames.MAIN);
+    }
+
+    @FXML
+    public void showStats(){
+        SceneController.getInstance().activate(SceneNames.STATS);
     }
 }

@@ -3,66 +3,91 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.example.towerdef.controller.GameViewController"
-           prefHeight="400.0" prefWidth="600.0"
-           stylesheets="@../css/style.css"
-           styleClass="centered">
-    <GridPane fx:id="root">
-        <columnConstraints>
-            <ColumnConstraints minWidth="100"/>
-            <ColumnConstraints minWidth="100"/>
-            <ColumnConstraints minWidth="100"/>
-            <ColumnConstraints minWidth="100"/>
-            <ColumnConstraints minWidth="100"/>
-            <ColumnConstraints minWidth="100"/>
-            <ColumnConstraints minWidth="100"/>
-            <ColumnConstraints minWidth="100"/>
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="100"/>
-            <RowConstraints minHeight="100"/>
-            <RowConstraints minHeight="100"/>
-            <RowConstraints minHeight="100"/>
-            <RowConstraints minHeight="100"/>
-            <RowConstraints minHeight="100"/>
-            <RowConstraints minHeight="100"/>
-        </rowConstraints>
+<?import com.jfoenix.controls.JFXButton?>
+<!--TODO  Sekunden unten Links mit z: 99-->
+<!--TODO  Zeitbutoons mit Geschwindigkeit und dann buttons-->
+<!--TODO  Winning text in die Mitte oben-->
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.towerdef.controller.GameViewController"
+            prefHeight="400.0" prefWidth="600.0"
+            stylesheets="@../css/style.css, @../css/game.css"
+            styleClass="centered">
+    <top>
         <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0"
                   GridPane.columnSpan="10" GridPane.rowSpan="1" vgap="30">
+            <columnConstraints>
+                <ColumnConstraints minWidth="20"/>
+                <ColumnConstraints minWidth="20"/>
+                <ColumnConstraints minWidth="20"/>
+                <ColumnConstraints minWidth="20"/>
+                <ColumnConstraints minWidth="20"/>
+                <ColumnConstraints minWidth="20"/>
+                <ColumnConstraints minWidth="20"/>
+                <ColumnConstraints minWidth="20"/>
+            </columnConstraints>
             <Label GridPane.columnIndex="0" GridPane.rowIndex="0"
                    GridPane.columnSpan="1" GridPane.rowSpan="1" fx:id="timer" styleClass="timer"/>
-            <Button GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="SLOW"
-                    GridPane.columnSpan="1" GridPane.rowSpan="1">Slow
-            </Button>
-            <Button GridPane.columnIndex="2" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="NORMAL"
-                    GridPane.columnSpan="1" GridPane.rowSpan="1">Normal
-            </Button>
-            <Button GridPane.columnIndex="3" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="FAST"
-                    GridPane.columnSpan="1" GridPane.rowSpan="1">Fast
-            </Button>
-            <HBox GridPane.columnIndex="4" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1">
-                <Label fx:id="winningLabel" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="1" GridPane.columnSpan="14"/>
-                <Button onAction="#backToStart">Zurück zum Start</Button>
-            </HBox>
+            <JFXButton GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="SLOW"
+                       GridPane.columnSpan="1" GridPane.rowSpan="1">Slow
+            </JFXButton>
+            <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="NORMAL"
+                       GridPane.columnSpan="1" GridPane.rowSpan="1">Normal
+            </JFXButton>
+            <JFXButton GridPane.columnIndex="3" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="FAST"
+                       GridPane.columnSpan="1" GridPane.rowSpan="1">Fast
+            </JFXButton>
         </GridPane>
-        <Button fx:id="humanPos1" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
-                GridPane.rowSpan="2"
-                minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
-        <Rectangle fx:id="towerPos" GridPane.columnIndex="7" GridPane.rowIndex="1"
-                   GridPane.columnSpan="2" GridPane.rowSpan="5"
-                   fill="red" height="500" width="200"/>
-        <Button fx:id="humanPos2" GridPane.columnIndex="1" GridPane.rowIndex="3"
-                GridPane.columnSpan="1" GridPane.rowSpan="2"
-                minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
-        <Rectangle GridPane.columnIndex="2" GridPane.rowIndex="4"
-                   GridPane.columnSpan="1" GridPane.rowSpan="1"
-                   fill="grey" height="100" width="100"/>
-        <Button fx:id="humanPos3" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
-                GridPane.rowSpan="2"
-                minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
-    </GridPane>
-</StackPane>
+    </top>
+    <right>
+        <VBox>
+            <JFXButton onAction="#backToStart">Zurück zum Start</JFXButton>
+            <JFXButton fx:id="statsBtn" onAction="#showStats" disable="true">
+                Weiter zu der Statistik
+            </JFXButton>
+        </VBox>
+    </right>
+    <center>
+        <GridPane fx:id="root">
+            <columnConstraints>
+                <ColumnConstraints minWidth="100"/>
+                <ColumnConstraints minWidth="100"/>
+                <ColumnConstraints minWidth="100"/>
+                <ColumnConstraints minWidth="100"/>
+                <ColumnConstraints minWidth="100"/>
+                <ColumnConstraints minWidth="100"/>
+                <ColumnConstraints minWidth="100"/>
+                <ColumnConstraints minWidth="100"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="100"/>
+                <RowConstraints minHeight="100"/>
+                <RowConstraints minHeight="100"/>
+                <RowConstraints minHeight="100"/>
+                <RowConstraints minHeight="100"/>
+                <RowConstraints minHeight="100"/>
+                <RowConstraints minHeight="100"/>
+            </rowConstraints>
+            <Label fx:id="winningLabel" styleClass="endLabel" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="2"
+                   GridPane.columnSpan="8"/>
+            <JFXButton styleClass="gameObject" fx:id="humanPos1" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                       GridPane.rowSpan="2"
+                       minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
+            <JFXButton styleClass="gameObject" fx:id="towerPos" GridPane.columnIndex="7" GridPane.rowIndex="1"
+                       GridPane.columnSpan="2" GridPane.rowSpan="5"/>
+            <JFXButton styleClass="gameObject" fx:id="humanPos2" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                       GridPane.columnSpan="1" GridPane.rowSpan="2"
+                       minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
+            <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="4"
+                       GridPane.columnSpan="1" GridPane.rowSpan="1"
+                       styleClass="barrel, gameObject"/>
+            <JFXButton styleClass="gameObject" fx:id="humanPos3" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                       GridPane.rowSpan="2"
+                       minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
+        </GridPane>
+
+    </center>
+
+
+</BorderPane>

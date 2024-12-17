@@ -2,11 +2,11 @@
 
 <?import javafx.scene.control.Label?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import com.jfoenix.controls.JFXButton?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.example.towerdef.controller.StartScreenController" stylesheets="@../css/style.css">
     <GridPane styleClass="centered">
@@ -20,8 +20,8 @@
             <RowConstraints minHeight="100"/>
             <RowConstraints minHeight="100"/>
         </rowConstraints>
-        <Label GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="4" styleClass="header">Game</Label>
-        <Button GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" styleClass="startButton, fontFamily" onAction="#startGame">Start</Button>
-        <Button GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" styleClass="startButton, fontFamily" onAction="#startOptions">Options</Button>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="4" styleClass="header, h1">Simulation</Label>
+        <JFXButton GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="2" styleClass="startButton, fontFamily" onAction="#startGame">Start</JFXButton>
+        <JFXButton GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="2" styleClass="startButton, fontFamily" onAction="#startOptions">Optionen</JFXButton>
     </GridPane>
 </StackPane>

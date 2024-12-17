@@ -1,11 +1,24 @@
 .centered{
     -fx-alignment: center;
     -fx-padding: 50px;
+    -fx-background-image: url("../images/background.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1200 700;
+    -fx-background-position: center center;
+    -fx-background-opacity: 0.5;
 }
-.header{
-    -fx-font-size: 100px;
+.transparent-background{
+    -fx-alignment: center;
+    -fx-background-color: rgba(85, 17, 0, 0.7);
+
 }
 
+.header{
+    -fx-font-size: 100px !important;
+}
+.endLabel{
+    -fx-font-size: 50px;
+}
 .timer{
     -fx-margin: 50px;
     -fx-font-size: 30px;
@@ -17,37 +30,24 @@
     -fx-font-size: 30px;
 }
 
-.human-tank{
-    -fx-color: green;
-    -fx-background-color: green;
-}
-.human-sniper{
-    -fx-color: yellow;
-    -fx-background-color: yellow;
-}
-.human-engineer{
-    -fx-color: blue;
-    -fx-background-color: blue;
+JFXSlider .axis {
+    -fx-tick-label-fill: white;
 }
 
-.comboBoxContainer{
-    -fx-max-width: 180px;
-    -fx-margin: 5px;
-}
-
-.labelText{
-    -fx-text-fill: white;
-    -fx-padding: 10px;
-    -fx-font-family: monospace;
-}
-.labelTextDark{
-    -fx-text-fill: black;
-    -fx-padding: 10px;
-    -fx-font-family: monospace;
-}
 Label{
     -fx-font-family: monospace;
     -fx-font-size: 20px;
+    -fx-text-fill: white;
+}
+.h1{
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-margin: 20px;
+}
+.h2{
+    -fx-font-size: 30px;
+    -fx-padding-right: 15px;
+    -fx-padding-left: 15px;
 }
 .fontFamily{
     -fx-font-family: monospace;
@@ -57,4 +57,37 @@ Label{
     -fx-text-fill: red;
     -fx-background-color: grey;
     -fx-font-size: 50px;
+}
+JFXButton{
+    -fx-background-color: #00ccff;
+    -fx-opacity: 0.5;
+    -fx-margin-right: 5px;
+    -fx-margin-left: 5px;
+    -fx-font-size: 17px;
+}
+
+.none{
+    -fx-background-color: transparent;
+}
+
+JFXButton: hover{
+    -fx-background-color: black;
+    -fx-opacity: 0.8;
+    -fx-text-fill: white;
+}
+
+JFXButton: disabled{
+    -fx-background-color: black;
+    -fx-opacity: 0.3;
+    -fx-text-fill: white;
+}
+
+.barchart{
+    -fx-min-width: 1000px;
+    -fx-max-width: 1000px;
+    -fx-min-height: 350px;
+    -fx-max-height: 350px;
+}
+.gameObject{
+    -fx-opacity: 1;
 }
