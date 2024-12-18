@@ -65,3 +65,13 @@
     -fx-min-height: 100px;
     -fx-max-height: 100px;
 }
+
+.damageNumberHeal{
+    -fx-text-fill: green;
+    -fx-font-size: 30px;
+}
+
+.damageNumberExtra{
+    -fx-text-fill: red;
+    -fx-font-size: 50px;
+}

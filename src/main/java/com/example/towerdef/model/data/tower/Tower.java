@@ -86,9 +86,10 @@ public class Tower implements Hittable {
     }
 
     @Override
-    public void heal() {
+    public int heal() {
 //        lifeHealed += healing;
 //        health += healing;
+        return 0;
     }
 
 

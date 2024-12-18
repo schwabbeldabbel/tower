@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Simulation");
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.DECORATED);
         stage.show();
         sceneController.activate(SceneNames.MAIN);
     }

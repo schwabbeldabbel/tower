@@ -28,7 +28,7 @@ public class HumanUnit implements Hittable {
         this.health = builder.health;
         this.maxHealth = builder.health;
         this.weapon = builder.weapon;
-        this.healing = (int) (this.health * 0.3);
+        this.healing = (int) (this.health * 0.45);
         this.armor = builder.armor;
         this.position = builder.position;
         this.alive = builder.isAlive;
@@ -69,12 +69,16 @@ public class HumanUnit implements Hittable {
     }
 
     @Override
-    public void heal() {
+    public int heal() {
         HumanGameStatics humanStats = GameStatistics.getHumanStats(position);
         assert humanStats != null;
-       humanStats.setLifeHealed(humanStats.getLifeHealed() + healing);
+        humanStats.setLifeHealed(humanStats.getLifeHealed() + healing);
         health += healing;
-        healing = (int) (healing - healing * 0.5);
+        int currentHealing = healing;
+        healing -= (int) (healing * 0.6);
+        if(currentHealing == 1) healing = 0;
+        if(!alive) return 0;
+        return currentHealing;
     }
 
     @Override

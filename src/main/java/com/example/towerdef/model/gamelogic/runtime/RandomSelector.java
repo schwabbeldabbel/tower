@@ -65,11 +65,8 @@ public class RandomSelector {
     }
 
     public static boolean getIsHealing(int current, int max){
-        double probability = 1.0 / (1.0 + (max-current));
-        double randomValue = random.nextDouble();
-        System.out.println("Healing probabilities:");
-        System.out.println(probability);
-        System.out.println(randomValue);
+        double probability = (double) current / max;
+        double randomValue = random.nextDouble() - 0.5;
         return randomValue > probability;
     }
 

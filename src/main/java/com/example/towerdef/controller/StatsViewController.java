@@ -16,6 +16,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
@@ -41,7 +42,18 @@ public class StatsViewController {
         selectedHumanStats.add(HumanStatsName.DAMAGE_DEALT);
         selectedTowerStats.add(TowerStatsName.DAMAGE_DEALT);
         initComboBox();
-        setUpCharts();
+        if(GameStatistics.humanGameStatics != null && !GameStatistics.humanGameStatics.isEmpty()) {
+            setUpCharts();
+        }else{
+            setUpNoData();
+        }
+    }
+
+    private void setUpNoData(){
+        Label humanLabel = new Label("Starte deinen ersten Durchlauf, damit hier die Statistik angezeigt werden kann.");
+        Label towerLabel = new Label(humanLabel.getText());
+        humansPlayedContainer.setCenter(humanLabel);
+        towerChart.setCenter(towerLabel);
     }
 
     private void setUpCharts(){

@@ -104,10 +104,13 @@ public class GameViewController {
                     tower.overdrive(overDriveBullets);
                 }
             }
-            humans.stream()
+            List<HumanUnit> healingHumans = humans.stream()
                     .filter(human -> RandomSelector.getIsHealing(human.getHealth(), human.getMaxHealth()))
                     .filter(human -> human.getHealing() != 0)
-                    .forEach(HumanUnit::heal);
+                    .toList();
+            for(HumanUnit human : healingHumans) {
+                hit(hittablePosition.get(human), human.heal(), BulletType.HEAL.getStyleClass());
+            }
         }
     }
 
@@ -153,6 +156,7 @@ public class GameViewController {
     }
 
     public void hit(Node target, int damage, String styleClass) {
+        if(damage <= 0) return;
         if(target.getId().equals(towerPos.getId()) && !tower.isMalfunctionOnCooldown()){
             towerMalfunction(RandomSelector.isTowerMalfunction(tower.getHealth()));
         }

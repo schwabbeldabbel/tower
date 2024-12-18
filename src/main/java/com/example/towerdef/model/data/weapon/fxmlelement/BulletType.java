@@ -11,7 +11,8 @@ public enum BulletType {
     DRILL(Color.LIGHTGRAY, 40, 40, 250, "damageNumberDrill"),
     LASER(Color.GREENYELLOW, 20, 500, 50, "damageNumberLaser"),
     MINI(Color.RED, 5, 5, 90, "damageNumberMini"),
-    EXTRA(Color.BLACK, 0, 0, 0, "damageNumberExtra");
+    EXTRA(Color.BLACK, 0, 0, 0, "damageNumberExtra"),
+    HEAL(Color.GREEN, 0, 0, 0, "damageNumberHeal");
 
     private final Color color;
     private final int bulletHeight;
