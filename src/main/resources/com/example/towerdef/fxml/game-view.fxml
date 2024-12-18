@@ -8,6 +8,8 @@
 <!--TODO  Sekunden unten Links mit z: 99-->
 <!--TODO  Zeitbutoons mit Geschwindigkeit und dann buttons-->
 <!--TODO  Winning text in die Mitte oben-->
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import javafx.scene.control.ProgressBar?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.towerdef.controller.GameViewController"
@@ -71,20 +73,33 @@
             </rowConstraints>
             <Label fx:id="winningLabel" styleClass="endLabel" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="2"
                    GridPane.columnSpan="8"/>
-            <JFXButton styleClass="gameObject" fx:id="humanPos1" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
-                       GridPane.rowSpan="2"
-                       minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
-            <JFXButton styleClass="gameObject" fx:id="towerPos" GridPane.columnIndex="7" GridPane.rowIndex="1"
-                       GridPane.columnSpan="2" GridPane.rowSpan="5"/>
-            <JFXButton styleClass="gameObject" fx:id="humanPos2" GridPane.columnIndex="1" GridPane.rowIndex="3"
-                       GridPane.columnSpan="1" GridPane.rowSpan="2"
-                       minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
+            <VBox GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                  GridPane.rowSpan="2">
+                <ProgressBar fx:id="humanPos1Health" styleClass="healthBar"/>
+                <JFXButton styleClass="gameObject" fx:id="humanPos1"
+                           minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
+            </VBox>
+            <VBox GridPane.columnIndex="7" GridPane.rowIndex="1"
+                  GridPane.columnSpan="2" GridPane.rowSpan="5">
+                <ProgressBar fx:id="towerHealth" styleClass="healthBar"/>
+                <JFXButton styleClass="gameObject" fx:id="towerPos"/>
+            </VBox>
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="3"
+                  GridPane.columnSpan="1" GridPane.rowSpan="2">
+                <ProgressBar fx:id="humanPos2Health" styleClass="healthBar"/>
+                <JFXButton styleClass="gameObject" fx:id="humanPos2"
+                           minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
+            </VBox>
+
             <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="4"
                        GridPane.columnSpan="1" GridPane.rowSpan="1"
                        styleClass="barrel, gameObject"/>
-            <JFXButton styleClass="gameObject" fx:id="humanPos3" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
-                       GridPane.rowSpan="2"
-                       minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
+            <VBox GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                  GridPane.rowSpan="2">
+                <ProgressBar fx:id="humanPos3Health" styleClass="healthBar"/>
+                <JFXButton styleClass="gameObject" fx:id="humanPos3"
+                           minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
+            </VBox>
         </GridPane>
 
     </center>

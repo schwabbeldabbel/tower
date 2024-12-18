@@ -16,6 +16,8 @@ public class Tower implements Hittable {
     @Getter@Setter
     private int health;
     @Getter
+    private int maxHealth;
+    @Getter
     private Weapon weapon;
 
     @Getter
@@ -32,6 +34,7 @@ public class Tower implements Hittable {
     public Tower(String name, int health, Weapon weapon, float armor) {
         this.name = name;
         this.health = health;
+        this.maxHealth = health;
         this.weapon = weapon;
         this.alive = true;
         this.armor = armor;

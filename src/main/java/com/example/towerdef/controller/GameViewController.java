@@ -14,6 +14,7 @@ import com.example.towerdef.model.gamelogic.runtime.RandomSelector;
 import com.example.towerdef.model.gamelogic.runtime.Validator;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
 import com.example.towerdef.model.gamelogic.time.TimerThread;
+import com.jfoenix.controls.JFXProgressBar;
 import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
@@ -24,8 +25,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
@@ -46,6 +49,8 @@ public class GameViewController {
 
     @FXML
     private Label winningLabel;
+    @FXML
+    private ProgressBar humanPos3Health, humanPos2Health, humanPos1Health, towerHealth;
 
     private List<Node> collidingNodes;
 
@@ -58,6 +63,7 @@ public class GameViewController {
     private final Map<Node, Hittable> positionHittable;
     private final Map<Hittable, Node> hittablePosition;
     private final Map<Bullet, Timeline> activeBulletsTimeline;
+    private Map<Hittable, ProgressBar> hittableHealthBar;
 
     private TravelAnimations travelAnimations;
 
@@ -69,6 +75,7 @@ public class GameViewController {
         positionHittable = new HashMap<>();
         hittablePosition = new HashMap<>();
         activeBulletsTimeline = new HashMap<>();
+        hittableHealthBar = new HashMap<>();
         validator = new Validator();
         gameplayTimer = new GameplayTimer();
         collidingNodes = new ArrayList<>();
@@ -85,6 +92,8 @@ public class GameViewController {
         positionTarget.put(towerPos, new Point2D(900, 0));
         positionHittable.put(towerPos, tower);
         hittablePosition.put(tower, towerPos);
+        hittableHealthBar.put(tower, towerHealth);
+        towerHealth.setProgress(1);
         collidingNodes.add(humanPos1);
         collidingNodes.add(humanPos2);
         collidingNodes.add(humanPos3);
@@ -140,7 +149,7 @@ public class GameViewController {
 
     private Timeline setUpCollisionDetection(Bullet bullet, Node target, int damage) {
        return new Timeline(new KeyFrame(Duration.millis(10), event -> {
-            if (validator.isColliding(bullet, target)) {
+            if (validator.isColliding(bullet, target.getParent())) {
                 root.getChildren().remove(bullet);
                 hit(target, damage, bullet.getBulletType().getStyleClass());
                 activeBulletsTimeline.get(bullet).stop();
@@ -160,9 +169,10 @@ public class GameViewController {
         if(target.getId().equals(towerPos.getId()) && !tower.isMalfunctionOnCooldown()){
             towerMalfunction(RandomSelector.isTowerMalfunction(tower.getHealth()));
         }
-
         Hittable hittable = positionHittable.get(target);
         int damageTaken = hittable.hit(damage);
+        hittableHealthBar.get(hittable).setProgress((double) hittable.getHealth() / hittable.getMaxHealth());
+
         Label damageLabel = new Label(String.valueOf(damageTaken));
         damageLabel.getStyleClass().add(styleClass);
         travelAnimations.startDamageCountAnimation(damageLabel, target);
@@ -221,18 +231,24 @@ public class GameViewController {
                 case 0:
                     humanPos1.getStyleClass().add(humanUnit.getName().getCss());
                     positionTarget.put(humanPos1, new Point2D(-900, -50));
+                    hittableHealthBar.put(humanUnit, humanPos1Health);
+                    humanPos1Health.setProgress((double) humanUnit.getHealth() / humanUnit.getMaxHealth());
                     positionHittable.put(humanPos1, humanUnit);
                     hittablePosition.put(humanUnit, humanPos1);
                     break;
                 case 1:
                     humanPos2.getStyleClass().add(humanUnit.getName().getCss());
                     positionTarget.put(humanPos2, new Point2D(-1000, 400));
+                    hittableHealthBar.put(humanUnit, humanPos2Health);
+                    humanPos2Health.setProgress((double) humanUnit.getHealth() / humanUnit.getMaxHealth());
                     positionHittable.put(humanPos2, humanUnit);
                     hittablePosition.put(humanUnit, humanPos2);
                     break;
                 case 2:
                     humanPos3.getStyleClass().add(humanUnit.getName().getCss());
                     positionTarget.put(humanPos3, new Point2D(-900, 900));
+                    hittableHealthBar.put(humanUnit, humanPos3Health);
+                    humanPos3Health.setProgress((double) humanUnit.getHealth() / humanUnit.getMaxHealth());
                     positionHittable.put(humanPos3, humanUnit);
                     hittablePosition.put(humanUnit, humanPos3);
                     break;

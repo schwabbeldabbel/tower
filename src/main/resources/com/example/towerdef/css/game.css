@@ -75,3 +75,11 @@
     -fx-text-fill: red;
     -fx-font-size: 50px;
 }
+
+.healthBar{
+    -fx-background-color: grey;
+    -fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-min-height: 20px;
+    -fx-max-height: 20px;
+}

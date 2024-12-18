@@ -6,6 +6,8 @@ public interface Hittable {
     int heal();
     boolean isAlive();
     void die();
+    int getHealth();
+    int getMaxHealth();
 
     String getStyleClass();
 
