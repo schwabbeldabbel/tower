@@ -93,7 +93,7 @@
 
             <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="4"
                        GridPane.columnSpan="1" GridPane.rowSpan="1"
-                       styleClass="barrel, gameObject"/>
+                       styleClass="barrel, barrel gameObject"/>
             <VBox GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
                   GridPane.rowSpan="2">
                 <ProgressBar fx:id="humanPos3Health" styleClass="healthBar"/>

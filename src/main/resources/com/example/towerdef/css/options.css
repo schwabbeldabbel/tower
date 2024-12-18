@@ -38,50 +38,24 @@
     -fx-padding: 0.166667em;
 }
 
-.barrel{
-    -fx-background-image: url("../images/barrel.png");
-    -fx-background-color: transparent;
+.barrel-options{
     -fx-background-size: 40 40;
-    -fx-background-repeat: none;
-    -fx-background-position: center center;
     -fx-min-width: 40px;
     -fx-max-width: 40px;
     -fx-min-height: 40px;
     -fx-max-height: 40px;
 }
 
-.tower{
-    -fx-background-image: url("../images/tower.png");
-    -fx-background-color: transparent;
+.tower-options{
     -fx-background-size: 80 200;
-    -fx-background-repeat: none;
-    -fx-background-position: center center;
     -fx-min-width: 80px;
     -fx-max-width: 80px;
     -fx-min-height: 200px;
     -fx-max-height: 200px;
 }
 
-.human-tank{
-    -fx-background-image: url("../images/soldierTank.png");
-    -fx-background-color: transparent;
-    -fx-background-size: 50 100;
-    -fx-background-repeat: none;
-    -fx-background-position: center center;
+.mini{
+    -fx-background-size: 30 60;
 }
-.human-sniper{
-     -fx-background-image: url("../images/soldierSniper.png");
-       -fx-background-color: transparent;
-    -fx-background-size: 50 100;
 
-       -fx-background-repeat: none;
-       -fx-background-position: center center;
-}
-.human-engineer{
-      -fx-background-image: url("../images/soldierEngineer.png");
-        -fx-background-color: transparent;
-    -fx-background-size: 50 100;
 
-        -fx-background-repeat: none;
-        -fx-background-position: center center;
-}

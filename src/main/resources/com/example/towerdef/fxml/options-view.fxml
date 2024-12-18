@@ -66,16 +66,16 @@
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Menschen auswählen</Label>
             <HBox styleClass="comboBoxContainer">
-                <JFXButton styleClass="human-engineer"/>
-                <Label styleClass="labelText">Mechaniker</Label>
+                <JFXButton styleClass="human-engineer, mini"/>
+                <Label fx:id="humanLabel1" styleClass="labelText">Mechaniker</Label>
             </HBox>
             <HBox styleClass="comboBoxContainer">
-                <JFXButton styleClass="human-tank"/>
-                <Label styleClass="labelText">Verteidiger</Label>
+                <JFXButton styleClass="human-tank, mini"/>
+                <Label fx:id="humanLabel2" styleClass="labelText">Verteidiger</Label>
             </HBox>
             <HBox styleClass="comboBoxContainer">
-                <JFXButton styleClass="human-sniper"/>
-                <Label styleClass="labelText">Scharfschütze</Label>
+                <JFXButton styleClass="human-sniper, mini"/>
+                <Label fx:id="humanLabel3" styleClass="labelText">Scharfschütze</Label>
             </HBox>
         </VBox>
 
@@ -109,7 +109,7 @@
 
             <JFXButton GridPane.columnIndex="7" GridPane.rowIndex="1"
                        GridPane.columnSpan="2" GridPane.rowSpan="5"
-                       styleClass="gameObject, tower"/>
+                       styleClass="gameObject, tower, tower-options"/>
             <StackPane GridPane.columnIndex="1" GridPane.rowIndex="3"
                        GridPane.columnSpan="1" GridPane.rowSpan="2">
                 <JFXComboBox fx:id="humanPos2"
@@ -118,7 +118,7 @@
                 />
             </StackPane>
             <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="4"
-                       GridPane.columnSpan="1" GridPane.rowSpan="1" styleClass="barrel"/>
+                       GridPane.columnSpan="1" GridPane.rowSpan="1" styleClass="barrel, barrel-options"/>
             <StackPane GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
                        GridPane.rowSpan="2">
                 <JFXComboBox fx:id="humanPos3"

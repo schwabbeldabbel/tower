@@ -36,7 +36,7 @@ public class OptionsViewController {
     @FXML
     protected TextField humanHealthText, towerHealthText;
     @FXML
-    protected Label towerWeaponLabel;
+    protected Label humanLabel1, humanLabel2, humanLabel3;
     private UnaryOperator<TextFormatter.Change> filter;
     private Validator validator;
 
@@ -52,10 +52,17 @@ public class OptionsViewController {
         this.gameSettings = GameSettings.getInstance();
         this.humanUnits = gameSettings.getHumanUnits();
         this.tower = gameSettings.getTower();
+        initHumanNames();
         initComboBox();
         initSliders();
         initFilter();
         initTextFields();
+    }
+
+    private void initHumanNames(){
+        humanLabel1.setText(HumanUnitName.ENGINEER.getName());
+        humanLabel2.setText(HumanUnitName.TANK.getName());
+        humanLabel3.setText(HumanUnitName.SNIPER.getName());
     }
 
     private void initComboBox() {
