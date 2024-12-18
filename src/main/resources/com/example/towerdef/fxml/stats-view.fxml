@@ -10,7 +10,7 @@
             stylesheets="@../css/style.css, @../css/stats.css"
             styleClass="centered">
     <top>
-        <HBox styleClass="buttonRowRight">
+        <HBox styleClass="buttonRowRight" spacing="3">
             <JFXButton styleClass="fontFamily" onAction="#toStart">Zum Startmenü</JFXButton>
             <JFXButton styleClass="fontFamily" onAction="#replay">Das Gleiche nochmal</JFXButton>
             <JFXButton styleClass="fontFamily" onAction="#toOptions">Direkt zu den Optionen</JFXButton>

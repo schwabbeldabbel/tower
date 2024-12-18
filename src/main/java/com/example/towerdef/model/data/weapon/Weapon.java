@@ -32,6 +32,11 @@ public class Weapon {
         this.powerAttackSpeedAddition = (int) (attackSpeed * 0.2);
     }
 
+    public void resetData(){
+        powerBulletDamage = 0;
+        powerBulletDamage = 0;
+    }
+
     public Bullet shoot(){
         if(powerBullets == 0){
             this.attackSpeed -= powerAttackSpeedAddition;

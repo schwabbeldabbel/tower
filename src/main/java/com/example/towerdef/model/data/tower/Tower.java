@@ -3,6 +3,8 @@ package com.example.towerdef.model.data.tower;
 import com.example.towerdef.model.data.Hittable;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
+import com.example.towerdef.model.gamelogic.review.GameStatistics;
+import com.example.towerdef.model.gamelogic.review.HumanGameStatics;
 import com.example.towerdef.model.gamelogic.review.TowerStatsName;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,16 +28,6 @@ public class Tower implements Hittable {
     @Getter
     private boolean isMalfunctionOnCooldown;
 
-    @Getter
-    private int damageFired = 0;
-    @Getter
-    private int damageTaken = 0;
-    @Getter
-    private int damageBlocked = 0;
-    @Getter
-    private int lifeHealed = 0;
-    @Getter
-    private int malfunctionDamage = 0;
 
     public Tower(String name, int health, Weapon weapon, float armor) {
         this.name = name;
@@ -51,26 +43,6 @@ public class Tower implements Hittable {
         return "tower";
     }
 
-    public int getData(TowerStatsName statsName){
-        switch (statsName){
-            case DAMAGE_DEALT -> {
-                return damageFired;
-            }
-            case DAMAGE_TAKEN -> {
-                return damageTaken;
-            }
-            case DAMAGE_BLOCKED -> {
-                return damageBlocked;
-            }
-            case OVERDRIVE_DAMAGE -> {
-                return weapon.getPowerBulletDamage();
-            }
-            case MALFUNCTION_DAMAGE -> {
-                return malfunctionDamage;
-            }
-        }
-        return -1;
-    }
 
     public void resetMalfunction(){
         this.isMalfunctionOnCooldown = false;
@@ -78,7 +50,7 @@ public class Tower implements Hittable {
 
     public Bullet shoot(){
         if(this.alive){
-            damageFired += weapon.getDamage();
+            GameStatistics.towerDamageFired += weapon.getDamage();
             return weapon.shoot();
         }else{
             return null;
@@ -88,7 +60,7 @@ public class Tower implements Hittable {
     public int malfunction(){
         int damage = (int) ((health * 0.15) * armor);
         health -= damage;
-        malfunctionDamage += damage;
+        GameStatistics.malfunctionDamage += damage;
         isMalfunctionOnCooldown = true;
         return damage;
     }
@@ -100,10 +72,10 @@ public class Tower implements Hittable {
     @Override
     public int hit(int damage) {
         int damageBlocked = (int) ((damage * armor));
-        this.damageBlocked += damageBlocked;
+        GameStatistics.towerDamageBlocked += damageBlocked;
 
         int damageTaken = damage - damageBlocked;
-        this.damageTaken += damageTaken;
+        GameStatistics.towerDamageTaken += damageTaken;
 
         this.health -= damageTaken;
 
@@ -115,8 +87,8 @@ public class Tower implements Hittable {
 
     @Override
     public void heal() {
-        lifeHealed += healing;
-        health += healing;
+//        lifeHealed += healing;
+//        health += healing;
     }
 
 

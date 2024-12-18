@@ -7,6 +7,7 @@ import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.tower.Tower;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
 import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
+import com.example.towerdef.model.gamelogic.review.GameStatistics;
 import com.example.towerdef.model.gamelogic.runtime.GameplayTimer;
 import com.example.towerdef.model.gamelogic.runtime.TravelAnimations;
 import com.example.towerdef.model.gamelogic.runtime.RandomSelector;
@@ -78,6 +79,7 @@ public class GameViewController {
         timerThread = new TimerThread(NORMAL, this);
         humans = gameSettings.getNewHumanUnits();
         tower = gameSettings.getNewTower();
+        resetData();
         towerPos.getStyleClass().add(tower.getStyleClass());
         placeHumans();
         positionTarget.put(towerPos, new Point2D(900, 0));
@@ -173,15 +175,14 @@ public class GameViewController {
         }
     }
 
+    private void resetData(){
+        GameStatistics.resetData(humans);
+    }
+
     private void end(String text){
         winningLabel.setText(text);
         timerThread.stop();
         System.out.println("------------------------------------END-----------------------------------------");
-        System.out.println("Power bullets tower: " + GameSettings.getInstance().getTower().getWeapon().getPowerBulletsFired());
-        System.out.println("Malfunction damage tower: " + GameSettings.getInstance().getTower().getMalfunctionDamage());
-        for(HumanUnit human: humans){
-            System.out.println("Human " + human.getName() + " healed: " + human.getLifeHealed());
-        }
         statsBtn.setDisable(false);
     }
 

@@ -3,32 +3,25 @@ package com.example.towerdef.model.data.human;
 import com.example.towerdef.model.data.Hittable;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
-import com.example.towerdef.model.gamelogic.review.HumanStatsName;
+import com.example.towerdef.model.gamelogic.review.GameStatistics;
+import com.example.towerdef.model.gamelogic.review.HumanGameStatics;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 public class HumanUnit implements Hittable {
 
+    @Getter
+    private final int maxHealth;
     private HumanUnitName name;
     @Setter
     private int health;
-    @Getter
-    private final int maxHealth;
     private Weapon weapon;
     private int healing;
     private float armor;
     private int position;
     private boolean alive;
 
-    @Getter
-    private int damageFired = 0;
-    @Getter
-    private int damageTaken = 0;
-    @Getter
-    private int damageBlocked = 0;
-    @Getter
-    private int lifeHealed = 0;
 
     public HumanUnit(HumanUnitBuilder builder) {
         this.name = builder.name;
@@ -41,44 +34,31 @@ public class HumanUnit implements Hittable {
         this.alive = builder.isAlive;
     }
 
-    public Bullet shoot(){
-        if(this.alive){
-            damageFired += weapon.getDamage();
+    public Bullet shoot() {
+        if (this.alive) {
+            HumanGameStatics humanStats = GameStatistics.getHumanStats(position);
+            assert humanStats != null;
+            humanStats.setDamageFired(humanStats.getDamageFired() + weapon.getDamage());
             return weapon.shoot();
-        }else{
+        } else {
             return null;
         }
     }
 
-    public String getStyleClass(){
+    public String getStyleClass() {
         return name.getCss();
     }
 
-    public int getData(HumanStatsName humanStatsName){
-        switch (humanStatsName){
-            case DAMAGE_DEALT -> {
-                return damageFired;
-            }
-            case DAMAGE_TAKEN -> {
-                return damageTaken;
-            }
-            case DAMAGE_BLOCKED -> {
-                return damageBlocked;
-            }
-            case LIFE_HEALED -> {
-                return lifeHealed;
-            }
-        }
-        return -1;
-    }
 
     @Override
     public int hit(int damage) {
         int damageBlocked = (int) ((damage * armor));
-        this.damageBlocked += damageBlocked;
+        HumanGameStatics humanStats = GameStatistics.getHumanStats(position);
+        assert humanStats != null;
+        humanStats.setDamageBlocked(humanStats.getDamageBlocked() + damageBlocked);
 
         int damageTaken = damage - damageBlocked;
-        this.damageTaken += damageTaken;
+        humanStats.setDamageTaken(humanStats.getDamageTaken() + damageTaken);
 
         this.health -= damageTaken;
 
@@ -90,20 +70,21 @@ public class HumanUnit implements Hittable {
 
     @Override
     public void heal() {
-        lifeHealed += healing;
+        HumanGameStatics humanStats = GameStatistics.getHumanStats(position);
+        assert humanStats != null;
+       humanStats.setLifeHealed(humanStats.getLifeHealed() + healing);
         health += healing;
-        healing = 0;
+        healing = (int) (healing - healing * 0.5);
     }
 
     @Override
-    public boolean isAlive(){
+    public boolean isAlive() {
         return this.health > 0;
     }
 
-    public void die(){
+    public void die() {
         this.alive = false;
     }
-
 
 
     public static class HumanUnitBuilder {
@@ -140,7 +121,7 @@ public class HumanUnit implements Hittable {
             return this;
         }
 
-        public HumanUnitBuilder setIsAlive(boolean isAlive){
+        public HumanUnitBuilder setIsAlive(boolean isAlive) {
             this.isAlive = isAlive;
             return this;
         }

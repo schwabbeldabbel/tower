@@ -5,6 +5,7 @@ import com.example.towerdef.controller.scenes.SceneNames;
 import com.example.towerdef.model.data.human.HumanUnit;
 import com.example.towerdef.model.data.human.HumanUnitName;
 import com.example.towerdef.model.data.tower.Tower;
+import com.example.towerdef.model.gamelogic.review.GameStatistics;
 import com.example.towerdef.model.gamelogic.review.HumanStatsName;
 import com.example.towerdef.model.gamelogic.review.TowerStatsName;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
@@ -108,7 +109,7 @@ public class StatsViewController {
                 XYChart.Series<Number, String> data = new XYChart.Series<>();
                 data.setName(human.getName().getName());
                 for (HumanStatsName humanStatsName : selectedHumanStats) {
-                    data.getData().add(new XYChart.Data<>(human.getData(humanStatsName), humanStatsName.getFrontendName()));
+                    data.getData().add(new XYChart.Data<>(GameStatistics.getData(humanStatsName, human.getPosition()), humanStatsName.getFrontendName()));
                 }
                 barChartHuman.getData().add(data);
             }
@@ -147,7 +148,7 @@ public class StatsViewController {
         XYChart.Series<Number, String> data = new XYChart.Series<>();
         data.setName(tower.getName());
         for (TowerStatsName towerStatsName : selectedTowerStats) {
-            data.getData().add(new XYChart.Data<>(tower.getData(towerStatsName), towerStatsName.getFrontendName()));
+            data.getData().add(new XYChart.Data<>(GameStatistics.getData(towerStatsName), towerStatsName.getFrontendName()));
         }
         barchartTower.getData().add(data);
 
