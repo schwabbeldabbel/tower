@@ -126,7 +126,7 @@ public class GameSettings {
     private void addTank(int position){
         HumanUnit tank = new HumanUnit.HumanUnitBuilder()
                 .setName(HumanUnitName.TANK)
-                .setHealth((int) (baseHealthHuman * 1.5))
+                .setHealth((int) (baseHealthHuman * 2))
                 .setWeapon(LMG)
                 .setArmor(0.35f)
                 .setPosition(position)
@@ -137,9 +137,9 @@ public class GameSettings {
     private void addSniper(int position){
         HumanUnit sniper = new HumanUnit.HumanUnitBuilder()
                 .setName(HumanUnitName.SNIPER)
-                .setHealth((int) (baseHealthHuman * 0.8))
+                .setHealth((int) (baseHealthHuman * 0.5))
                 .setWeapon(SNIPER_WEAPON)
-                .setArmor(0.05f)
+                .setArmor(0.15f)
                 .setPosition(position)
                 .build();
         this.humanUnits.add(sniper);
@@ -150,7 +150,7 @@ public class GameSettings {
                 .setName(HumanUnitName.ENGINEER)
                 .setHealth(baseHealthHuman)
                 .setWeapon(DRILL_CANON)
-                .setArmor(0.20f)
+                .setArmor(0.25f)
                 .setPosition(position)
                 .build();
         this.humanUnits.add(engineer);
