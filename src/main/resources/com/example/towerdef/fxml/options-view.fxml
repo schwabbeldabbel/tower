@@ -66,15 +66,15 @@
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Menschen auswählen</Label>
             <HBox styleClass="comboBoxContainer">
-                <JFXButton styleClass="human-engineer, mini"/>
+                <JFXButton styleClass="human-engineer, mini, background-image"/>
                 <Label fx:id="humanLabel1" styleClass="labelText">Mechaniker</Label>
             </HBox>
             <HBox styleClass="comboBoxContainer">
-                <JFXButton styleClass="human-tank, mini"/>
+                <JFXButton styleClass="human-tank, mini, background-image"/>
                 <Label fx:id="humanLabel2" styleClass="labelText">Verteidiger</Label>
             </HBox>
             <HBox styleClass="comboBoxContainer">
-                <JFXButton styleClass="human-sniper, mini"/>
+                <JFXButton styleClass="human-sniper, mini, background-image"/>
                 <Label fx:id="humanLabel3" styleClass="labelText">Scharfschütze</Label>
             </HBox>
         </VBox>
@@ -101,7 +101,7 @@
             </rowConstraints>
             <StackPane GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
                        GridPane.rowSpan="2">
-                <JFXComboBox fx:id="humanPos1"
+                <JFXComboBox fx:id="humanPos1" styleClass="background-image, charakter"
                           minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
                           onAction="#setHuman"
                 />
@@ -109,19 +109,19 @@
 
             <JFXButton GridPane.columnIndex="7" GridPane.rowIndex="1"
                        GridPane.columnSpan="2" GridPane.rowSpan="5"
-                       styleClass="gameObject, tower, tower-options"/>
+                       styleClass="gameObject, tower, tower-options, background-image"/>
             <StackPane GridPane.columnIndex="1" GridPane.rowIndex="3"
                        GridPane.columnSpan="1" GridPane.rowSpan="2">
-                <JFXComboBox fx:id="humanPos2"
+                <JFXComboBox fx:id="humanPos2" styleClass="background-image, charakter"
                              minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
                              onAction="#setHuman"
                 />
             </StackPane>
             <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="4"
-                       GridPane.columnSpan="1" GridPane.rowSpan="1" styleClass="barrel, barrel-options"/>
+                       GridPane.columnSpan="1" GridPane.rowSpan="1" styleClass="barrel, barrel-options, background-image"/>
             <StackPane GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
                        GridPane.rowSpan="2">
-                <JFXComboBox fx:id="humanPos3"
+                <JFXComboBox fx:id="humanPos3" styleClass="background-image, charakter"
                           minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
                           onAction="#setHuman"
                 />

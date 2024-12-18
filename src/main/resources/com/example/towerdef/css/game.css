@@ -1,12 +1,8 @@
-
-.human-tank-game{
+.game{
     -fx-background-size: 100 200;
 }
-.human-sniper-game{
-       -fx-background-size: 100 200;
-}
-.human-engineer-game{
-     -fx-background-size: 100 200;
+.game-mini{
+    -fx-background-size: 100 100;
 }
 .tower-game{
     -fx-background-size: 200 500;

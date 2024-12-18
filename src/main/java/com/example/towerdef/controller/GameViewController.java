@@ -231,7 +231,6 @@ public class GameViewController {
             switch (humanUnit.getPosition()) {
                 case 0:
                     humanPos1.getStyleClass().add(humanUnit.getName().getCss());
-                    humanPos1.getStyleClass().add(humanUnit.getName().getCss()+"-game");
                     positionTarget.put(humanPos1, new Point2D(-900, -50));
                     hittableHealthBar.put(humanUnit, humanPos1Health);
                     humanPos1Health.setProgress((double) humanUnit.getHealth() / humanUnit.getMaxHealth());
@@ -240,7 +239,6 @@ public class GameViewController {
                     break;
                 case 1:
                     humanPos2.getStyleClass().add(humanUnit.getName().getCss());
-                    humanPos2.getStyleClass().add(humanUnit.getName().getCss()+"-game");
                     positionTarget.put(humanPos2, new Point2D(-1000, 400));
                     hittableHealthBar.put(humanUnit, humanPos2Health);
                     humanPos2Health.setProgress((double) humanUnit.getHealth() / humanUnit.getMaxHealth());
@@ -249,7 +247,6 @@ public class GameViewController {
                     break;
                 case 2:
                     humanPos3.getStyleClass().add(humanUnit.getName().getCss());
-                    humanPos3.getStyleClass().add(humanUnit.getName().getCss()+"-game");
                     positionTarget.put(humanPos3, new Point2D(-900, 900));
                     hittableHealthBar.put(humanUnit, humanPos3Health);
                     humanPos3Health.setProgress((double) humanUnit.getHealth() / humanUnit.getMaxHealth());

@@ -76,28 +76,28 @@
             <VBox GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
                   GridPane.rowSpan="2">
                 <ProgressBar fx:id="humanPos1Health" styleClass="healthBar"/>
-                <JFXButton styleClass="gameObject" fx:id="humanPos1"
+                <JFXButton styleClass="gameObject, game, background-image" fx:id="humanPos1"
                            minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
             </VBox>
             <VBox GridPane.columnIndex="7" GridPane.rowIndex="1"
                   GridPane.columnSpan="2" GridPane.rowSpan="5">
                 <ProgressBar fx:id="towerHealth" styleClass="healthBar"/>
-                <JFXButton styleClass="gameObject" fx:id="towerPos"/>
+                <JFXButton styleClass="gameObject, game, background-image" fx:id="towerPos"/>
             </VBox>
             <VBox GridPane.columnIndex="1" GridPane.rowIndex="3"
                   GridPane.columnSpan="1" GridPane.rowSpan="2">
                 <ProgressBar fx:id="humanPos2Health" styleClass="healthBar"/>
-                <JFXButton styleClass="gameObject" fx:id="humanPos2"
+                <JFXButton styleClass="gameObject, game, background-image" fx:id="humanPos2"
                            minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
             </VBox>
 
             <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="4"
                        GridPane.columnSpan="1" GridPane.rowSpan="1"
-                       styleClass="barrel, barrel gameObject"/>
+                       styleClass="barrel, gameObject, game-mini, background-image"/>
             <VBox GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
                   GridPane.rowSpan="2">
                 <ProgressBar fx:id="humanPos3Health" styleClass="healthBar"/>
-                <JFXButton styleClass="gameObject" fx:id="humanPos3"
+                <JFXButton styleClass="gameObject, game, background-image" fx:id="humanPos3"
                            minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
             </VBox>
         </GridPane>

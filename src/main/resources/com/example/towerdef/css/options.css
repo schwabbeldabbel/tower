@@ -53,6 +53,13 @@
     -fx-min-height: 200px;
     -fx-max-height: 200px;
 }
+.charakter{
+     -fx-background-size: 40 80;
+     -fx-min-width: 40px;
+     -fx-max-width: 40px;
+     -fx-min-height: 80px;
+     -fx-max-height: 80px;
+ }
 
 .mini{
     -fx-background-size: 30 60;
