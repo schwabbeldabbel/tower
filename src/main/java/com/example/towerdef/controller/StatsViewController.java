@@ -9,20 +9,17 @@ import com.example.towerdef.model.gamelogic.review.HumanStatsName;
 import com.example.towerdef.model.gamelogic.review.TowerStatsName;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class StatsViewController {
     @FXML
@@ -93,11 +90,12 @@ public class StatsViewController {
     private void initHumansPlayed(List<HumanUnit> humans) {
         CategoryAxis yAxis = new CategoryAxis();
         NumberAxis xAxis = new NumberAxis();
+        xAxis.getStyleClass().add("axis");
+        yAxis.getStyleClass().add("axis");
 
         yAxis.setCategories(FXCollections.<String>observableArrayList(selectedHumanStats.stream()
                 .map(HumanStatsName::getFrontendName)
                 .toList()));
-        yAxis.setLabel("Info");
 
         xAxis.setLabel("Wert");
 
@@ -133,26 +131,27 @@ public class StatsViewController {
     private void initTower(Tower tower) {
         CategoryAxis yAxis = new CategoryAxis();
         NumberAxis xAxis = new NumberAxis();
-
+        xAxis.getStyleClass().add("axis");
+        yAxis.getStyleClass().add("axis");
         yAxis.setCategories(FXCollections.<String>observableArrayList(selectedTowerStats.stream()
                 .map(TowerStatsName::getFrontendName)
                 .toList()));
-        yAxis.setLabel("Info");
-
         xAxis.setLabel("Wert");
 
-        BarChart<Number, String> bachartTower = new BarChart<>(xAxis, yAxis);
+        BarChart<Number, String> barchartTower = new BarChart<>(xAxis, yAxis);
 
-        bachartTower.setTitle("Auswertung des Turms");
+        barchartTower.setTitle("Auswertung des Turms");
+        barchartTower.setBarGap(3);
+        barchartTower.setCategoryGap(20);
 
         XYChart.Series<Number, String> data = new XYChart.Series<>();
         data.setName(tower.getName());
         for (TowerStatsName towerStatsName : selectedTowerStats) {
             data.getData().add(new XYChart.Data<>(tower.getData(towerStatsName), towerStatsName.getFrontendName()));
         }
-        bachartTower.getData().add(data);
+        barchartTower.getData().add(data);
 
-        for (final XYChart.Series<Number, String> series : bachartTower.getData()) {
+        for (final XYChart.Series<Number, String> series : barchartTower.getData()) {
             for (final XYChart.Data<Number, String> towerData : series.getData()) {
                 Tooltip tooltip = new Tooltip();
                 tooltip.setText(towerData.getXValue().toString() + " " +
@@ -162,7 +161,7 @@ public class StatsViewController {
         }
         towerChart.getChildren().removeAll();
         towerChart.setTop(towerStatsSelector);
-        towerChart.setCenter(bachartTower);
+        towerChart.setCenter(barchartTower);
     }
 
     @FXML

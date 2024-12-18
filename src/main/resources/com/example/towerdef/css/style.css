@@ -1,3 +1,7 @@
+*{
+    -fx-opacity-background: rgba(85, 17, 0, 0.68);
+}
+
 .centered{
     -fx-alignment: center;
     -fx-padding: 50px;
@@ -9,7 +13,7 @@
 }
 .transparent-background{
     -fx-alignment: center;
-    -fx-background-color: rgba(85, 17, 0, 0.7);
+    -fx-background-color: -fx-opacity-background;
 
 }
 
@@ -70,24 +74,19 @@ JFXButton{
     -fx-background-color: transparent;
 }
 
-JFXButton: hover{
+JFXButton:hover{
     -fx-background-color: black;
     -fx-opacity: 0.8;
     -fx-text-fill: white;
 }
 
-JFXButton: disabled{
+JFXButton:disabled{
     -fx-background-color: black;
     -fx-opacity: 0.3;
     -fx-text-fill: white;
 }
 
-.barchart{
-    -fx-min-width: 1000px;
-    -fx-max-width: 1000px;
-    -fx-min-height: 350px;
-    -fx-max-height: 350px;
-}
+
 .gameObject{
     -fx-opacity: 1;
 }

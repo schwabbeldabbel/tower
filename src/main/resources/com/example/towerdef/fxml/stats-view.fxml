@@ -7,28 +7,27 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.towerdef.controller.StatsViewController"
-            stylesheets="@../css/style.css"
+            stylesheets="@../css/style.css, @../css/stats.css"
             styleClass="centered">
     <top>
         <HBox styleClass="buttonRowRight">
-            <JFXButton onAction="#toStart">Zum Startmenü</JFXButton>
-            <JFXButton onAction="#replay">Das Gleiche nochmal</JFXButton>
-            <JFXButton onAction="#toOptions">Direkt zu den Optionen</JFXButton>
-            <JFXButton onAction="#endProgramm">Beenden</JFXButton>
+            <JFXButton styleClass="fontFamily" onAction="#toStart">Zum Startmenü</JFXButton>
+            <JFXButton styleClass="fontFamily" onAction="#replay">Das Gleiche nochmal</JFXButton>
+            <JFXButton styleClass="fontFamily" onAction="#toOptions">Direkt zu den Optionen</JFXButton>
+            <JFXButton styleClass="fontFamily" onAction="#endProgramm">Beenden</JFXButton>
         </HBox>
     </top>
     <center>
-        <ScrollPane styleClass="transparent-background">
+        <ScrollPane styleClass="transparent-background, scroll-pane, fontFamily">
             <GridPane>
-                <VBox styleClass="transparent-background" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                <VBox GridPane.rowIndex="0" GridPane.columnIndex="0">
                     <HBox>
                         <Label styleClass="h1">Menschen</Label>
                     </HBox>
                     <BorderPane styleClass="barchart" fx:id="humansPlayedContainer">
                     </BorderPane>
                 </VBox>
-
-                <VBox  styleClass="transparent-background" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="0">
                     <HBox>
                         <Label styleClass="h1">Turm</Label>
                     </HBox>
@@ -38,5 +37,4 @@
             </GridPane>
         </ScrollPane>
     </center>
-
 </BorderPane>

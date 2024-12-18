@@ -17,4 +17,11 @@ public class StartScreenController {
         SceneController sceneController = SceneController.getInstance();
         sceneController.activate(SceneNames.OPTIONS);
     }
+
+    @FXML
+    protected void startStats(){
+        SceneController sceneController = SceneController.getInstance();
+        sceneController.activate(SceneNames.STATS);
+    }
+
 }

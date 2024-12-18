@@ -1,0 +1,52 @@
+.barchart{
+    -fx-min-width: 1075px;
+    -fx-max-width: 1075px;
+    -fx-min-height: 350px;
+    -fx-max-height: 350px;
+}
+
+MenuButton{
+    -fx-background-color: #00ccff;
+    -fx-text-fill: #ababab;
+    -fx-opacity: 0.5;
+    -fx-margin-right: 5px;
+    -fx-margin-left: 5px;
+    -fx-font-size: 17px;
+}
+
+MenuButton:hover{
+    -fx-background-color: white;
+    -fx-opacity: 0.8;
+}
+
+.scroll-pane > .viewport{
+    -fx-alignment: center;
+    -fx-background-color: -fx-opacity-background;
+}
+.scroll-pane:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.chart {
+    -fx-padding: 10px;
+}
+.chart-content {
+    -fx-padding: 30px;
+}
+.chart-legend {
+    -fx-background-color: rgba(65, 65, 65, 0.82);
+    -fx-padding: 5px;
+}
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.axis {
+    -fx-tick-label-fill: white;
+    -fx-tick-label-font-size: 15px;
+    -fx-tick-label-font-family: monospace;
+}
+
+.chart-legend-item-symbol{
+
+}
