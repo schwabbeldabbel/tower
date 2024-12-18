@@ -9,6 +9,7 @@ import com.example.towerdef.model.gamelogic.review.GameStatistics;
 import com.example.towerdef.model.gamelogic.review.HumanStatsName;
 import com.example.towerdef.model.gamelogic.review.TowerStatsName;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
+import com.jfoenix.controls.JFXTooltip;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -169,7 +170,7 @@ public class StatsViewController {
                 Tooltip tooltip = new Tooltip();
                 tooltip.setText(towerData.getXValue().toString() + " " +
                         towerData.getYValue().toString());
-                Tooltip.install(data.getNode(), tooltip);
+                Tooltip.install(towerData.getNode(), tooltip);
             }
         }
         towerChart.getChildren().removeAll();
