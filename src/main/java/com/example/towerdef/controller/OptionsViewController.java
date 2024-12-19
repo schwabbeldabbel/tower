@@ -110,7 +110,7 @@ public class OptionsViewController {
     private void initFilter() {
         filter = change -> {
             String text = change.getText();
-            if (!text.matches("[a-zA-Z]") && !text.equals(" ")) {
+            if (!text.matches("[a-zA-Z]") && !text.equals(" ") && !text.matches(".*[^a-zA-Z0-9\\s].*")) {
                 return change;
             }
             return null;
@@ -238,12 +238,6 @@ public class OptionsViewController {
         }
     }
 
-    private void unfocusedTextField(String id, boolean unfocused) {
-        if (id.equals(humanHealthText.getId())) {
-            humanHealthText.getText();
-        }
-    }
-
     private HumanUnitName[] getHumanUnitNames() {
         return new HumanUnitName[]{
                 getHumanUnitName(humanPos1.getValue()),
@@ -272,5 +266,4 @@ public class OptionsViewController {
             return HANDGUN;
         }
     }
-
 }

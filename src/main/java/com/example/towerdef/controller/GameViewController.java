@@ -275,6 +275,7 @@ public class GameViewController {
                 break;
         }
     }
+
     @FXML
     public void backToStart(){
         end("Abbruch");

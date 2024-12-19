@@ -101,8 +101,6 @@
                            minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
             </VBox>
         </GridPane>
-
     </center>
-
 
 </BorderPane>
