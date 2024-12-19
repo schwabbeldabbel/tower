@@ -9,7 +9,6 @@ import com.example.towerdef.model.gamelogic.review.GameStatistics;
 import com.example.towerdef.model.gamelogic.review.HumanStatsName;
 import com.example.towerdef.model.gamelogic.review.TowerStatsName;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
-import com.jfoenix.controls.JFXTooltip;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -23,7 +22,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 
 import java.util.*;
-
+//TODO allgemeine Daten anzeigen: wie viele Sekunden? wer ist am leben? Wer hat gewonnen?
 public class StatsViewController {
     @FXML
     private BorderPane humansPlayedContainer, towerChart;

@@ -70,6 +70,7 @@ public class HumanUnit implements Hittable {
 
     @Override
     public int heal() {
+        if(!alive) return 0;
         HumanGameStatics humanStats = GameStatistics.getHumanStats(position);
         assert humanStats != null;
         humanStats.setLifeHealed(humanStats.getLifeHealed() + healing);
@@ -77,7 +78,6 @@ public class HumanUnit implements Hittable {
         int currentHealing = healing;
         healing -= (int) (healing * 0.6);
         if(currentHealing == 1) healing = 0;
-        if(!alive) return 0;
         return currentHealing;
     }
 

@@ -33,6 +33,23 @@
     -fx-max-height: 100px;
 }
 
+.bullet-fire-ball{
+    -fx-background-image: url("../images/fireBall.png");
+}
+.bullet-drill{
+    -fx-background-image: url("../images/screw.png");
+}
+.bullet-normal{
+    -fx-background-image: url("../images/normalBullet.png");
+}
+.bullet-mini{
+    -fx-background-image: url("../images/miniBullet.png");
+}
+.bullet-laser{
+    -fx-background-image: url("../images/laserBullet.png");
+    -fx-background-radius: 20px;
+}
+
 .damageNumberHeal{
     -fx-text-fill: green;
     -fx-font-size: 30px;

@@ -27,7 +27,7 @@ public class GameSettings {
 
     //Human weapons
     private final Weapon LMG = new Weapon(WeaponName.LMG, 50, 10, BulletType.NORMAL);
-    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER, 100, 100, BulletType.BIG);
+    private final Weapon SNIPER_WEAPON = new Weapon(WeaponName.SNIPER, 100, 100, BulletType.FIRE_BALL);
     private final Weapon DRILL_CANON = new Weapon(WeaponName.DRILL_CANON, 120, 150, BulletType.DRILL);
 
     //Human units available
@@ -35,7 +35,7 @@ public class GameSettings {
     private List<HumanUnit> humanUnits = new ArrayList<>();
 
     //Tower weapons
-    private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN, 100, 50, BulletType.BIG);
+    private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN, 100, 50, BulletType.FIRE_BALL);
     private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN, 20, 8, BulletType.MINI);
     private final Weapon LASER = new Weapon(WeaponName.LASER, 240, 150, BulletType.LASER);
 

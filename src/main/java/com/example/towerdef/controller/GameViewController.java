@@ -129,8 +129,11 @@ public class GameViewController {
         PathTransition pathTransition = new PathTransition();
 
         travelAnimations.initializeStartPosition(bullet, startPosition, path);
-
-        travelAnimations.initializeTravelPath(bullet, positionTarget.get(target), path, pathTransition);
+        Point2D targetPoint = positionTarget.get(target);
+        if(startPosition == 0){
+            targetPoint = new Point2D(targetPoint.getX(), targetPoint.getY() + 200);
+        }
+        travelAnimations.initializeTravelPath(bullet, targetPoint, path, pathTransition);
 
         pathTransition.setNode(bullet);
         pathTransition.setPath(path);
