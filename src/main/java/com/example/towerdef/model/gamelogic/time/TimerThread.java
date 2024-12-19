@@ -4,7 +4,6 @@ import com.example.towerdef.controller.GameViewController;
 import javafx.application.Platform;
 import lombok.Getter;
 import lombok.Setter;
-import com.example.towerdef.model.gamelogic.time.Speed;
 
 public class TimerThread implements Runnable {
     @Getter
@@ -18,7 +17,7 @@ public class TimerThread implements Runnable {
     private int speed;
 
     public TimerThread(Speed speed, GameViewController gameViewController) {
-        this.speed = speed.getMiliseconds();
+        this.speed = speed.getMilliseconds();
         this.time = 0;
         this.running = false;
         this.gameViewController = gameViewController;

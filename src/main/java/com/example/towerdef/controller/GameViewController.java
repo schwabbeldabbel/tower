@@ -262,15 +262,15 @@ public class GameViewController {
         Button trigger = (Button) event.getSource();
         switch (trigger.getId()) {
             case "SLOW":
-                timerThread.setSpeed(SLOW.getMiliseconds());
+                timerThread.setSpeed(SLOW.getMilliseconds());
                 travelAnimations.setSpeed(SLOW);
                 break;
             case "NORMAL":
-                timerThread.setSpeed(NORMAL.getMiliseconds());
+                timerThread.setSpeed(NORMAL.getMilliseconds());
                 travelAnimations.setSpeed(NORMAL);
                 break;
             case "FAST":
-                timerThread.setSpeed(FAST.getMiliseconds());
+                timerThread.setSpeed(FAST.getMilliseconds());
                 travelAnimations.setSpeed(FAST);
                 break;
         }

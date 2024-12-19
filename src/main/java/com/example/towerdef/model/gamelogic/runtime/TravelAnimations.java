@@ -1,7 +1,6 @@
 package com.example.towerdef.model.gamelogic.runtime;
 
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
-import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
 import com.example.towerdef.model.gamelogic.time.Speed;
 import com.example.towerdef.model.services.IdService;
 import javafx.animation.KeyFrame;
@@ -54,7 +53,7 @@ public class TravelAnimations {
     public void initializeTravelPath(Bullet bullet, Point2D target, Path path, PathTransition pathTransition) {
         if(target == null) return;
         path.getElements().add(new LineTo(target.getX(), target.getY()));
-        pathTransition.setDuration(Duration.millis(bullet.getBulletType().getTravelTime() * speed.getMiliseconds()));
+        pathTransition.setDuration(Duration.millis(bullet.getBulletType().getTravelTime() * speed.getMilliseconds()));
     }
 
     public void startDamageCountAnimation(Label damageLabel, Node target){
@@ -64,7 +63,7 @@ public class TravelAnimations {
         initializeStartPositionUp(damageLabel, path, position);
         initializeTravelPathUp(path, pathTransition);
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200 * speed.getMiliseconds()), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200 * speed.getMilliseconds()), event -> {
             root.getChildren().remove(damageLabel);
         }));
         timeline.setCycleCount(1);
@@ -89,7 +88,7 @@ public class TravelAnimations {
 
     private void initializeTravelPathUp(Path path, PathTransition pathTransition) {
         path.getElements().add(new LineTo(0, -60));
-        pathTransition.setDuration(Duration.millis(200 * speed.getMiliseconds()));
+        pathTransition.setDuration(Duration.millis(200 * speed.getMilliseconds()));
     }
 
 

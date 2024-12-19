@@ -8,9 +8,9 @@ public enum Speed {
     FAST(5);
 
     @Getter
-    private int miliseconds;
+    private final int milliseconds;
 
-    private Speed(int miliseconds){
-        this.miliseconds = miliseconds;
+    private Speed(int milliseconds){
+        this.milliseconds = milliseconds;
     }
 }
