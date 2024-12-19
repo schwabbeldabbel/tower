@@ -14,7 +14,6 @@ import com.example.towerdef.model.gamelogic.runtime.RandomSelector;
 import com.example.towerdef.model.gamelogic.runtime.Validator;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
 import com.example.towerdef.model.gamelogic.time.TimerThread;
-import com.jfoenix.controls.JFXProgressBar;
 import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
@@ -26,9 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 

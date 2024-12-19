@@ -52,7 +52,11 @@ public class HumanUnit implements Hittable {
 
     @Override
     public int hit(int damage) {
-        int damageBlocked = (int) ((damage * armor));
+        int damageBlocked = 0;
+        if(position == 1){
+            damageBlocked += (int) (damage * 0.2);
+        }
+        damageBlocked += (int) ((damage * armor));
         HumanGameStatics humanStats = GameStatistics.getHumanStats(position);
         assert humanStats != null;
         humanStats.setDamageBlocked(humanStats.getDamageBlocked() + damageBlocked);

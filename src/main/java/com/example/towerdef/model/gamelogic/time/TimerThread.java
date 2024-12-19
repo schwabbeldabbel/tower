@@ -1,14 +1,10 @@
 package com.example.towerdef.model.gamelogic.time;
 
 import com.example.towerdef.controller.GameViewController;
-import com.example.towerdef.model.data.weapon.Weapon;
 import javafx.application.Platform;
-import javafx.scene.control.Label;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.towerdef.model.gamelogic.time.Speed;
 
 public class TimerThread implements Runnable {
     @Getter
