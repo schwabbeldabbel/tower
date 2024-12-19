@@ -17,12 +17,15 @@
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="100"/>
-            <RowConstraints minHeight="100"/>
-            <RowConstraints minHeight="100"/>
+            <RowConstraints minHeight="70"/>
+            <RowConstraints minHeight="70"/>
+            <RowConstraints minHeight="70"/>
+            <RowConstraints minHeight="70"/>
         </rowConstraints>
         <Label GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="4" styleClass="header, h1">Simulation</Label>
         <JFXButton GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="2" styleClass="startButton, fontFamily" onAction="#startGame">Start</JFXButton>
         <JFXButton GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="2" styleClass="startButton, fontFamily" onAction="#startOptions">Optionen</JFXButton>
         <JFXButton GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="2" styleClass="startButton, fontFamily" onAction="#startStats">Auswertung</JFXButton>
+        <JFXButton GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.columnSpan="2" styleClass="startButton, fontFamily" onAction="#end">Ende</JFXButton>
     </GridPane>
 </StackPane>

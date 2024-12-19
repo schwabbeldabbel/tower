@@ -24,4 +24,9 @@ public class StartScreenController {
         sceneController.activate(SceneNames.STATS);
     }
 
+    @FXML
+    protected void end(){
+        System.exit(200);
+    }
+
 }
