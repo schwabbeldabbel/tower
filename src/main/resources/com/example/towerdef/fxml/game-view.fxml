@@ -90,10 +90,10 @@
                 <JFXButton styleClass="gameObject, game, background-image" fx:id="humanPos2"
                            minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
             </VBox>
-
             <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="4"
                        GridPane.columnSpan="1" GridPane.rowSpan="1"
-                       styleClass="barrel, gameObject, game-mini, background-image"/>
+                       styleClass="barrel, gameObject, game-mini, background-image"
+                       minHeight="100" maxHeight="100" maxWidth="100" minWidth="100"/>
             <VBox GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
                   GridPane.rowSpan="2">
                 <ProgressBar fx:id="humanPos3Health" styleClass="healthBar"/>

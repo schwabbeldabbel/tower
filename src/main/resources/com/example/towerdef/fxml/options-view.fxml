@@ -112,7 +112,7 @@
                        styleClass="gameObject, tower, tower-options, background-image"/>
             <StackPane GridPane.columnIndex="1" GridPane.rowIndex="3"
                        GridPane.columnSpan="1" GridPane.rowSpan="2">
-                <JFXComboBox fx:id="humanPos2" styleClass="background-image, charakter"
+                <JFXComboBox fx:id="humanPos2" styleClass="background-image, charakter, "
                              minHeight="80" maxHeight="80" minWidth="40" maxWidth="40"
                              onAction="#setHuman"
                 />
@@ -128,7 +128,9 @@
             </StackPane>
         </GridPane>
         <JFXButton GridPane.columnIndex="1" GridPane.rowIndex="7" onAction="#backToStart">Startmenü</JFXButton>
-        <JFXButton GridPane.columnIndex="5" GridPane.rowIndex="7" onAction="#resetOptions">Zurücksetzen</JFXButton>
-        <JFXButton GridPane.columnIndex="6" GridPane.rowIndex="7" onAction="#startGame">Start</JFXButton>
+        <HBox GridPane.columnIndex="5" GridPane.rowIndex="7" spacing="3">
+            <JFXButton onAction="#resetOptions">Zurücksetzen</JFXButton>
+            <JFXButton onAction="#startGame">Start</JFXButton>
+        </HBox>
     </GridPane>
 </StackPane>

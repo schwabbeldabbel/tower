@@ -50,8 +50,8 @@ public class OptionsViewController {
 
     public void initialize() {
         this.gameSettings = GameSettings.getInstance();
-        this.humanUnits = gameSettings.getHumanUnits();
-        this.tower = gameSettings.getTower();
+        this.humanUnits = gameSettings.getNewHumanUnits();
+        this.tower = gameSettings.getNewTower();
         initHumanNames();
         initComboBox();
         initSliders();
@@ -213,10 +213,10 @@ public class OptionsViewController {
     private void setHumansClass(ComboBox<String> comboBox) {
         StackPane parent = (StackPane) comboBox.getParent();
         parent.getStyleClass().setAll(getHumanUnitName(comboBox.getValue()).getCss());
+        parent.getStyleClass().add("charakter");
     }
 
     private void setGameSettings() {
-
         GameSettings.removeInstance();
         GameSettings.getInstance(
                 (int) humanHealthSlider.getValue(),
@@ -253,13 +253,11 @@ public class OptionsViewController {
     }
 
     private HumanUnitName getHumanUnitName(String humanName) {
-        if (humanName == null || humanName.isEmpty()) return HumanUnitName.NONE;
-        if (humanName.equals(HumanUnitName.TANK.getName())) {
-            return HumanUnitName.TANK;
-        } else if (humanName.equals(HumanUnitName.SNIPER.getName())) {
-            return HumanUnitName.SNIPER;
-        } else if (humanName.equals(HumanUnitName.ENGINEER.getName())) {
-            return HumanUnitName.ENGINEER;
+        if(humanName == null) return HumanUnitName.NONE;
+        for(HumanUnitName name: HumanUnitName.values()) {
+            if(humanName.equals(name.getName())) {
+                return name;
+            }
         }
         return HumanUnitName.NONE;
     }
