@@ -35,7 +35,7 @@ public class GameSettings {
     private List<HumanUnit> humanUnits = new ArrayList<>();
 
     //Tower weapons
-    private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN, 100, 50, BulletType.FIRE_BALL);
+    private final Weapon HANDGUN = new Weapon(WeaponName.HANDGUN, 100, 50, BulletType.SUPER);
     private final Weapon MINIGUN = new Weapon(WeaponName.MINIGUN, 20, 8, BulletType.MINI);
     private final Weapon LASER = new Weapon(WeaponName.LASER, 240, 150, BulletType.LASER);
 

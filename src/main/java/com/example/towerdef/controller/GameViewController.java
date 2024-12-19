@@ -234,7 +234,7 @@ public class GameViewController {
             switch (humanUnit.getPosition()) {
                 case 0:
                     humanPos1.getStyleClass().add(humanUnit.getName().getCss());
-                    positionTarget.put(humanPos1, new Point2D(-900, -50));
+                    positionTarget.put(humanPos1, new Point2D(-900, 50));
                     hittableHealthBar.put(humanUnit, humanPos1Health);
                     humanPos1Health.setProgress((double) humanUnit.getHealth() / humanUnit.getMaxHealth());
                     positionHittable.put(humanPos1, humanUnit);

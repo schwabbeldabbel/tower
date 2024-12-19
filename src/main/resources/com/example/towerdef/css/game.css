@@ -36,6 +36,9 @@
 .bullet-fire-ball{
     -fx-background-image: url("../images/fireBall.png");
 }
+.bullet-super{
+    -fx-background-image: url("../images/superBullet.png");
+}
 .bullet-drill{
     -fx-background-image: url("../images/screw.png");
 }

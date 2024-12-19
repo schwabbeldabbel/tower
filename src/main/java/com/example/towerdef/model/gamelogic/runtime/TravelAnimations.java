@@ -54,24 +54,7 @@ public class TravelAnimations {
     public void initializeTravelPath(Bullet bullet, Point2D target, Path path, PathTransition pathTransition) {
         if(target == null) return;
         path.getElements().add(new LineTo(target.getX(), target.getY()));
-
-        switch (bullet.getBulletType()) {
-            case NORMAL -> {
-                pathTransition.setDuration(Duration.millis(BulletType.NORMAL.getTravelTime() * speed.getMiliseconds()));
-            }
-            case FIRE_BALL -> {
-                pathTransition.setDuration(Duration.millis(BulletType.FIRE_BALL.getTravelTime() * speed.getMiliseconds()));
-            }
-            case DRILL -> {
-                pathTransition.setDuration(Duration.millis(BulletType.DRILL.getTravelTime() * speed.getMiliseconds()));
-            }
-            case LASER -> {
-                pathTransition.setDuration(Duration.millis(BulletType.LASER.getTravelTime() * speed.getMiliseconds()));
-            }
-            case MINI -> {
-                pathTransition.setDuration(Duration.millis(BulletType.MINI.getTravelTime() * speed.getMiliseconds()));
-            }
-        }
+        pathTransition.setDuration(Duration.millis(bullet.getBulletType().getTravelTime() * speed.getMiliseconds()));
     }
 
     public void startDamageCountAnimation(Label damageLabel, Node target){
