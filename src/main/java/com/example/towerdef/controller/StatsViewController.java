@@ -20,12 +20,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 import java.util.*;
 //TODO allgemeine Daten anzeigen: wie viele Sekunden? wer ist am leben? Wer hat gewonnen?
 public class StatsViewController {
     @FXML
-    private BorderPane humansPlayedContainer, towerChart;
+    private BorderPane humansPlayedContainer, towerPlayedContainer, overallStatsPane;
+
+    @FXML
+    private Label winningLabel;
+
+    @FXML
+    private VBox overallStatsVBox;
 
     private MenuButton humanStatsSelector, towerStatsSelector;
 
@@ -47,13 +54,18 @@ public class StatsViewController {
         }else{
             setUpNoData();
         }
+        setUpOverallData();
+    }
+
+    private void setUpOverallData(){
+        winningLabel.setText(gameSettings.getWinner());
     }
 
     private void setUpNoData(){
         Label humanLabel = new Label("Starte deinen ersten Durchlauf, damit hier die Statistik angezeigt werden kann.");
         Label towerLabel = new Label(humanLabel.getText());
         humansPlayedContainer.setCenter(humanLabel);
-        towerChart.setCenter(towerLabel);
+        towerPlayedContainer.setCenter(towerLabel);
     }
 
     private void setUpCharts(){
@@ -86,7 +98,7 @@ public class StatsViewController {
         towerStatsSelector.getItems().addAll(towerMenuItems);
 
         for (final CheckMenuItem item : towerMenuItems) {
-            if(item.getText().equals(HumanStatsName.DAMAGE_DEALT.getFrontendName())){
+            if(item.getText().equals(TowerStatsName.DAMAGE_DEALT.getFrontendName())){
                 item.setSelected(true);
             }
             item.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -172,9 +184,9 @@ public class StatsViewController {
                 Tooltip.install(towerData.getNode(), tooltip);
             }
         }
-        towerChart.getChildren().removeAll();
-        towerChart.setTop(towerStatsSelector);
-        towerChart.setCenter(barchartTower);
+        towerPlayedContainer.getChildren().removeAll();
+        towerPlayedContainer.setTop(towerStatsSelector);
+        towerPlayedContainer.setCenter(barchartTower);
     }
 
     @FXML

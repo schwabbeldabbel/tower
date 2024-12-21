@@ -22,16 +22,29 @@
             <GridPane>
                 <VBox GridPane.rowIndex="0" GridPane.columnIndex="0">
                     <HBox>
+                        <Label styleClass="h1">Allgemeines</Label>
+                    </HBox>
+                    <BorderPane styleClass="barchart" fx:id="overallStatsPane">
+                        <top>
+                            <Label styleClass="h2" fx:id="winningLabel"/>
+                        </top>
+                        <center>
+                            <VBox fx:id="overallStatsVBox"/>
+                        </center>
+                    </BorderPane>
+                </VBox>
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+                    <HBox>
                         <Label styleClass="h1">Menschen</Label>
                     </HBox>
                     <BorderPane styleClass="barchart" fx:id="humansPlayedContainer">
                     </BorderPane>
                 </VBox>
-                <VBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+                <VBox GridPane.rowIndex="2" GridPane.columnIndex="0">
                     <HBox>
                         <Label styleClass="h1">Turm</Label>
                     </HBox>
-                    <BorderPane styleClass="barchart" fx:id="towerChart">
+                    <BorderPane styleClass="barchart" fx:id="towerPlayedContainer">
                     </BorderPane>
                 </VBox>
             </GridPane>

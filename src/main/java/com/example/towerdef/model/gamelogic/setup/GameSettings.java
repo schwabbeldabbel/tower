@@ -44,12 +44,11 @@ public class GameSettings {
     private Tower tower;
 
     /**
-     *
-     * @param baseHealth cannot be null
+     * @param baseHealth     cannot be null
      * @param humanUnitNames represents the human units and there position based on the array index (top to bottom)
-     * @param towerWeapon cannot be null
+     * @param towerWeapon    cannot be null
      */
-    private GameSettings(int baseHealth, int baseHealthTower, HumanUnitName[] humanUnitNames, WeaponName towerWeapon, boolean manualSetUp){
+    private GameSettings(int baseHealth, int baseHealthTower, HumanUnitName[] humanUnitNames, WeaponName towerWeapon, boolean manualSetUp) {
         this.manualSetUp = manualSetUp;
         this.baseHealthHuman = baseHealth;
         this.baseHealthTower = baseHealthTower;
@@ -60,22 +59,21 @@ public class GameSettings {
     }
 
     /**
-     *
      * @param baseHealthHuman base tower health
      * @param baseHealthTower base human health
-     * @param humanUnitNames HumanUnitName enum array
-     * @param towerWeapon WeaponName enum
+     * @param humanUnitNames  HumanUnitName enum array
+     * @param towerWeapon     WeaponName enum
      * @return new instance of GameSettings, if not present yet
      */
-    public static GameSettings getInstance(int baseHealthHuman, int baseHealthTower, HumanUnitName[] humanUnitNames, WeaponName towerWeapon){
-        if(INSTANCE == null){
+    public static GameSettings getInstance(int baseHealthHuman, int baseHealthTower, HumanUnitName[] humanUnitNames, WeaponName towerWeapon) {
+        if (INSTANCE == null) {
             INSTANCE = new GameSettings(baseHealthHuman, baseHealthTower, humanUnitNames, towerWeapon, true);
         }
         return INSTANCE;
     }
 
-    public static GameSettings getInstance(){
-        if(INSTANCE == null){
+    public static GameSettings getInstance() {
+        if (INSTANCE == null) {
             INSTANCE = new GameSettings(
                     100,
                     1500,
@@ -86,16 +84,16 @@ public class GameSettings {
         return INSTANCE;
     }
 
-    public static void removeInstance(){
+    public static void removeInstance() {
         INSTANCE = null;
     }
 
-    public Tower getNewTower(){
+    public Tower getNewTower() {
         this.tower = new Tower(TowerNameService.getRandomTowerName(), baseHealthTower, getTowerWeapon(towerWeapon), 0.3f);
         return tower;
     }
 
-    public List<HumanUnit> getNewHumanUnits(){
+    public List<HumanUnit> getNewHumanUnits() {
         HumanUnitName[] names = humanUnits.stream()
                 .map(HumanUnit::getName)
                 .toArray(HumanUnitName[]::new);
@@ -104,9 +102,23 @@ public class GameSettings {
         return humanUnits;
     }
 
-    private void createHumans(HumanUnitName[] humanUnitNames){
-        for(int i = 0; i < humanUnitNames.length; i++){
-            switch (humanUnitNames[i]){
+    public String getWinner() {
+        boolean humanIsAlive = false;
+        for (HumanUnit human : humanUnits) {
+            if (human.isAlive()) {
+                humanIsAlive = true;
+            }
+        }
+        if(!tower.isAlive() && humanIsAlive){
+            return "Die Menschen haben gewonnen";
+        }else{
+            return "Der Turm " + tower.getName() + " hat gewonnen!";
+        }
+    }
+
+    private void createHumans(HumanUnitName[] humanUnitNames) {
+        for (int i = 0; i < humanUnitNames.length; i++) {
+            switch (humanUnitNames[i]) {
                 case TANK:
                     addTank(i);
                     break;
@@ -123,7 +135,7 @@ public class GameSettings {
         }
     }
 
-    private void addTank(int position){
+    private void addTank(int position) {
         HumanUnit tank = new HumanUnit.HumanUnitBuilder()
                 .setName(HumanUnitName.TANK)
                 .setHealth((int) (baseHealthHuman * 2))
@@ -134,7 +146,7 @@ public class GameSettings {
         this.humanUnits.add(tank);
     }
 
-    private void addSniper(int position){
+    private void addSniper(int position) {
         HumanUnit sniper = new HumanUnit.HumanUnitBuilder()
                 .setName(HumanUnitName.SNIPER)
                 .setHealth((int) (baseHealthHuman * 0.5))
@@ -145,7 +157,7 @@ public class GameSettings {
         this.humanUnits.add(sniper);
     }
 
-    private void addEngineer(int position){
+    private void addEngineer(int position) {
         HumanUnit engineer = new HumanUnit.HumanUnitBuilder()
                 .setName(HumanUnitName.ENGINEER)
                 .setHealth(baseHealthHuman)
@@ -156,7 +168,7 @@ public class GameSettings {
         this.humanUnits.add(engineer);
     }
 
-    private void addNone(int position){
+    private void addNone(int position) {
         HumanUnit engineer = new HumanUnit.HumanUnitBuilder()
                 .setName(HumanUnitName.NONE)
                 .setHealth(0)
@@ -168,7 +180,7 @@ public class GameSettings {
         this.humanUnits.add(engineer);
     }
 
-    private Weapon getTowerWeapon(WeaponName name){
+    private Weapon getTowerWeapon(WeaponName name) {
         switch (name) {
             case HANDGUN -> {
                 return this.HANDGUN;
