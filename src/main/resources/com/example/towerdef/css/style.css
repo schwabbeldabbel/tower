@@ -49,6 +49,7 @@ Label{
 }
 .h2{
     -fx-font-size: 30px;
+    -fx-margin: 10px;
     -fx-padding-right: 15px;
     -fx-padding-left: 15px;
 }

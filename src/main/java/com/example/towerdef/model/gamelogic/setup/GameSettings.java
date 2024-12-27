@@ -6,6 +6,8 @@ import com.example.towerdef.model.data.human.HumanUnitName;
 import com.example.towerdef.model.data.weapon.Weapon;
 import com.example.towerdef.model.data.weapon.WeaponName;
 import com.example.towerdef.model.data.weapon.fxmlelement.BulletType;
+import com.example.towerdef.model.gamelogic.review.GameStatistics;
+import com.example.towerdef.model.gamelogic.review.Winner;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -102,18 +104,29 @@ public class GameSettings {
         return humanUnits;
     }
 
-    public String getWinner() {
+    public void setGameStatics(int timePassed) {
+        setWinner();
+        GameStatistics.setTimePassed(timePassed);
+        setHumansAlive();
+    }
+
+    private void setWinner() {
         boolean humanIsAlive = false;
         for (HumanUnit human : humanUnits) {
             if (human.isAlive()) {
                 humanIsAlive = true;
             }
         }
-        if(!tower.isAlive() && humanIsAlive){
-            return "Die Menschen haben gewonnen";
-        }else{
-            return "Der Turm " + tower.getName() + " hat gewonnen!";
+        if (!tower.isAlive() && humanIsAlive) {
+            GameStatistics.setWinner(Winner.HUMANS);
+        } else {
+            GameStatistics.setWinner(Winner.TOWER);
         }
+    }
+
+    private void setHumansAlive() {
+        GameStatistics.setHumansAlive(humanUnits.stream()
+                .filter(HumanUnit::isAlive).toList());
     }
 
     private void createHumans(HumanUnitName[] humanUnitNames) {

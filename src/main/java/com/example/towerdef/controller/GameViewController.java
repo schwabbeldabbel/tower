@@ -197,6 +197,7 @@ public class GameViewController {
     private void end(String text){
         winningLabel.setText(text);
         timerThread.stop();
+        GameSettings.getInstance().setGameStatics(timerThread.getTime());
         System.out.println("------------------------------------END-----------------------------------------");
         statsBtn.setDisable(false);
     }

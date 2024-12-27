@@ -60,17 +60,17 @@ public class OptionsViewController {
     }
 
     private void initHumanNames(){
-        humanLabel1.setText(HumanUnitName.ENGINEER.getName());
-        humanLabel2.setText(HumanUnitName.TANK.getName());
-        humanLabel3.setText(HumanUnitName.SNIPER.getName());
+        humanLabel1.setText(HumanUnitName.ENGINEER.getFrontendName());
+        humanLabel2.setText(HumanUnitName.TANK.getFrontendName());
+        humanLabel3.setText(HumanUnitName.SNIPER.getFrontendName());
     }
 
     private void initComboBox() {
         ObservableList<String> humanClasses = FXCollections.observableArrayList(
-                HumanUnitName.ENGINEER.getName(),
-                HumanUnitName.TANK.getName(),
-                HumanUnitName.SNIPER.getName(),
-                HumanUnitName.NONE.getName()
+                HumanUnitName.ENGINEER.getFrontendName(),
+                HumanUnitName.TANK.getFrontendName(),
+                HumanUnitName.SNIPER.getFrontendName(),
+                HumanUnitName.NONE.getFrontendName()
         );
         humanPos1.setItems(humanClasses);
         humanPos2.setItems(humanClasses);
@@ -82,26 +82,26 @@ public class OptionsViewController {
         ));
         humanUnits.forEach(human -> {
             if(human.getPosition() == 0){
-                humanPos1.setValue(human.getName().getName());
+                humanPos1.setValue(human.getName().getFrontendName());
                 setHumansClass(humanPos1);
             }else if(human.getPosition() == 1){
-                humanPos2.setValue(humanUnits.get(1).getName().getName());
+                humanPos2.setValue(humanUnits.get(1).getName().getFrontendName());
                 setHumansClass(humanPos2);
             }else if(human.getPosition() == 2){
-                humanPos3.setValue(humanUnits.get(2).getName().getName());
+                humanPos3.setValue(humanUnits.get(2).getName().getFrontendName());
                 setHumansClass(humanPos3);
             }
         });
         if(humanPos1.getValue() == null){
-            humanPos1.setValue(HumanUnitName.NONE.getName());
+            humanPos1.setValue(HumanUnitName.NONE.getFrontendName());
             setHumansClass(humanPos1);
         }
         if(humanPos2.getValue() == null){
-            humanPos2.setValue(HumanUnitName.NONE.getName());
+            humanPos2.setValue(HumanUnitName.NONE.getFrontendName());
             setHumansClass(humanPos2);
         }
         if(humanPos3.getValue() == null){
-            humanPos3.setValue(HumanUnitName.NONE.getName());
+            humanPos3.setValue(HumanUnitName.NONE.getFrontendName());
             setHumansClass(humanPos3);
         }
         towerWeaponComboBox.setValue(gameSettings.getTower().getWeapon().getName().getName());
@@ -249,7 +249,7 @@ public class OptionsViewController {
     private HumanUnitName getHumanUnitName(String humanName) {
         if(humanName == null) return HumanUnitName.NONE;
         for(HumanUnitName name: HumanUnitName.values()) {
-            if(humanName.equals(name.getName())) {
+            if(humanName.equals(name.getFrontendName())) {
                 return name;
             }
         }

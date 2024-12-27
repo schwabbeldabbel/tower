@@ -8,6 +8,7 @@ import com.example.towerdef.model.data.tower.Tower;
 import com.example.towerdef.model.gamelogic.review.GameStatistics;
 import com.example.towerdef.model.gamelogic.review.HumanStatsName;
 import com.example.towerdef.model.gamelogic.review.TowerStatsName;
+import com.example.towerdef.model.gamelogic.review.Winner;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -23,16 +24,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.util.*;
+
 //TODO allgemeine Daten anzeigen: wie viele Sekunden? wer ist am leben? Wer hat gewonnen?
 public class StatsViewController {
-    @FXML
-    private BorderPane humansPlayedContainer, towerPlayedContainer, overallStatsPane;
 
     @FXML
-    private Label winningLabel;
-
-    @FXML
-    private VBox overallStatsVBox;
+    private BorderPane humansPlayedContainer, towerPlayedContainer, overallStatsContainer;
 
     private MenuButton humanStatsSelector, towerStatsSelector;
 
@@ -42,6 +39,8 @@ public class StatsViewController {
 
     private GameSettings gameSettings;
 
+    private final String noDataText = "Starte deinen ersten Durchlauf, damit hier die Statistik angezeigt werden kann.";
+
     public void initialize() {
         gameSettings = GameSettings.getInstance();
         selectedHumanStats = new HashSet<>();
@@ -49,31 +48,55 @@ public class StatsViewController {
         selectedHumanStats.add(HumanStatsName.DAMAGE_DEALT);
         selectedTowerStats.add(TowerStatsName.DAMAGE_DEALT);
         initComboBox();
-        if(GameStatistics.humanGameStatics != null && !GameStatistics.humanGameStatics.isEmpty()) {
+        if (GameStatistics.humanGameStatics != null && !GameStatistics.humanGameStatics.isEmpty()) {
             setUpCharts();
-        }else{
+            setUpOverallData();
+        } else {
             setUpNoData();
         }
-        setUpOverallData();
     }
 
-    private void setUpOverallData(){
-        winningLabel.setText(gameSettings.getWinner());
+    private void setUpOverallData() {
+        Winner winner = GameStatistics.getWinner();
+        int time = GameStatistics.getTimePassed();
+        List<HumanUnit> humansAlive = GameStatistics.getHumansAlive();
+
+        Label winningLabel = new Label();
+        winningLabel.getStyleClass().add("h2");
+        VBox vBox = new VBox();
+        Label timeLabel = new Label("Der Durchlauf hat " + time / 100 + " Sekunden gedauert");
+        timeLabel.getStyleClass().add("h2");
+        vBox.getChildren().add(timeLabel);
+
+        if(winner.equals(Winner.HUMANS)){
+            winningLabel.setText("Die " + winner.getFrontendName() + " haben gewonnen!");
+            vBox.getChildren().add(new Label("Die " + winner.getFrontendName() + ", die noch am Leben sind:"));
+            for(HumanUnit humanUnit: humansAlive){
+                vBox.getChildren().add(new Label(humanUnit.getName().getFrontendName()));
+            }
+        }else{
+            winningLabel.setText("Der " + winner.getFrontendName() + " hat gewonnen!");
+        }
+
+        overallStatsContainer.setTop(winningLabel);
+        overallStatsContainer.setCenter(vBox);
     }
 
-    private void setUpNoData(){
-        Label humanLabel = new Label("Starte deinen ersten Durchlauf, damit hier die Statistik angezeigt werden kann.");
-        Label towerLabel = new Label(humanLabel.getText());
-        humansPlayedContainer.setCenter(humanLabel);
-        towerPlayedContainer.setCenter(towerLabel);
+    private void setUpNoData() {
+        Label noDataOverAll = new Label(noDataText);
+        Label noDataHumans = new Label(noDataText);
+        Label noDataTower = new Label(noDataText);
+        overallStatsContainer.setCenter(noDataOverAll);
+        humansPlayedContainer.setCenter(noDataHumans);
+        towerPlayedContainer.setCenter(noDataTower);
     }
 
-    private void setUpCharts(){
+    private void setUpCharts() {
         initHumansPlayed(gameSettings.getHumanUnits());
         initTower(gameSettings.getTower());
     }
 
-    private void initComboBox(){
+    private void initComboBox() {
         humanStatsSelector = new MenuButton("Wähle die Details zum Vergleichen");
         towerStatsSelector = new MenuButton("Wähle die Details zum Vergleichen");
 
@@ -81,7 +104,7 @@ public class StatsViewController {
         humanStatsSelector.getItems().addAll(humanMenuItems);
 
         for (final CheckMenuItem item : humanMenuItems) {
-            if(item.getText().equals(HumanStatsName.DAMAGE_DEALT.getFrontendName())){
+            if (item.getText().equals(HumanStatsName.DAMAGE_DEALT.getFrontendName())) {
                 item.setSelected(true);
             }
             item.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -98,7 +121,7 @@ public class StatsViewController {
         towerStatsSelector.getItems().addAll(towerMenuItems);
 
         for (final CheckMenuItem item : towerMenuItems) {
-            if(item.getText().equals(TowerStatsName.DAMAGE_DEALT.getFrontendName())){
+            if (item.getText().equals(TowerStatsName.DAMAGE_DEALT.getFrontendName())) {
                 item.setSelected(true);
             }
             item.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -129,9 +152,9 @@ public class StatsViewController {
         barChartHuman.setTitle("Auswertung der Menschen");
 
         for (HumanUnit human : humans) {
-            if(!human.getName().equals(HumanUnitName.NONE)){
+            if (!human.getName().equals(HumanUnitName.NONE)) {
                 XYChart.Series<Number, String> data = new XYChart.Series<>();
-                data.setName(human.getName().getName());
+                data.setName(human.getName().getFrontendName());
                 for (HumanStatsName humanStatsName : selectedHumanStats) {
                     data.getData().add(new XYChart.Data<>(GameStatistics.getData(humanStatsName, human.getPosition()), humanStatsName.getFrontendName()));
                 }
@@ -190,19 +213,22 @@ public class StatsViewController {
     }
 
     @FXML
-    protected void toStart(){
+    protected void toStart() {
         SceneController.getInstance().activate(SceneNames.MAIN);
     }
+
     @FXML
-    protected void toOptions(){
+    protected void toOptions() {
         SceneController.getInstance().activate(SceneNames.OPTIONS);
     }
+
     @FXML
-    protected void replay(){
+    protected void replay() {
         SceneController.getInstance().activate(SceneNames.GAME);
     }
+
     @FXML
-    protected void endProgramm(){
+    protected void endProgramm() {
         System.exit(200);
     }
 }

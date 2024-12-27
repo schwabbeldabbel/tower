@@ -12,14 +12,14 @@ public enum HumanUnitName {
     NONE("Nicht besetzt", "none", Color.WHITE);
 
     @Getter
-    private final String name;
+    private final String frontendName;
     @Getter
     private final String css;
     @Getter
     private final Color color;
 
-    HumanUnitName(String name, String css, Color color) {
-        this.name = name;
+    HumanUnitName(String frontendName, String css, Color color) {
+        this.frontendName = frontendName;
         this.css = css;
         this.color = color;
     }

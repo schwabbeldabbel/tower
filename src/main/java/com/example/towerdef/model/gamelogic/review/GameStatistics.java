@@ -2,11 +2,21 @@ package com.example.towerdef.model.gamelogic.review;
 
 
 import com.example.towerdef.model.data.human.HumanUnit;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameStatistics {
+
+
+    @Getter@Setter
+    private static Winner winner;
+    @Getter@Setter
+    private static int timePassed;
+    @Getter@Setter
+    private static List<HumanUnit> humansAlive;
 
 
     public static int towerDamageFired;

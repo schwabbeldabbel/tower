@@ -24,13 +24,8 @@
                     <HBox>
                         <Label styleClass="h1">Allgemeines</Label>
                     </HBox>
-                    <BorderPane styleClass="barchart" fx:id="overallStatsPane">
-                        <top>
-                            <Label styleClass="h2" fx:id="winningLabel"/>
-                        </top>
-                        <center>
-                            <VBox fx:id="overallStatsVBox"/>
-                        </center>
+                    <BorderPane styleClass="barchart" fx:id="overallStatsContainer">
+
                     </BorderPane>
                 </VBox>
                 <VBox GridPane.rowIndex="1" GridPane.columnIndex="0">
