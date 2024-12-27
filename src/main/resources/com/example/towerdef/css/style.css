@@ -25,6 +25,9 @@
 .timer{
     -fx-margin: 50px;
     -fx-font-size: 30px;
+    -fx-position: absolute;
+    -fx-z-index: 99;
+
 }
 
 .startButton{

@@ -29,17 +29,17 @@
                 <ColumnConstraints minWidth="20"/>
                 <ColumnConstraints minWidth="20"/>
             </columnConstraints>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="0"
-                   GridPane.columnSpan="1" GridPane.rowSpan="1" fx:id="timer" styleClass="timer"/>
-            <JFXButton GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="SLOW"
-                       GridPane.columnSpan="1" GridPane.rowSpan="1">Slow
+            <JFXButton GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="SLOW"
+                       GridPane.columnSpan="1" GridPane.rowSpan="1">0.5x
             </JFXButton>
-            <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="NORMAL"
-                       GridPane.columnSpan="1" GridPane.rowSpan="1">Normal
+            <JFXButton GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="NORMAL"
+                       GridPane.columnSpan="1" GridPane.rowSpan="1">1x
             </JFXButton>
-            <JFXButton GridPane.columnIndex="3" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="FAST"
-                       GridPane.columnSpan="1" GridPane.rowSpan="1">Fast
+            <JFXButton GridPane.columnIndex="2" GridPane.rowIndex="0" onAction="#setSpeed" fx:id="FAST"
+                       GridPane.columnSpan="1" GridPane.rowSpan="1">2x
             </JFXButton>
+            <Label fx:id="winningLabel" styleClass="endLabel" GridPane.columnIndex="4" GridPane.rowIndex="0" GridPane.rowSpan="2"
+                   GridPane.columnSpan="4"/>
         </GridPane>
     </top>
     <right>
@@ -71,8 +71,6 @@
                 <RowConstraints minHeight="100"/>
                 <RowConstraints minHeight="100"/>
             </rowConstraints>
-            <Label fx:id="winningLabel" styleClass="endLabel" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="2"
-                   GridPane.columnSpan="8"/>
             <VBox GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
                   GridPane.rowSpan="2">
                 <ProgressBar fx:id="humanPos1Health" styleClass="healthBar"/>
@@ -100,6 +98,8 @@
                 <JFXButton styleClass="gameObject, game, background-image" fx:id="humanPos3"
                            minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
             </VBox>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2"
+                    fx:id="timer" styleClass="timer"/>
         </GridPane>
     </center>
 
