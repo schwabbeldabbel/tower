@@ -175,7 +175,7 @@ public class GameSettings {
                 .setName(HumanUnitName.ENGINEER)
                 .setHealth(baseHealthHuman)
                 .setWeapon(DRILL_CANON)
-                .setArmor(0.25f)
+                .setArmor(0.20f)
                 .setPosition(position)
                 .build();
         this.humanUnits.add(engineer);

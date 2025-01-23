@@ -25,7 +25,6 @@ import javafx.scene.layout.VBox;
 
 import java.util.*;
 
-//TODO allgemeine Daten anzeigen: wie viele Sekunden? wer ist am leben? Wer hat gewonnen?
 public class StatsViewController {
 
     @FXML
@@ -64,7 +63,7 @@ public class StatsViewController {
         Label winningLabel = new Label();
         winningLabel.getStyleClass().add("h2");
         VBox vBox = new VBox();
-        Label timeLabel = new Label("Der Durchlauf hat " + time / 100 + " Sekunden gedauert");
+        Label timeLabel = new Label("Zeit des Durchlaufs: " + time / 100 + " Sekunden");
         timeLabel.getStyleClass().add("h2");
         vBox.getChildren().add(timeLabel);
 

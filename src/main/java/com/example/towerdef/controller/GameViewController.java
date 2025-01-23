@@ -13,6 +13,7 @@ import com.example.towerdef.model.gamelogic.runtime.TravelAnimations;
 import com.example.towerdef.model.gamelogic.runtime.RandomSelector;
 import com.example.towerdef.model.gamelogic.runtime.Validator;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
+import com.example.towerdef.model.gamelogic.time.Speed;
 import com.example.towerdef.model.gamelogic.time.TimerThread;
 import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
@@ -40,7 +41,7 @@ public class GameViewController {
     GridPane root;
 
     @FXML
-    private Button humanPos1, humanPos2, humanPos3, statsBtn, towerPos;
+    private Button humanPos1, humanPos2, humanPos3, statsBtn, towerPos, SLOW, NORMAL, FAST;
     @FXML
     private Label timer;
 
@@ -80,7 +81,8 @@ public class GameViewController {
 
     public void initialize() {
         GameSettings gameSettings = GameSettings.getInstance();
-        timerThread = new TimerThread(NORMAL, this);
+        timerThread = new TimerThread(Speed.NORMAL, this);
+        NORMAL.getStyleClass().add("pressed");
         humans = gameSettings.getNewHumanUnits();
         tower = gameSettings.getNewTower();
         resetData();
@@ -263,18 +265,22 @@ public class GameViewController {
         Button trigger = (Button) event.getSource();
         switch (trigger.getId()) {
             case "SLOW":
-                timerThread.setSpeed(SLOW.getMilliseconds());
-                travelAnimations.setSpeed(SLOW);
+                timerThread.setSpeed(Speed.SLOW.getMilliseconds());
+                travelAnimations.setSpeed(Speed.SLOW);
                 break;
             case "NORMAL":
-                timerThread.setSpeed(NORMAL.getMilliseconds());
-                travelAnimations.setSpeed(NORMAL);
+                timerThread.setSpeed(Speed.NORMAL.getMilliseconds());
+                travelAnimations.setSpeed(Speed.NORMAL);
                 break;
             case "FAST":
-                timerThread.setSpeed(FAST.getMilliseconds());
-                travelAnimations.setSpeed(FAST);
+                timerThread.setSpeed(Speed.FAST.getMilliseconds());
+                travelAnimations.setSpeed(Speed.FAST);
                 break;
         }
+        SLOW.getStyleClass().remove("pressed");
+        NORMAL.getStyleClass().remove("pressed");
+        FAST.getStyleClass().remove("pressed");
+        trigger.getStyleClass().add("pressed");
     }
 
     @FXML

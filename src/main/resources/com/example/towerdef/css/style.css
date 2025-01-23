@@ -45,6 +45,7 @@ Label{
     -fx-font-size: 20px;
     -fx-text-fill: white;
 }
+
 .h1{
     -fx-font-size: 40px;
     -fx-font-weight: bold;
@@ -65,7 +66,7 @@ JFXButton{
     -fx-opacity: 0.5;
     -fx-margin-right: 5px;
     -fx-margin-left: 5px;
-    -fx-font-size: 17px;
+    -fx-font-size: 18px;
 }
 
 .none{

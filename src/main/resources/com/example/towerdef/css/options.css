@@ -19,6 +19,7 @@
     -fx-background-color: #00ccff;
     -fx-opacity: 0.5;
     -fx-text-fill: white;
+    -fx-font-size: 16px;
 }
 
 .textField{
@@ -67,4 +68,6 @@
     -fx-background-size: 30 60;
 }
 
-
+.tooltip{
+    -fx-font-size: 17px;
+}

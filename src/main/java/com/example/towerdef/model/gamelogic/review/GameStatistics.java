@@ -38,9 +38,6 @@ public class GameStatistics {
             case DAMAGE_BLOCKED -> {
                 return towerDamageBlocked;
             }
-            case OVERDRIVE_DAMAGE -> {
-                return powerBulletDamage;
-            }
             case MALFUNCTION_DAMAGE -> {
                 return malfunctionDamage;
             }

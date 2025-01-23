@@ -5,10 +5,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.control.Label?>
 <?import com.jfoenix.controls.JFXButton?>
-<!--TODO  Sekunden unten Links mit z: 99-->
-<!--TODO  Zeitbutoons mit Geschwindigkeit und dann buttons-->
-<!--TODO  Winning text in die Mitte oben-->
-<?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.scene.control.ProgressBar?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -98,7 +94,7 @@
                 <JFXButton styleClass="gameObject, game, background-image" fx:id="humanPos3"
                            minHeight="200" maxHeight="200" maxWidth="100" minWidth="100"/>
             </VBox>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2"
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="3"
                     fx:id="timer" styleClass="timer"/>
         </GridPane>
     </center>

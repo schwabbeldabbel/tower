@@ -10,8 +10,7 @@ public enum TowerStatsName {
     DAMAGE_DEALT("Schaden zugefügt"),
     DAMAGE_TAKEN("Schaden erlitten"),
     DAMAGE_BLOCKED("Schaden geblockt"),
-    MALFUNCTION_DAMAGE("Schaden durch Fehlfunktion"),
-    OVERDRIVE_DAMAGE("Schaden durch Waffenüberladung");
+    MALFUNCTION_DAMAGE("Schaden durch Fehlfunktion");
 
     @Getter
     private String frontendName;

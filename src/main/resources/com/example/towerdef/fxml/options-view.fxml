@@ -65,15 +65,15 @@
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.columnSpan="3" GridPane.rowSpan="1"
               minHeight="100" maxHeight="100" minWidth="300" maxWidth="300">
             <Label>Menschen auswählen</Label>
-            <HBox styleClass="comboBoxContainer">
+            <HBox fx:id="humanBoxEngineer" styleClass="comboBoxContainer">
                 <JFXButton styleClass="human-engineer, mini, background-image"/>
                 <Label fx:id="humanLabel1" styleClass="labelText">Mechaniker</Label>
             </HBox>
-            <HBox styleClass="comboBoxContainer">
+            <HBox fx:id="humanBoxTank" styleClass="comboBoxContainer">
                 <JFXButton styleClass="human-tank, mini, background-image"/>
                 <Label fx:id="humanLabel2" styleClass="labelText">Verteidiger</Label>
             </HBox>
-            <HBox styleClass="comboBoxContainer">
+            <HBox fx:id="humanBoxSniper" styleClass="comboBoxContainer">
                 <JFXButton styleClass="human-sniper, mini, background-image"/>
                 <Label fx:id="humanLabel3" styleClass="labelText">Scharfschütze</Label>
             </HBox>

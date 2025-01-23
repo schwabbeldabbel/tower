@@ -70,3 +70,7 @@
     -fx-min-height: 20px;
     -fx-max-height: 20px;
 }
+.pressed{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
