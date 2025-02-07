@@ -13,8 +13,8 @@ import com.example.towerdef.model.gamelogic.runtime.TravelAnimations;
 import com.example.towerdef.model.gamelogic.runtime.RandomSelector;
 import com.example.towerdef.model.gamelogic.runtime.Validator;
 import com.example.towerdef.model.gamelogic.setup.GameSettings;
-import com.example.towerdef.model.gamelogic.time.Speed;
-import com.example.towerdef.model.gamelogic.time.TimerThread;
+import com.example.towerdef.model.gamelogic.runtime.time.Speed;
+import com.example.towerdef.model.gamelogic.runtime.time.TimerThread;
 import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
@@ -31,8 +31,6 @@ import javafx.scene.shape.*;
 import javafx.util.Duration;
 
 import java.util.*;
-
-import static com.example.towerdef.model.gamelogic.time.Speed.*;
 
 
 public class GameViewController {
@@ -83,6 +81,10 @@ public class GameViewController {
         GameSettings gameSettings = GameSettings.getInstance();
         timerThread = new TimerThread(Speed.NORMAL, this);
         NORMAL.getStyleClass().add("pressed");
+        if(gameSettings.getHumanUnits().stream().filter(HumanUnit::isAlive).toList().isEmpty()){
+            end("Keine Menschen ausgewählt!");
+            return;
+        }
         humans = gameSettings.getNewHumanUnits();
         tower = gameSettings.getNewTower();
         resetData();

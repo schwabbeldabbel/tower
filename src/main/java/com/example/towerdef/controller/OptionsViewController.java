@@ -167,9 +167,9 @@ public class OptionsViewController {
     private void initToolTips() {
         Tooltip healthTextHumanTip = new Tooltip();
         healthTextHumanTip.getStyleClass().add("tooltip");
-        healthTextHumanTip.setText("Das Basisleben der Menschen. " +
-                "Die Menschen beziehen ihr Leben auf Grundlage von diesem Wert. " +
-                "Weitere Informationen zu den Einheiten findest du unten, wenn du auf eine draufklickst.");
+        healthTextHumanTip.setText("Das Basisleben der Menschen.\n" +
+                "Die Menschen beziehen ihr Leben auf Grundlage von diesem Wert.\n" +
+                "Weitere Informationen zu den Einheiten findest du unten,\n wenn du mit der Maus auf einem der Namen stehen bleibst.");
         Tooltip.install(humanHealthText, healthTextHumanTip);
         Tooltip.install(humanHealthSlider, healthTextHumanTip);
 
@@ -220,7 +220,7 @@ public class OptionsViewController {
 
         Tooltip sniperTooltip = new Tooltip();
         sniperTooltip.getStyleClass().add("tooltip");
-        sniperTooltip.setText("Der Verteidiger\n" +
+        sniperTooltip.setText("Der Feuerteufel\n" +
                 "\n" +
                 "Eine Einheit, die sehr viel Schaden verursacht aber sehr wenig Schaden aushält.\n\n" +
                 "Waffe: Scharfschützengewehr (sehr hoher Schaden, sehr geringe Feuerrate)\n" +

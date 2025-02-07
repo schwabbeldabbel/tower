@@ -1,4 +1,4 @@
-package com.example.towerdef.model.gamelogic.time;
+package com.example.towerdef.model.gamelogic.runtime.time;
 
 import lombok.Getter;
 

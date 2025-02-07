@@ -1,7 +1,7 @@
 package com.example.towerdef.model.gamelogic.runtime;
 
 import com.example.towerdef.model.data.weapon.fxmlelement.Bullet;
-import com.example.towerdef.model.gamelogic.time.Speed;
+import com.example.towerdef.model.gamelogic.runtime.time.Speed;
 import com.example.towerdef.model.services.IdService;
 import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;

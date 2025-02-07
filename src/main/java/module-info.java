@@ -22,6 +22,6 @@ module com.example.towerdef {
     exports com.example.towerdef.model.gamelogic.review;
     exports com.example.towerdef.model.gamelogic.runtime;
     exports com.example.towerdef.model.gamelogic.setup;
-    exports com.example.towerdef.model.gamelogic.time;
+    exports com.example.towerdef.model.gamelogic.runtime.time;
     exports com.example.towerdef.model.services;
 }

@@ -67,6 +67,22 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <doclet>info.leadinglight.umljavadoclet.UmlJavaDoclet</doclet>
+          <docletArtifact>
+            <groupId>com.chfourie</groupId>
+            <artifactId>uml-java-doclet</artifactId>
+            <version>3.2.0</version>
+          </docletArtifact>
+          <useStandardDocletOptions>true</useStandardDocletOptions>
+          <additionalOptions>
+            <additionalOption>-output-model true</additionalOption>
+          </additionalOptions>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
