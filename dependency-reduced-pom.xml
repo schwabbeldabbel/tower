@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example</groupId>
-  <artifactId>TowerDef</artifactId>
-  <name>TowerDef</name>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>TowerAttack</artifactId>
+  <name>TowerAttack</name>
+  <version>1.0</version>
   <build>
     <plugins>
       <plugin>
@@ -66,22 +66,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
-        <configuration>
-          <doclet>info.leadinglight.umljavadoclet.UmlJavaDoclet</doclet>
-          <docletArtifact>
-            <groupId>com.chfourie</groupId>
-            <artifactId>uml-java-doclet</artifactId>
-            <version>3.2.0</version>
-          </docletArtifact>
-          <useStandardDocletOptions>true</useStandardDocletOptions>
-          <additionalOptions>
-            <additionalOption>-output-model true</additionalOption>
-          </additionalOptions>
-        </configuration>
       </plugin>
     </plugins>
   </build>
