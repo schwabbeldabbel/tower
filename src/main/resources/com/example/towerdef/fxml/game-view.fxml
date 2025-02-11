@@ -42,7 +42,7 @@
         <VBox>
             <JFXButton onAction="#backToStart">Zurück zum Start</JFXButton>
             <JFXButton fx:id="statsBtn" onAction="#showStats" disable="true">
-                Weiter zu der Statistik
+                Weiter zu der Auswertung
             </JFXButton>
         </VBox>
     </right>
